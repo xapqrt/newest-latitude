@@ -441,7 +441,7 @@ export default function GuidesPage() {
 
           {/* Right: avatar mosaic */}
           <div className="gp-hero__avatars" aria-hidden="true">
-            {GUIDES.map((g, i) => (
+            {GUIDES.map((g) => (
               <div
                 key={g.id}
                 className="gp-hero__avatar-item"

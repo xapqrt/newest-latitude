@@ -437,7 +437,7 @@ export default function ProgramsPage() {
         </div>
 
         <div className="pp-age-cards">
-          {PROGRAMS.map((p, i) => (
+          {PROGRAMS.map((p) => (
             <div
               key={p.id}
               className="pp-age-card"
