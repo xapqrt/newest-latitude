@@ -1,0 +1,319 @@
+import { useEffect, useRef, useState } from 'react'
+import { gsap } from 'gsap'
+import { getLenis } from '../hooks/useSmoothScroll'
+
+// ─────────────────────────────────────────────
+// Scene data
+// ─────────────────────────────────────────────
+const SCENES = [
+  {
+    bg: 'https://images.pexels.com/photos/1365425/pexels-photo-1365425.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    eyebrow: null,
+    headline: ['The greatest classroom', 'has no walls.'],
+    sub: 'Award-winning outdoor education programs that trade screens for sunlight — building confidence, resilience, and wonder in children aged 5 to 16.',
+    showButtons: true,
+  },
+  {
+    bg: 'https://images.pexels.com/photos/3608439/pexels-photo-3608439.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    eyebrow: 'Real Nature. Real Skills.',
+    headline: ['Where capable kids become', 'confident leaders.'],
+    sub: 'From granite boulder climbs at Ramanagara to overnight expeditions at Bheemeshwari — every program is designed to stretch and inspire.',
+    showButtons: false,
+  },
+  {
+    bg: 'https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    eyebrow: 'Your Child. Their Adventure.',
+    headline: ['Four programs.', 'One north star.'],
+    sub: 'Little Explorers to Teen Expeditions — age-appropriate challenges that turn every outing into a story worth telling.',
+    showButtons: true,
+  },
+]
+
+// ─────────────────────────────────────────────
+// Leaf particles canvas
+// ─────────────────────────────────────────────
+function useLeafParticles(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
+  useEffect(() => {
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    const setSize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+    setSize()
+
+    interface Leaf {
+      x: number; y: number; size: number; speed: number
+      opacity: number; drift: number; rot: number; rotSpeed: number
+    }
+    const leaves: Leaf[] = Array.from({ length: 18 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      size: 5 + Math.random() * 11,
+      speed: 0.2 + Math.random() * 0.5,
+      opacity: 0.08 + Math.random() * 0.22,
+      drift: (Math.random() - 0.5) * 0.35,
+      rot: Math.random() * Math.PI * 2,
+      rotSpeed: (Math.random() - 0.5) * 0.016,
+    }))
+
+    const drawLeaf = (l: Leaf) => {
+      ctx.save()
+      ctx.translate(l.x, l.y)
+      ctx.rotate(l.rot)
+      ctx.globalAlpha = l.opacity
+      ctx.fillStyle = '#4a8a34'
+      ctx.beginPath()
+      ctx.moveTo(0, -l.size)
+      ctx.quadraticCurveTo(l.size * 0.75, -l.size * 0.4, 0, l.size)
+      ctx.quadraticCurveTo(-l.size * 0.75, -l.size * 0.4, 0, -l.size)
+      ctx.fill()
+      ctx.restore()
+    }
+
+    let raf: number
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
+      leaves.forEach(l => {
+        l.y += l.speed; l.x += l.drift; l.rot += l.rotSpeed
+        if (l.y > canvas.height + 20) { l.y = -20; l.x = Math.random() * canvas.width }
+        drawLeaf(l)
+      })
+      raf = requestAnimationFrame(animate)
+    }
+    animate()
+    window.addEventListener('resize', setSize)
+    return () => { cancelAnimationFrame(raf); window.removeEventListener('resize', setSize) }
+  }, [])
+}
+
+// ─────────────────────────────────────────────
+// Component
+// ─────────────────────────────────────────────
+export default function Hero() {
+  const [current, setCurrent] = useState(0)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const wrapRef   = useRef<HTMLDivElement>(null)
+
+  // Refs that live outside React state (no re-render lag)
+  const transitioning = useRef(false)
+  const done          = useRef(false)   // all scenes shown, body scroll unlocked
+  const currentRef    = useRef(0)       // mirrors `current` for use inside listeners
+  const touchStartY   = useRef(0)
+
+  useLeafParticles(canvasRef)
+
+  // Keep currentRef in sync with state
+  useEffect(() => { currentRef.current = current }, [current])
+
+  // Lock Lenis scroll on mount; release on unmount.
+  // Retry in a RAF in case Lenis hasn't initialised yet on first render.
+  useEffect(() => {
+    const tryStop = () => {
+      const lenis = getLenis()
+      if (lenis) { lenis.stop(); return }
+      requestAnimationFrame(tryStop)
+    }
+    tryStop()
+    return () => { getLenis()?.start() }
+  }, [])
+
+  // Entrance animation for scene 0
+  useEffect(() => {
+    gsap.fromTo('.hs0 .hero-headline',
+      { opacity: 0, y: 50, clipPath: 'inset(0 0 100% 0)' },
+      { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power3.out', delay: 0.4 }
+    )
+    gsap.fromTo('.hs0 .hero-sub',
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', delay: 0.75 }
+    )
+    gsap.fromTo('.hs0 .hero-btns',
+      { opacity: 0, y: 18 },
+      { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 1.0 }
+    )
+  }, [])
+
+  // ── Scene transition ───────────────────────
+  const goTo = (next: number) => {
+    if (transitioning.current) return
+    if (next < 0 || next >= SCENES.length) return
+    if (next === currentRef.current) return
+
+    transitioning.current = true
+    const from   = currentRef.current
+    const fromEl = document.querySelector<HTMLElement>(`.hs${from}`)
+    const toEl   = document.querySelector<HTMLElement>(`.hs${next}`)
+    if (!fromEl || !toEl) { transitioning.current = false; return }
+
+    // If navigating backward away from the last scene, re-lock scroll
+    if (done.current && next < from) {
+      done.current = false
+      getLenis()?.stop()
+    }
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        transitioning.current = false
+        setCurrent(next)
+        if (next === SCENES.length - 1) {
+          done.current = true
+          getLenis()?.start()
+        }
+      },
+    })
+
+    // Out: fade + rise
+    tl.to(fromEl, { opacity: 0, y: next > from ? -28 : 28, duration: 0.5, ease: 'power2.in' }, 0)
+
+    // In: come from below (advance) or above (retreat)
+    gsap.set(toEl, { opacity: 0, y: next > from ? 36 : -36 })
+    tl.to(toEl, { opacity: 1, y: 0, duration: 0.65, ease: 'power3.out' }, 0.28)
+
+    // Content stagger inside incoming scene
+    const scene = SCENES[next]
+    if (scene.eyebrow) {
+      const ey = toEl.querySelector<HTMLElement>('.hero-eyebrow')
+      if (ey) tl.fromTo(ey, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.42)
+    }
+    const hl = toEl.querySelector<HTMLElement>('.hero-headline')
+    if (hl) tl.fromTo(hl,
+      { opacity: 0, y: 44, clipPath: 'inset(0 0 100% 0)' },
+      { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 0.65, ease: 'power3.out' }, 0.48
+    )
+    const sb = toEl.querySelector<HTMLElement>('.hero-sub')
+    if (sb) tl.fromTo(sb, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0.66)
+    const bt = toEl.querySelector<HTMLElement>('.hero-btns')
+    if (bt) tl.fromTo(bt, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.8)
+  }
+
+  // ── Scroll / touch intent ──────────────────
+  useEffect(() => {
+    const COOLDOWN = 1100   // ms minimum between scene changes
+    let lastFire = 0
+
+    const tryAdvance = (dir: 1 | -1) => {
+      const now = Date.now()
+      if (now - lastFire < COOLDOWN) return
+      lastFire = now
+
+      const next = currentRef.current + dir
+
+      if (next >= SCENES.length) {
+        // User scrolled down past the last scene — release Lenis and stop
+        if (!done.current) {
+          done.current = true
+          getLenis()?.start()
+        }
+        return
+      }
+      if (next < 0) return   // already on first scene, nothing to do
+      goTo(next)
+    }
+
+    const onWheel = (e: WheelEvent) => {
+      // If Lenis is released AND we're scrolling down, let the page scroll normally.
+      // But if user scrolls back up to the top, don't re-intercept (page handles it).
+      if (done.current) return
+      e.preventDefault()
+      if (Math.abs(e.deltaY) < 6) return   // ignore tiny trackpad micro-movements
+      tryAdvance(e.deltaY > 0 ? 1 : -1)
+    }
+
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY.current = e.touches[0].clientY
+    }
+    const onTouchEnd = (e: TouchEvent) => {
+      if (done.current) return
+      const delta = touchStartY.current - e.changedTouches[0].clientY
+      if (Math.abs(delta) < 40) return
+      tryAdvance(delta > 0 ? 1 : -1)
+    }
+
+    window.addEventListener('wheel', onWheel, { passive: false })
+    window.addEventListener('touchstart', onTouchStart, { passive: true })
+    window.addEventListener('touchend', onTouchEnd, { passive: true })
+
+    return () => {
+      window.removeEventListener('wheel', onWheel)
+      window.removeEventListener('touchstart', onTouchStart)
+      window.removeEventListener('touchend', onTouchEnd)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  return (
+    <section ref={wrapRef} className="hero-wrapper">
+      <canvas ref={canvasRef} className="hero-particles" />
+
+      {SCENES.map((scene, i) => (
+        <div
+          key={i}
+          className={`hero-scene hs${i}`}
+          style={{ opacity: i === 0 ? 1 : 0, zIndex: SCENES.length - i }}
+        >
+          <div className="hero-bg" style={{ backgroundImage: `url(${scene.bg})` }} />
+          <div className="hero-overlay" />
+
+          <div className="hero-content">
+            {scene.eyebrow && (
+              <p className="hero-eyebrow" style={{ opacity: 0 }}>{scene.eyebrow}</p>
+            )}
+            <h1 className="hero-headline" style={{ opacity: i === 0 ? 1 : 0 }}>
+              {scene.headline[0]}<br /><em>{scene.headline[1]}</em>
+            </h1>
+            <p className="hero-sub" style={{ opacity: i === 0 ? 1 : 0 }}>{scene.sub}</p>
+            {scene.showButtons && (
+              <div className="hero-btns" style={{ opacity: i === 0 ? 1 : 0 }}>
+                 <a href="/programs" className="btn-primary-hero">
+                  Explore Programs
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                  </svg>
+                </a>
+                <a
+                  href="https://wa.me/919876543210?text=Hi%20Latitude!"
+                  target="_blank" rel="noopener noreferrer"
+                  className="btn-ghost-hero"
+                >
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.975-1.306A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2"/>
+                  </svg>
+                  Chat on WhatsApp
+                </a>
+              </div>
+            )}
+          </div>
+        </div>
+      ))}
+
+      {/* Scene progress dots */}
+      <div className="hero-dots">
+        {SCENES.map((_, i) => (
+          <button
+            key={i}
+            className={`hero-dot${i === current ? ' hero-dot--active' : ''}`}
+            aria-label={`Scene ${i + 1}`}
+            onClick={() => { goTo(i) }}
+          />
+        ))}
+      </div>
+
+      {/* Scroll hint on first scene */}
+      <div className={`scroll-indicator${current > 0 ? ' scroll-indicator--hidden' : ''}`}>
+        <span className="scroll-indicator__label">SCROLL</span>
+        <div className="scroll-indicator__arrow" />
+      </div>
+
+      {/* Bottom wave — fills into the dark stats bar below */}
+      <div className="hero-wave">
+        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+          <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#0a1f10" />
+        </svg>
+      </div>
+    </section>
+  )
+}
