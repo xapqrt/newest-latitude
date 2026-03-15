@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import 'gsap/ScrollTrigger'
 
 const STEPS = [
   {
@@ -113,7 +111,7 @@ export default function HowItWorks() {
         <div className="hiw-header">
           <span className="section-label">Simple Process</span>
           <h2>
-            How It <span className="text-gradient-nature">Works</span>
+            How It <em>Works</em>
           </h2>
           <p>Getting your child on their next adventure takes just three steps.</p>
         </div>
@@ -133,7 +131,7 @@ export default function HowItWorks() {
         </div>
 
         <div className="hiw-cta">
-          <a href="/contact.html" className="btn-book">
+          <a href="/contact" className="btn-book">
             Book Now
             <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
               <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>

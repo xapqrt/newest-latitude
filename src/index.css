@@ -1,11 +1,15 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;1,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* ============================================================
    LATITUDE — Brand CSS (Tailwind v4 compatible)
    ============================================================ */
 
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
 /* ---------- Google Fonts ---------- */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;1,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
 /* ---------- CSS Custom Properties ---------- */
 :root {
@@ -195,6 +199,23 @@ a { text-decoration: none; color: inherit; }
     0 2px 20px rgba(0,0,0,0.5);
 }
 .navbar__links a:hover { color: #fff; text-shadow: 0 1px 12px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.15); }
+.navbar__links a.navbar__link--active,
+.navbar__drawer-links a.navbar__link--active {
+  color: var(--accent-warm);
+  text-shadow: 0 0 16px rgba(212,136,10,0.4);
+  position: relative;
+}
+.navbar__links a.navbar__link--active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-warm);
+  border-radius: 2px;
+  box-shadow: 0 0 8px rgba(212,136,10,0.6);
+}
 
 .navbar__cta {
   background: var(--accent);
@@ -3741,4 +3762,71 @@ a { text-decoration: none; color: inherit; }
   .cp-wa-section { padding: 60px 0; }
   .cp-wa-inner { padding: 0 20px; }
   .cp-hero__info-stats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+}
+
+/* ============================================================
+   404 NOT FOUND PAGE
+   ============================================================ */
+.nf-section {
+  position: relative;
+  min-height: 100vh;
+  background: var(--forest-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.nf-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.nf-inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 40px 24px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.nf-code {
+  font-family: var(--font-serif);
+  font-size: clamp(120px, 22vw, 200px);
+  font-weight: 800;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 2px rgba(74,138,52,0.35);
+  margin-bottom: 8px;
+  letter-spacing: -4px;
+}
+
+.nf-headline {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.25;
+  margin-bottom: 20px;
+}
+
+.nf-headline em {
+  font-style: italic;
+  color: var(--accent-warm);
+}
+
+.nf-sub {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.65);
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.nf-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }

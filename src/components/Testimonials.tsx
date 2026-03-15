@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import 'gsap/ScrollTrigger'
 
 const TESTIMONIALS = [
   {
@@ -58,8 +56,9 @@ export default function Testimonials() {
 
   const goTo = (i: number) => {
     if (i === active) return
-    if (timerRef.current) clearInterval(timerRef.current)
+    if (timerRef.current) { clearInterval(timerRef.current); timerRef.current = null }
     transition(i)
+    // restart auto-advance after manual selection
     timerRef.current = setInterval(() => {
       setActive(a => {
         const next = (a + 1) % TESTIMONIALS.length

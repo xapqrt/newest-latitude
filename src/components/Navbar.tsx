@@ -7,6 +7,12 @@ export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const lastY = useRef(0)
 
+  const path = window.location.pathname
+  const isActive = (href: string) => {
+    if (href === '/') return path === '/'
+    return path.startsWith(href)
+  }
+
   useEffect(() => {
     const onScroll = () => {
       const y = window.scrollY
@@ -37,10 +43,10 @@ export default function Navbar() {
 
         {/* Desktop links */}
         <ul className="navbar__links">
-          <li><a href="/">Home</a></li>
-          <li><a href="/programs">Programs</a></li>
-          <li><a href="/guides">Our Guides</a></li>
-          <li><a href="/about">About Us</a></li>
+          <li><a href="/" className={isActive('/') ? 'navbar__link--active' : ''}>Home</a></li>
+          <li><a href="/programs" className={isActive('/programs') ? 'navbar__link--active' : ''}>Programs</a></li>
+          <li><a href="/guides" className={isActive('/guides') ? 'navbar__link--active' : ''}>Our Guides</a></li>
+          <li><a href="/about" className={isActive('/about') ? 'navbar__link--active' : ''}>About Us</a></li>
         </ul>
 
         {/* Desktop CTA */}
@@ -70,11 +76,11 @@ export default function Navbar() {
           ✕
         </button>
         <ul className="navbar__drawer-links">
-          <li><a href="/" onClick={() => setDrawerOpen(false)}>Home</a></li>
-          <li><a href="/programs" onClick={() => setDrawerOpen(false)}>Programs</a></li>
-          <li><a href="/guides" onClick={() => setDrawerOpen(false)}>Our Guides</a></li>
-          <li><a href="/about" onClick={() => setDrawerOpen(false)}>About Us</a></li>
-          <li><a href="/contact" onClick={() => setDrawerOpen(false)}>Contact Us</a></li>
+          <li><a href="/" className={isActive('/') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>Home</a></li>
+          <li><a href="/programs" className={isActive('/programs') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>Programs</a></li>
+          <li><a href="/guides" className={isActive('/guides') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>Our Guides</a></li>
+          <li><a href="/about" className={isActive('/about') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>About Us</a></li>
+          <li><a href="/contact" className={isActive('/contact') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>Contact Us</a></li>
         </ul>
       </div>
     </>

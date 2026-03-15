@@ -77,7 +77,10 @@ function useLeafParticles(canvasRef: React.RefObject<HTMLCanvasElement | null>) 
 
     let raf: number
     let frame = 0
+    let visible = true
+
     const animate = () => {
+      if (!visible) return
       frame++
       // Throttle to every 2 frames (~30fps) for performance
       if (frame % 2 === 0) {
@@ -90,7 +93,21 @@ function useLeafParticles(canvasRef: React.RefObject<HTMLCanvasElement | null>) 
       }
       raf = requestAnimationFrame(animate)
     }
-    animate()
+
+    // Pause animation when hero is not visible (scrolled past)
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        visible = entry.isIntersecting
+        if (visible) {
+          cancelAnimationFrame(raf)
+          raf = requestAnimationFrame(animate)
+        }
+      },
+      { threshold: 0 }
+    )
+    observer.observe(canvas)
+
+    raf = requestAnimationFrame(animate)
 
     let resizeTimer: ReturnType<typeof setTimeout>
     const onResize = () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(setSize, 200) }
@@ -99,6 +116,7 @@ function useLeafParticles(canvasRef: React.RefObject<HTMLCanvasElement | null>) 
       cancelAnimationFrame(raf)
       clearTimeout(resizeTimer)
       window.removeEventListener('resize', onResize)
+      observer.disconnect()
     }
   }, [])
 }

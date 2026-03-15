@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import 'gsap/ScrollTrigger'
 
 const PROGRAMS = [
   {
@@ -12,7 +10,7 @@ const PROGRAMS = [
     location: 'Cubbon Park',
     desc: 'Nature walks, sensory play, animal tracking & outdoor crafts — igniting curiosity from the very first step.',
     img: 'https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=800',
-    href: '/little-explorers.html',
+    href: '/little-explorers',
     ageColor: '#d4880a',
   },
   {
@@ -22,7 +20,7 @@ const PROGRAMS = [
     location: 'Ramanagara',
     desc: 'Rock climbing, camping basics, team challenges & survival skills for kids who are ready to push further.',
     img: 'https://images.pexels.com/photos/1545590/pexels-photo-1545590.jpeg?auto=compress&cs=tinysrgb&w=800',
-    href: '/junior-adventurers.html',
+    href: '/junior-adventurers',
     ageColor: '#1f6b2e',
   },
   {
@@ -32,7 +30,7 @@ const PROGRAMS = [
     location: 'Savandurga',
     desc: 'Advanced trekking, navigation & real leadership development. Where capable kids become confident young adults.',
     img: 'https://images.pexels.com/photos/2422294/pexels-photo-2422294.jpeg?auto=compress&cs=tinysrgb&w=800',
-    href: '/outdoor-leaders.html',
+    href: '/outdoor-leaders',
     ageColor: '#7a4520',
   },
   {
@@ -42,7 +40,7 @@ const PROGRAMS = [
     location: 'Bheemeshwari',
     desc: 'Multi-day camps, wilderness first aid & environmental projects — forging the next generation of outdoor leaders.',
     img: 'https://images.pexels.com/photos/1578750/pexels-photo-1578750.jpeg?auto=compress&cs=tinysrgb&w=800',
-    href: '/teen-expeditions.html',
+    href: '/teen-expeditions',
     ageColor: '#144820',
   },
 ]
@@ -71,12 +69,24 @@ export default function Programs() {
     const maxX = () => -(track.scrollWidth - wrap.clientWidth + 96)
     const clamp = (v: number) => Math.max(maxX(), Math.min(0, v))
 
+    let rafActive = false
+
     const render = () => {
       x += (targetX - x) * 0.08
       gsap.set(track, { x })
-      raf = requestAnimationFrame(render)
+      if (Math.abs(targetX - x) > 0.1) {
+        raf = requestAnimationFrame(render)
+      } else {
+        rafActive = false
+      }
     }
-    raf = requestAnimationFrame(render)
+
+    const scheduleRaf = () => {
+      if (!rafActive) {
+        rafActive = true
+        raf = requestAnimationFrame(render)
+      }
+    }
 
     const onWheel = (e: WheelEvent) => {
       const atStart = targetX >= 0 && e.deltaY < 0
@@ -84,6 +94,7 @@ export default function Programs() {
       if (atStart || atEnd) return
       e.preventDefault()
       targetX = clamp(targetX - e.deltaY * 1.2)
+      scheduleRaf()
     }
     wrap.addEventListener('wheel', onWheel, { passive: false })
 
@@ -94,6 +105,7 @@ export default function Programs() {
     const onMouseMove = (e: MouseEvent) => {
       if (!isDragging) return
       targetX = clamp(startScrollX + (e.clientX - startX))
+      scheduleRaf()
     }
     const onMouseUp = () => { isDragging = false; wrap.style.cursor = 'grab' }
     wrap.addEventListener('mousedown', onMouseDown)
@@ -102,7 +114,7 @@ export default function Programs() {
 
     let touchStartX = 0, touchScrollX = 0
     const onTouchStart = (e: TouchEvent) => { touchStartX = e.touches[0].clientX; touchScrollX = targetX }
-    const onTouchMove = (e: TouchEvent) => { targetX = clamp(touchScrollX + (e.touches[0].clientX - touchStartX)) }
+    const onTouchMove = (e: TouchEvent) => { targetX = clamp(touchScrollX + (e.touches[0].clientX - touchStartX)); scheduleRaf() }
     wrap.addEventListener('touchstart', onTouchStart, { passive: true })
     wrap.addEventListener('touchmove', onTouchMove, { passive: true })
 
@@ -213,7 +225,7 @@ export default function Programs() {
         <div ref={trackRef} className="programs-track">
           {PROGRAMS.map((p, i) => (
             <a key={i} href={p.href} className="program-card" draggable={false}>
-              <img src={p.img} alt={p.title} className="program-card__img" draggable={false} />
+              <img src={p.img} alt={p.title} className="program-card__img" draggable={false} loading="lazy" />
               <div className="program-card__gradient" />
               <div className="program-card__body">
                 <span className="program-card__age" style={{ background: p.ageColor }}>{p.age}</span>

@@ -94,9 +94,9 @@ export default function Footer() {
             <h4>Quick Links</h4>
             <ul>
               <li><a href="/">Home</a></li>
-              <li><a href="/programs.html">Programs</a></li>
-              <li><a href="/guides.html">Our Guides</a></li>
-              <li><a href="/about.html">About Us</a></li>
+              <li><a href="/programs">Programs</a></li>
+              <li><a href="/guides">Our Guides</a></li>
+              <li><a href="/about">About Us</a></li>
             </ul>
           </div>
 
@@ -104,10 +104,10 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Programs</h4>
             <ul>
-              <li><a href="/little-explorers.html">Little Explorers (5–7)</a></li>
-              <li><a href="/junior-adventurers.html">Junior Adventurers (8–10)</a></li>
-              <li><a href="/outdoor-leaders.html">Outdoor Leaders (11–13)</a></li>
-              <li><a href="/teen-expeditions.html">Teen Expeditions (14–16)</a></li>
+              <li><a href="/little-explorers">Little Explorers (5–7)</a></li>
+              <li><a href="/junior-adventurers">Junior Adventurers (8–10)</a></li>
+              <li><a href="/outdoor-leaders">Outdoor Leaders (11–13)</a></li>
+              <li><a href="/teen-expeditions">Teen Expeditions (14–16)</a></li>
             </ul>
           </div>
 

@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import 'gsap/ScrollTrigger'
 
 const FEATURES = [
   {
@@ -101,7 +99,7 @@ export default function WhyUs() {
           <span className="section-label">Why Parents Trust Us</span>
           <h2>
             Built on a single promise:<br />
-            <span>your child comes back different.</span>
+            <em>your child comes back different.</em>
           </h2>
         </div>
         <div className="whyus-grid">
