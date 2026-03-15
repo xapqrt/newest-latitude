@@ -1,6 +1,4 @@
-import { useState, useCallback } from 'react'
 import { useSmoothScroll } from './hooks/useSmoothScroll'
-import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import StatsBar from './components/StatsBar'
@@ -79,16 +77,5 @@ function AppContent() {
 }
 
 export default function App() {
-  const [loaded, setLoaded] = useState(false)
-
-  const handlePreloaderDone = useCallback(() => {
-    setLoaded(true)
-  }, [])
-
-  return (
-    <>
-      {!loaded && <Preloader onComplete={handlePreloaderDone} />}
-      {loaded && <AppContent />}
-    </>
-  )
+  return <AppContent />
 }

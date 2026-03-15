@@ -183,6 +183,7 @@ export default function JuniorAdventurersPage() {
             <img
               src="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=900"
               alt="Kids rock climbing near Ramanagara"
+              loading="lazy"
             />
           </div>
         </div>

@@ -186,6 +186,7 @@ export default function OutdoorLeadersPage() {
             <img
               src="https://images.pexels.com/photos/933964/pexels-photo-933964.jpeg?auto=compress&cs=tinysrgb&w=900"
               alt="Kids trekking through forest on leadership program"
+              loading="lazy"
             />
           </div>
         </div>

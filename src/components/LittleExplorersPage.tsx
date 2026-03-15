@@ -211,6 +211,7 @@ export default function LittleExplorersPage() {
             <img
               src="https://images.pexels.com/photos/296234/pexels-photo-296234.jpeg?auto=compress&cs=tinysrgb&w=900"
               alt="Young children exploring nature in Bangalore"
+              loading="lazy"
             />
           </div>
         </div>

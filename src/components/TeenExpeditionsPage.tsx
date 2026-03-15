@@ -188,6 +188,7 @@ export default function TeenExpeditionsPage() {
             <img
               src="https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&w=900"
               alt="Teens on wilderness expedition at Bheemeshwari"
+              loading="lazy"
             />
           </div>
         </div>
