@@ -51,6 +51,17 @@ export default function WhyUs() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Subtle background parallax
+      gsap.to('.whyus-section', {
+        backgroundPositionY: '30%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.whyus-section',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
       // Header label fade up
       gsap.fromTo('.whyus-header .section-label',
         { opacity: 0, y: 20 },

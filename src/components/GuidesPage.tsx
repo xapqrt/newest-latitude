@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
-
+import { getLenis } from '../hooks/useSmoothScroll'
 // ─────────────────────────────────────────────
 // Data
 // ─────────────────────────────────────────────
@@ -229,9 +229,97 @@ function StatItem({ value, suffix, label }: { value: number; suffix: string; lab
 }
 
 // ─────────────────────────────────────────────
+// Guide detail modal
+// ─────────────────────────────────────────────
+const GUIDE_CERTS: Record<string, string[]> = {
+  arjun: ['Wilderness First Aid (WFA)', 'Leave No Trace (LNT) Educator', 'Child Safety Clearance', 'Rock Climbing Level 2'],
+  meera: ['Top-Rope & Lead Climbing Instructor', 'Wilderness First Aid (WFA)', 'CPR & AED Certified', 'Child Safety Clearance'],
+  deepak: ['Certified Wildlife Biologist', 'Wilderness First Aid (WFA)', 'Nature Journaling Facilitator', 'Child Safety Clearance'],
+  priya: ['Bushcraft Instructor (Level 3)', 'Wilderness First Aid (WFA)', 'CPR Certified', 'Leave No Trace (LNT) Educator'],
+  naveen: ['Outdoor Arts Educator', 'Wilderness First Aid (WFA)', 'Child Safety Clearance', 'Ecology Interpretation Guide'],
+  kavitha: ['Mountaineering Certificate (BMC)', 'Wilderness First Aid (WFA)', 'CPR & AED Certified', 'Child Safety Clearance'],
+  ravi: ['Former Forest Range Officer', 'Wilderness First Aid (WFA)', 'Forest Ecology Interpreter', 'Child Safety Clearance'],
+  ananya: ['Child Psychologist (M.Sc.)', 'Nature-Based Play Therapist', 'Wilderness First Aid (WFA)', 'Child Safety Clearance'],
+}
+
+function GuideModal({ guide, onClose }: { guide: typeof GUIDES[0]; onClose: () => void }) {
+  const certs = GUIDE_CERTS[guide.id] ?? []
+  const waMsg = encodeURIComponent(`Hi Latitude! I'd like to request ${guide.name} as a guide for my child's program.`)
+  const modalRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+
+    // Prevent Lenis from seeing wheel/touch events that originate inside the modal
+    // so the modal panel scrolls natively while the page behind stays frozen.
+    const panel = modalRef.current
+    const stopProp = (e: Event) => e.stopPropagation()
+    panel?.addEventListener('wheel', stopProp, { passive: false })
+    panel?.addEventListener('touchmove', stopProp, { passive: false })
+
+    // Also freeze Lenis so the background page doesn't drift via keyboard / RAF
+    const lenis = getLenis()
+    lenis?.stop()
+
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      panel?.removeEventListener('wheel', stopProp)
+      panel?.removeEventListener('touchmove', stopProp)
+      lenis?.start()
+    }
+  }, [onClose])
+
+  return (
+    <div className="guide-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose() }}>
+      <div ref={modalRef} className="guide-modal">
+        <button className="guide-modal__close" onClick={onClose} aria-label="Close">✕</button>
+        <div className="guide-modal__avatar" style={{ background: guide.avatarColor }}>
+          <span style={{ color: '#fff' }}>{guide.initials}</span>
+        </div>
+        <div className="guide-modal__name">{guide.name}</div>
+        <div className="guide-modal__role">{guide.role}</div>
+        <div className="guide-modal__stats">
+          <div className="guide-modal__stat">
+            <span className="guide-modal__stat-val">{guide.exp}</span>
+            <span className="guide-modal__stat-lbl">Experience</span>
+          </div>
+          <div className="guide-modal__stat">
+            <span className="guide-modal__stat-val">{guide.trips}</span>
+            <span className="guide-modal__stat-lbl">Trips Led</span>
+          </div>
+        </div>
+        <p className="guide-modal__bio">{guide.bio}</p>
+        <div className="guide-modal__certs">
+          <div className="guide-modal__certs-title">Certifications</div>
+          {certs.map((c, i) => (
+            <div key={i} className="guide-modal__cert-item">{c}</div>
+          ))}
+        </div>
+        <div className="guide-modal__tags">
+          {guide.tags.map((t, i) => (
+            <span key={i} className={`gp-tag gp-tag--${t.color}`}>{t.label}</span>
+          ))}
+        </div>
+        <a
+          href={`https://wa.me/919876543210?text=${waMsg}`}
+          target="_blank" rel="noopener noreferrer"
+          className="guide-modal__cta"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.975-1.306A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2"/>
+          </svg>
+          Request {guide.name.split(' ')[0]} as my Guide
+        </a>
+      </div>
+    </div>
+  )
+}
+
+// ─────────────────────────────────────────────
 // Guide card
 // ─────────────────────────────────────────────
-function GuideCard({ g }: { g: typeof GUIDES[0] }) {
+function GuideCard({ g, onSelect }: { g: typeof GUIDES[0]; onSelect: () => void }) {
   const cardRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -250,7 +338,7 @@ function GuideCard({ g }: { g: typeof GUIDES[0] }) {
   }, [])
 
   return (
-    <div ref={cardRef} className="gp-guide-card" style={{ opacity: 0 }}>
+    <div ref={cardRef} className="gp-guide-card" style={{ opacity: 0, cursor: 'pointer' }} onClick={onSelect}>
       <div className="gp-guide-card__avatar-wrap" style={{ background: g.avatarBg }}>
         <div className="gp-guide-card__avatar" style={{ background: g.avatarColor }}>
           {g.initials}
@@ -274,6 +362,9 @@ function GuideCard({ g }: { g: typeof GUIDES[0] }) {
             <span key={i} className={`gp-tag gp-tag--${t.color}`}>{t.label}</span>
           ))}
         </div>
+        <div style={{ marginTop: 14, fontSize: '0.8rem', color: 'var(--accent-warm)', fontWeight: 700, letterSpacing: '0.04em' }}>
+          View profile →
+        </div>
       </div>
     </div>
   )
@@ -285,6 +376,7 @@ function GuideCard({ g }: { g: typeof GUIDES[0] }) {
 export default function GuidesPage() {
   const [activeFilter, setActiveFilter] = useState('all')
   const [search, setSearch] = useState('')
+  const [selectedGuide, setSelectedGuide] = useState<typeof GUIDES[0] | null>(null)
 
   const filters = [
     { key: 'all', label: 'All Guides' },
@@ -524,7 +616,7 @@ export default function GuidesPage() {
       <section className="gp-grid-section">
         {visible.length > 0 ? (
           <div className="gp-grid">
-            {visible.map(g => <GuideCard key={g.id} g={g} />)}
+            {visible.map(g => <GuideCard key={g.id} g={g} onSelect={() => setSelectedGuide(g)} />)}
           </div>
         ) : (
           <p className="gp-no-results">No guides match your search. Try a different filter.</p>
@@ -622,6 +714,10 @@ export default function GuidesPage() {
           </div>
         </div>
       </section>
+      {/* ── GUIDE MODAL ──────────────────────── */}
+      {selectedGuide && (
+        <GuideModal guide={selectedGuide} onClose={() => setSelectedGuide(null)} />
+      )}
     </>
   )
 }

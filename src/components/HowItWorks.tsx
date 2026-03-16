@@ -40,6 +40,17 @@ export default function HowItWorks() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Subtle background parallax
+      gsap.to('.hiw-section', {
+        backgroundPositionY: '30%',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.hiw-section',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
       // Header reveal
       gsap.fromTo('.hiw-header .section-label',
         { opacity: 0, y: 20 },

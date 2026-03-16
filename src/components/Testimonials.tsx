@@ -104,10 +104,26 @@ export default function Testimonials() {
 
   const t = TESTIMONIALS[active]
 
+  // Touch swipe support
+  const touchStartX = useRef(0)
+  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX }
+  const onTouchEnd = (e: React.TouchEvent) => {
+    const dx = e.changedTouches[0].clientX - touchStartX.current
+    if (Math.abs(dx) < 40) return
+    const next = dx < 0
+      ? (active + 1) % TESTIMONIALS.length
+      : (active - 1 + TESTIMONIALS.length) % TESTIMONIALS.length
+    goTo(next)
+  }
+
   return (
     <section ref={sectionRef} className="testimonials-section">
       <div className="testimonials-bg-quote">&ldquo;</div>
-      <div className="testimonials-inner">
+      <div
+        className="testimonials-inner"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         {/* Stars */}
         <div className="testimonials-stars">
           {[...Array(5)].map((_, i) => (

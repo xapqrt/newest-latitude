@@ -259,6 +259,35 @@ export default function TeenExpeditionsPage() {
         </div>
       </section>
 
+      {/* ── REVIEWS ── */}
+      <section className="pd-reviews">
+        <div className="pd-reviews__inner">
+          <div className="pd-section-header">
+            <span className="pd-section-label pd-section-label--gold">Parent Reviews</span>
+            <h2 className="pd-section-title">What Families Are <em>Saying</em></h2>
+          </div>
+          <div className="pd-reviews__grid">
+            {[
+              { name: 'Kavya M.', child: 'Mum of Arjun, 15', stars: 5, text: 'Arjun spent three days without his phone and came back saying it was the most alive he\'d felt in years. The expedition was genuinely challenging but the guides calibrated it perfectly. He\'s a different kid.' },
+              { name: 'Rajan S.', child: 'Dad of Ananya, 14', stars: 5, text: 'The conservation project component was what sold us on this program — and it delivered. Ananya came back with a real sense of purpose and a noticeably deeper respect for the natural world. Worth every rupee.' },
+              { name: 'Deepa C.', child: 'Mum of Vikram, 16', stars: 5, text: 'As a parent sending your teenager into the wilderness for three days, you want to trust the people in charge completely. The guides at Latitude gave me that confidence. Vikram\'s first aid skills are now better than mine.' },
+              { name: 'Gopal R.', child: 'Dad of Maya, 15', stars: 4, text: 'A rigorous and superbly led expedition. The problem-solving scenarios on day two were Maya\'s highlight — she said they were harder than anything she does at school. She came back with genuine grit and a certificate she\'s very proud of.' },
+            ].map((r, i) => (
+              <div key={i} className="pd-review-card">
+                <div className="pd-review-card__stars">
+                  {'★'.repeat(r.stars)}{'☆'.repeat(5 - r.stars)}
+                </div>
+                <p className="pd-review-card__text">"{r.text}"</p>
+                <div className="pd-review-card__author">
+                  <span className="pd-review-card__name">{r.name}</span>
+                  <span className="pd-review-card__child">{r.child}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section className="pd-cta">
         <div className="pd-cta__inner">

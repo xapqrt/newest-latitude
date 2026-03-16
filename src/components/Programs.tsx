@@ -224,7 +224,24 @@ export default function Programs() {
       <div ref={trackWrapRef} className="programs-track-wrap">
         <div ref={trackRef} className="programs-track">
           {PROGRAMS.map((p, i) => (
-            <a key={i} href={p.href} className="program-card" draggable={false}>
+            <a
+              key={i}
+              href={p.href}
+              className="program-card"
+              draggable={false}
+              onMouseMove={e => {
+                const card = e.currentTarget
+                const rect = card.getBoundingClientRect()
+                const x = e.clientX - rect.left
+                const y = e.clientY - rect.top
+                const rx = ((y / rect.height) - 0.5) * -12
+                const ry = ((x / rect.width)  - 0.5) *  12
+                card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px) scale(1.02)`
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = ''
+              }}
+            >
               <img src={p.img} alt={p.title} className="program-card__img" draggable={false} loading="lazy" />
               <div className="program-card__gradient" />
               <div className="program-card__body">

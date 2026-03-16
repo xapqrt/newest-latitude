@@ -135,9 +135,16 @@ const FAQS = [
   { q: 'What happens if it rains on the day of the outing?', a: 'Light rain makes adventures even more exciting! We continue with most activities in light rain with appropriate rain gear. In case of heavy rain or severe weather warnings, we reschedule to the next available date at no extra cost.' },
 ]
 
-// ─────────────────────────────────────────────
-// FAQ Item
-// ─────────────────────────────────────────────
+const TIMELINE = [
+  { year: '2019', title: 'The Spark', desc: 'Two childhood friends — Rahul and Nisha — run their first informal nature walk in Cubbon Park for a handful of neighbourhood kids. No website, no logo. Just a backpack full of curiosity.', accent: 'green' },
+  { year: '2020', title: 'Latitude Is Born', desc: 'Incorporated as a private limited company in Bangalore. The Little Explorers program launches officially with 18 children on the first session. Parents rave about the photo updates.', accent: 'gold' },
+  { year: '2021', title: 'First Adventure Program', desc: 'Junior Adventurers launches at Ramanagara. Rock climbing proves to be an instant hit. The team grows to 5 guides. A waitlist forms for the first time.', accent: 'green' },
+  { year: '2022', title: 'Going Overnight', desc: 'Outdoor Leaders debuts — Latitude\'s first overnight program. 120 children attend in the inaugural year. A full first-aid certification program is introduced for all guides.', accent: 'gold' },
+  { year: '2023', title: 'Teen Expeditions Launch', desc: 'The multi-day Teen Expeditions program brings conservation fieldwork to the curriculum. Partnerships formed with Bheemeshwari Wildlife Sanctuary and local forest departments.', accent: 'green' },
+  { year: '2024', title: '2,500 Kids & Counting', desc: 'Latitude crosses 2,500 children guided safely. The team now counts 12 certified guides. A new base camp facility opens at Savandurga, and school partnership programs begin.', accent: 'gold' },
+]
+
+
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
   const bodyRef = useRef<HTMLDivElement>(null)
@@ -230,6 +237,12 @@ export default function AboutPage() {
   // Section reveals
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Timeline
+      gsap.fromTo('.ap-timeline-item',
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, stagger: 0.12, duration: 0.75, ease: 'power2.out',
+          scrollTrigger: { trigger: '.ap-timeline-section', start: 'top 80%', once: true } }
+      )
       // Story
       gsap.fromTo('.ap-story__img',
         { opacity: 0, x: -60 },
@@ -354,6 +367,29 @@ export default function AboutPage() {
             <p>Latitude was founded with a simple belief: that children learn best when they're outside, hands in the dirt, eyes on the sky, and hearts full of curiosity.</p>
             <p>Growing up in Bangalore, we saw how quickly green spaces were disappearing — and with them, opportunities for kids to experience unstructured outdoor play. We started Latitude to bridge that gap: connecting city children with the incredible natural landscapes just beyond their doorstep.</p>
             <p>What began as weekend nature walks in Cubbon Park has grown into a comprehensive outdoor education programme serving hundreds of families across Bangalore.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── TIMELINE ─────────────────────────── */}
+      <section className="ap-timeline-section">
+        <div className="ap-timeline-inner">
+          <div className="ap-section-header">
+            <span className="section-label section-label--gold-dark">Our Journey</span>
+            <h2 className="ap-section-title">Five Years of <em>Adventure</em></h2>
+            <p className="ap-section-sub">From a single nature walk to Bangalore's most trusted outdoor education company.</p>
+          </div>
+          <div className="ap-timeline">
+            {TIMELINE.map((item, i) => (
+              <div key={i} className={`ap-timeline-item ap-timeline-item--${item.accent}`}>
+                <div className="ap-timeline-item__year">{item.year}</div>
+                <div className="ap-timeline-item__connector" aria-hidden="true" />
+                <div className="ap-timeline-item__card">
+                  <h3 className="ap-timeline-item__title">{item.title}</h3>
+                  <p className="ap-timeline-item__desc">{item.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>

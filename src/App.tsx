@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState, useCallback } from 'react'
 import { useSmoothScroll, getLenis } from './hooks/useSmoothScroll'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -10,6 +10,12 @@ import HowItWorks from './components/HowItWorks'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
 import FilmGrain from './components/FilmGrain'
+import FallingLeaves from './components/FallingLeaves'
+import WhatsAppFloat from './components/WhatsAppFloat'
+import ScrollProgress from './components/ScrollProgress'
+import SplashLoader from './components/SplashLoader'
+import PageTransition from './components/PageTransition'
+import MobileBottomNav from './components/MobileBottomNav'
 
 // Lazy-load page components — only the current page's JS is fetched
 const ProgramsPage          = lazy(() => import('./components/ProgramsPage'))
@@ -21,6 +27,8 @@ const JuniorAdventurersPage = lazy(() => import('./components/JuniorAdventurersP
 const OutdoorLeadersPage    = lazy(() => import('./components/OutdoorLeadersPage'))
 const TeenExpeditionsPage   = lazy(() => import('./components/TeenExpeditionsPage'))
 const NotFoundPage          = lazy(() => import('./components/NotFoundPage'))
+const PrivacyPage           = lazy(() => import('./components/PrivacyPage'))
+const TermsPage             = lazy(() => import('./components/TermsPage'))
 
 // Per-page meta — title + description
 const PAGE_META: Record<string, { title: string; description: string }> = {
@@ -59,6 +67,14 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
   'teen-expeditions': {
     title: 'Teen Expeditions (Ages 14–16) — Latitude',
     description: 'Multi-day wilderness expeditions and first aid training for teenagers aged 14–16.',
+  },
+  privacy: {
+    title: 'Privacy Policy — Latitude',
+    description: 'Privacy policy for Latitude outdoor education programs in Bangalore.',
+  },
+  terms: {
+    title: 'Terms of Service — Latitude',
+    description: 'Terms and conditions for Latitude outdoor education programs in Bangalore.',
   },
 }
 
@@ -99,6 +115,8 @@ function usePage() {
   if (path.includes('guides'))             return 'guides'
   if (path.includes('about'))              return 'about'
   if (path.includes('contact'))            return 'contact'
+  if (path.includes('privacy'))            return 'privacy'
+  if (path.includes('terms'))              return 'terms'
   // Any path that isn't root and didn't match above is a 404
   if (path !== '/')                        return '404'
   return 'home'
@@ -129,6 +147,8 @@ function AppContent() {
   useSmoothScroll()
   const page = usePage()
   usePageMeta(page === '404' ? 'home' : page)
+  const [splashDone, setSplashDone] = useState(false)
+  const handleSplashDone = useCallback(() => setSplashDone(true), [])
 
   const renderPage = () => {
     switch (page) {
@@ -140,6 +160,8 @@ function AppContent() {
       case 'guides':              return <PageWrapper><GuidesPage /></PageWrapper>
       case 'about':               return <PageWrapper><AboutPage /></PageWrapper>
       case 'contact':             return <PageWrapper><ContactPage /></PageWrapper>
+      case 'privacy':             return <PageWrapper><PrivacyPage /></PageWrapper>
+      case 'terms':               return <PageWrapper><TermsPage /></PageWrapper>
       case '404':                 return <PageWrapper><NotFoundPage /></PageWrapper>
       default:
         return (
@@ -160,14 +182,20 @@ function AppContent() {
 
   return (
     <>
+      <SplashLoader onDone={handleSplashDone} />
+      <PageTransition />
+      <ScrollProgress />
       <FilmGrain />
+      <FallingLeaves />
       <Navbar />
-      <main>
+      <main style={{ visibility: splashDone ? 'visible' : 'hidden' }}>
         <Suspense fallback={<PageFallback />}>
           {renderPage()}
         </Suspense>
       </main>
       <Footer />
+      <WhatsAppFloat />
+      <MobileBottomNav />
     </>
   )
 }

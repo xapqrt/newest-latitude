@@ -88,10 +88,22 @@ function BookingForm() {
       return
     }
     setSubmitting(true)
-    // Simulate submit (replace with real endpoint)
-    await new Promise(r => setTimeout(r, 1200))
+    // Build a pre-filled WhatsApp message from form data
+    const progLabel = PROGRAMS_LIST.find(p => p.value === form.program)?.label || form.program
+    const msg = [
+      `Hi Latitude! I'd like to book an adventure.`,
+      `Name: ${form.name}`,
+      `Phone: ${form.phone}`,
+      `Email: ${form.email}`,
+      `Program: ${progLabel}`,
+      `Children: ${form.numChildren}`,
+      form.message ? `Notes: ${form.message}` : null,
+    ].filter(Boolean).join('\n')
+    const waUrl = `https://wa.me/919876543210?text=${encodeURIComponent(msg)}`
     setSubmitting(false)
     setSubmitted(true)
+    // Open WhatsApp in new tab after a brief moment to show success state
+    setTimeout(() => window.open(waUrl, '_blank', 'noopener,noreferrer'), 600)
   }
 
   const progressPct = ((step - 1) / 2) * 100
@@ -287,7 +299,7 @@ function BookingForm() {
                 Back
               </button>
               <button type="submit" className="cp-btn-primary" disabled={submitting}>
-                {submitting ? 'Submitting…' : 'Submit Booking'}
+                {submitting ? 'Sending…' : 'Send Message'}
                 {!submitting && <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>}
               </button>
             </div>

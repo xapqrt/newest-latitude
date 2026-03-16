@@ -84,6 +84,52 @@ const PROGRAMS = [
   },
 ]
 
+// ─────────────────────────────────────────────
+// Upcoming dates data
+// ─────────────────────────────────────────────
+const UPCOMING_DATES = [
+  {
+    programId: 'little-explorers',
+    title: 'Little Explorers',
+    ageColor: '#d4880a',
+    dates: [
+      { date: 'Sat 22 Mar 2026', slots: 4, status: 'open' },
+      { date: 'Sat 5 Apr 2026', slots: 8, status: 'open' },
+      { date: 'Sat 19 Apr 2026', slots: 12, status: 'open' },
+    ],
+  },
+  {
+    programId: 'junior-adventurers',
+    title: 'Junior Adventurers',
+    ageColor: '#1f6b2e',
+    dates: [
+      { date: 'Sun 23 Mar 2026', slots: 2, status: 'almost-full' },
+      { date: 'Sat–Sun 5–6 Apr 2026', slots: 7, status: 'open' },
+      { date: 'Sat–Sun 26–27 Apr 2026', slots: 15, status: 'open' },
+    ],
+  },
+  {
+    programId: 'outdoor-leaders',
+    title: 'Outdoor Leaders',
+    ageColor: '#7a4520',
+    dates: [
+      { date: 'Sat–Sun 29–30 Mar 2026', slots: 0, status: 'full' },
+      { date: 'Sat–Sun 12–13 Apr 2026', slots: 5, status: 'open' },
+      { date: 'Sat–Sun 3–4 May 2026', slots: 15, status: 'open' },
+    ],
+  },
+  {
+    programId: 'teen-expeditions',
+    title: 'Teen Expeditions',
+    ageColor: '#144820',
+    dates: [
+      { date: 'Fri–Sun 4–6 Apr 2026', slots: 3, status: 'almost-full' },
+      { date: 'Fri–Sun 25–27 Apr 2026', slots: 10, status: 'open' },
+      { date: 'Fri–Sun 16–18 May 2026', slots: 12, status: 'open' },
+    ],
+  },
+]
+
 const PACK_ITEMS = [
   {
     title: 'Clothing & Footwear',
@@ -495,6 +541,103 @@ export default function ProgramsPage() {
           {filtered.map((p, i) => (
             <ProgramRow key={p.id} p={p} reverse={i % 2 !== 0} />
           ))}
+        </div>
+      </section>
+
+      {/* ── UPCOMING DATES ───────────────────── */}
+      <section className="pp-dates-section">
+        <div className="pp-dates-inner">
+          <div className="pp-section-header">
+            <span className="section-label section-label--gold-dark">Availability</span>
+            <h2 className="pp-section-title">Upcoming Dates</h2>
+            <p className="pp-section-sub">Reserve your child's spot — popular sessions fill fast.</p>
+          </div>
+          <div className="pp-dates-grid">
+            {UPCOMING_DATES.map(prog => (
+              <div key={prog.programId} className="pp-dates-card">
+                <div className="pp-dates-card__header" style={{ borderColor: prog.ageColor }}>
+                  <span className="pp-dates-card__dot" style={{ background: prog.ageColor }} />
+                  <span className="pp-dates-card__name">{prog.title}</span>
+                </div>
+                <div className="pp-dates-list">
+                  {prog.dates.map((d, i) => (
+                    <div key={i} className={`pp-date-row pp-date-row--${d.status}`}>
+                      <div className="pp-date-row__left">
+                        <span className="pp-date-row__date">{d.date}</span>
+                        <span className={`pp-date-row__badge pp-date-row__badge--${d.status}`}>
+                          {d.status === 'full' ? 'Full' : d.status === 'almost-full' ? `${d.slots} left` : `${d.slots} spots`}
+                        </span>
+                      </div>
+                      <a
+                        href={d.status === 'full' ? '#' : `/contact`}
+                        className={`pp-date-row__btn${d.status === 'full' ? ' pp-date-row__btn--disabled' : ''}`}
+                        aria-disabled={d.status === 'full'}
+                      >
+                        {d.status === 'full' ? 'Full' : 'Book this date'}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── PROGRAM COMPARISON TABLE ─────────── */}
+      <section className="pp-compare-section">
+        <div className="pp-compare-inner">
+          <div className="pp-section-header">
+            <span className="section-label section-label--gold-dark">At a Glance</span>
+            <h2 className="pp-section-title">Which Program is Right?</h2>
+            <p className="pp-section-sub">Compare all four programs side-by-side to find the perfect fit.</p>
+          </div>
+          <div className="pp-compare-table-wrap">
+            <table className="pp-compare-table">
+              <thead>
+                <tr>
+                  <th className="pp-compare-th pp-compare-th--label">Feature</th>
+                  {PROGRAMS.map(p => (
+                    <th key={p.id} className="pp-compare-th">
+                      <span className="pp-compare-th__badge" style={{ background: p.ageColor }}>{p.age}</span>
+                      <span className="pp-compare-th__name">{p.title}</span>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { label: 'Age Group',      icon: '👧', vals: ['5–7 yrs', '8–10 yrs', '11–13 yrs', '14–16 yrs'] },
+                  { label: 'Duration',       icon: '⏱',  vals: ['Half Day (4 hrs)', 'Full Day (8 hrs)', 'Weekend (2 days)', '2–3 Days'] },
+                  { label: 'Location',       icon: '📍', vals: ['Cubbon Park / Lalbagh', 'Ramanagara', 'Savandurga', 'Bheemeshwari'] },
+                  { label: 'Group Size',     icon: '👥', vals: ['Max 12 kids', 'Max 15 kids', 'Max 15 kids', 'Max 12 teens'] },
+                  { label: 'Difficulty',     icon: '📊', vals: ['Easy', 'Moderate', 'Challenging', 'Advanced'] },
+                  { label: 'Key Activity',   icon: '🌿', vals: ['Nature Walks & Crafts', 'Rock Climbing & Camping', 'Trekking & Navigation', 'Multi-Day Expedition'] },
+                  { label: 'Overnight Stay', icon: '🏕', vals: ['No', 'No', 'Yes (1 night)', 'Yes (1–2 nights)'] },
+                ].map((row, ri) => (
+                  <tr key={ri} className={`pp-compare-row${ri % 2 === 0 ? ' pp-compare-row--alt' : ''}`}>
+                    <td className="pp-compare-td pp-compare-td--label">
+                      <span className="pp-compare-td__icon">{row.icon}</span>
+                      {row.label}
+                    </td>
+                    {row.vals.map((v, ci) => (
+                      <td key={ci} className="pp-compare-td">{v}</td>
+                    ))}
+                  </tr>
+                ))}
+                <tr className="pp-compare-row pp-compare-row--cta">
+                  <td className="pp-compare-td pp-compare-td--label"></td>
+                  {PROGRAMS.map(p => (
+                    <td key={p.id} className="pp-compare-td pp-compare-td--action">
+                      <a href={p.href} className="pp-compare-link" style={{ background: p.ageColor }}>
+                        View Program
+                      </a>
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
