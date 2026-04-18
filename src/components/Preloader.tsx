@@ -57,7 +57,10 @@ export default function Preloader({ onComplete }: PreloaderProps) {
           />
         </svg>
 
-        <div className="preloader__brand">Latitude</div>
+        <div className="preloader__brand">
+          <span className="preloader__brand-main">lookfar</span>
+          <span className="preloader__brand-accent">outdoors</span>
+        </div>
 
         <div className="preloader__bar-wrap">
           <div ref={barRef} className="preloader__bar" />

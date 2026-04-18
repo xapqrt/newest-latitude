@@ -244,7 +244,7 @@ const GUIDE_CERTS: Record<string, string[]> = {
 
 function GuideModal({ guide, onClose }: { guide: typeof GUIDES[0]; onClose: () => void }) {
   const certs = GUIDE_CERTS[guide.id] ?? []
-  const waMsg = encodeURIComponent(`Hi Latitude! I'd like to request ${guide.name} as a guide for my child's program.`)
+  const waMsg = encodeURIComponent(`Hi LookFarOutdoors! I'd like to request ${guide.name} as a guide for my child's program.`)
   const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -518,7 +518,7 @@ export default function GuidesPage() {
           {/* Left: text */}
           <div className="gp-hero__text">
             <span className="gp-hero__label section-label section-label--gold-dark" style={{ opacity: 0 }}>
-              The Latitude Team
+              The LookFarOutdoors Team
             </span>
             <h1 className="gp-hero__headline" aria-label="Meet Our Guides">
               <span className="gp-hero__title-line" style={{ opacity: 0 }}>Meet Our</span>
@@ -565,7 +565,7 @@ export default function GuidesPage() {
       <section className="gp-trust-section">
         <div className="gp-trust-header">
           <p className="gp-trust-eyebrow">Standards & Credentials</p>
-          <h2 className="gp-trust-title">Every Latitude Guide Is</h2>
+          <h2 className="gp-trust-title">Every LookFarOutdoors Guide Is</h2>
         </div>
         <div className="gp-trust-grid">
           {TRUST_BADGES.map((b, i) => (
@@ -629,7 +629,7 @@ export default function GuidesPage() {
           <div className="gp-section-header">
             <span className="section-label section-label--dark">Our Standards</span>
             <h2 className="gp-section-title--dark">How We Select Our <em>Guides</em></h2>
-            <p className="gp-section-sub--dark">Every Latitude guide goes through a rigorous 5-step selection process before leading a single outing.</p>
+            <p className="gp-section-sub--dark">Every LookFarOutdoors guide goes through a rigorous 5-step selection process before leading a single outing.</p>
           </div>
 
           <div className="gp-steps">
@@ -695,7 +695,7 @@ export default function GuidesPage() {
           <p className="gp-cta-sub">Get in touch and we'll tell you more about the guides who'll be leading your child's adventure.</p>
           <div className="cta-btns">
             <a
-              href="https://wa.me/919876543210?text=Hi%20Latitude!%20I%20want%20to%20know%20more%20about%20your%20guides."
+              href="https://wa.me/919876543210?text=Hi%20LookFarOutdoors!%20I%20want%20to%20know%20more%20about%20your%20guides."
               target="_blank"
               rel="noopener noreferrer"
               className="cta-btn-primary"

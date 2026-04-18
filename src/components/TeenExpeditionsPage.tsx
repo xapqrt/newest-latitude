@@ -270,7 +270,7 @@ export default function TeenExpeditionsPage() {
             {[
               { name: 'Kavya M.', child: 'Mum of Arjun, 15', stars: 5, text: 'Arjun spent three days without his phone and came back saying it was the most alive he\'d felt in years. The expedition was genuinely challenging but the guides calibrated it perfectly. He\'s a different kid.' },
               { name: 'Rajan S.', child: 'Dad of Ananya, 14', stars: 5, text: 'The conservation project component was what sold us on this program — and it delivered. Ananya came back with a real sense of purpose and a noticeably deeper respect for the natural world. Worth every rupee.' },
-              { name: 'Deepa C.', child: 'Mum of Vikram, 16', stars: 5, text: 'As a parent sending your teenager into the wilderness for three days, you want to trust the people in charge completely. The guides at Latitude gave me that confidence. Vikram\'s first aid skills are now better than mine.' },
+              { name: 'Deepa C.', child: 'Mum of Vikram, 16', stars: 5, text: 'As a parent sending your teenager into the wilderness for three days, you want to trust the people in charge completely. The guides at LookFarOutdoors gave me that confidence. Vikram\'s first aid skills are now better than mine.' },
               { name: 'Gopal R.', child: 'Dad of Maya, 15', stars: 4, text: 'A rigorous and superbly led expedition. The problem-solving scenarios on day two were Maya\'s highlight — she said they were harder than anything she does at school. She came back with genuine grit and a certificate she\'s very proud of.' },
             ].map((r, i) => (
               <div key={i} className="pd-review-card">

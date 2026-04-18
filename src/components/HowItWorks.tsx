@@ -40,17 +40,6 @@ export default function HowItWorks() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Subtle background parallax
-      gsap.to('.hiw-section', {
-        backgroundPositionY: '30%',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.hiw-section',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      })
       // Header reveal
       gsap.fromTo('.hiw-header .section-label',
         { opacity: 0, y: 20 },
@@ -72,16 +61,6 @@ export default function HowItWorks() {
         {
           opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.3,
           scrollTrigger: { trigger: '.hiw-header', start: 'top 78%', once: true },
-        }
-      )
-
-      // Connector line grows across
-      gsap.fromTo('.hiw-connector',
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          duration: 1.2, ease: 'power2.inOut',
-          scrollTrigger: { trigger: '.hiw-steps', start: 'top 75%', once: true },
         }
       )
 
@@ -118,6 +97,9 @@ export default function HowItWorks() {
 
   return (
     <section ref={sectionRef} className="hiw-section">
+      <div className="hiw-bg-orb hiw-bg-orb--left" aria-hidden="true" />
+      <div className="hiw-bg-orb hiw-bg-orb--right" aria-hidden="true" />
+
       <div className="hiw-inner">
         <div className="hiw-header">
           <span className="section-label">Simple Process</span>
@@ -128,16 +110,15 @@ export default function HowItWorks() {
         </div>
 
         <div className="hiw-steps">
-          <div className="hiw-connector" aria-hidden="true" />
           {STEPS.map((step, i) => (
-            <div key={i} className="hiw-step">
-              <div className="hiw-step__icon-wrap">
-                {step.icon}
-                <span className="hiw-step__num">{step.num}</span>
+            <article key={i} className="hiw-step">
+              <div className="hiw-step__top">
+                <span className="hiw-step__num">Step {step.num}</span>
+                <div className="hiw-step__icon-wrap">{step.icon}</div>
               </div>
-              <div className="hiw-step__title">{step.title}</div>
+              <h3 className="hiw-step__title">{step.title}</h3>
               <p className="hiw-step__desc">{step.desc}</p>
-            </div>
+            </article>
           ))}
         </div>
 
@@ -149,13 +130,6 @@ export default function HowItWorks() {
             </svg>
           </a>
         </div>
-      </div>
-
-      {/* Wave divider into dark CTA section */}
-      <div className="section-wave section-wave--bottom" aria-hidden="true">
-        <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-          <path d="M0,60 C360,0 1080,80 1440,20 L1440,80 L0,80 Z" fill="#0a1f10" />
-        </svg>
       </div>
     </section>
   )

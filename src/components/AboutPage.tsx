@@ -128,7 +128,7 @@ const LOCATIONS = [
 ]
 
 const FAQS = [
-  { q: 'Is Latitude a registered company?', a: 'Yes, Latitude is a fully registered Indian private limited company. We operate with all necessary permits and insurance to run outdoor education programmes for children.' },
+  { q: 'Is LookFarOutdoors a registered company?', a: 'Yes, LookFarOutdoors is a fully registered Indian private limited company. We operate with all necessary permits and insurance to run outdoor education programmes for children.' },
   { q: 'How do I book an outing for my child?', a: 'Simply fill out the inquiry form on our Contact page or message us on WhatsApp. We\'ll get back to you within 24 hours with available dates, pricing, and all the details you need.' },
   { q: 'What areas in Bangalore do you serve?', a: 'We serve all areas of Bangalore. Pick-up and drop-off points are arranged at convenient locations across the city. Most of our outdoor venues are within a 1–2 hour drive from central Bangalore.' },
   { q: 'Can I organise a private outing for a birthday or school group?', a: 'Absolutely! We love hosting birthday adventures, school field trips, and private group outings. Get in touch with the group size and preferred dates, and we\'ll create a custom itinerary just for you.' },
@@ -137,11 +137,11 @@ const FAQS = [
 
 const TIMELINE = [
   { year: '2019', title: 'The Spark', desc: 'Two childhood friends — Rahul and Nisha — run their first informal nature walk in Cubbon Park for a handful of neighbourhood kids. No website, no logo. Just a backpack full of curiosity.', accent: 'green' },
-  { year: '2020', title: 'Latitude Is Born', desc: 'Incorporated as a private limited company in Bangalore. The Little Explorers program launches officially with 18 children on the first session. Parents rave about the photo updates.', accent: 'gold' },
+  { year: '2020', title: 'LookFarOutdoors Is Born', desc: 'Incorporated as a private limited company in Bangalore. The Little Explorers program launches officially with 18 children on the first session. Parents rave about the photo updates.', accent: 'gold' },
   { year: '2021', title: 'First Adventure Program', desc: 'Junior Adventurers launches at Ramanagara. Rock climbing proves to be an instant hit. The team grows to 5 guides. A waitlist forms for the first time.', accent: 'green' },
-  { year: '2022', title: 'Going Overnight', desc: 'Outdoor Leaders debuts — Latitude\'s first overnight program. 120 children attend in the inaugural year. A full first-aid certification program is introduced for all guides.', accent: 'gold' },
+  { year: '2022', title: 'Going Overnight', desc: 'Outdoor Leaders debuts — the first LookFarOutdoors overnight program. 120 children attend in the inaugural year. A full first-aid certification program is introduced for all guides.', accent: 'gold' },
   { year: '2023', title: 'Teen Expeditions Launch', desc: 'The multi-day Teen Expeditions program brings conservation fieldwork to the curriculum. Partnerships formed with Bheemeshwari Wildlife Sanctuary and local forest departments.', accent: 'green' },
-  { year: '2024', title: '2,500 Kids & Counting', desc: 'Latitude crosses 2,500 children guided safely. The team now counts 12 certified guides. A new base camp facility opens at Savandurga, and school partnership programs begin.', accent: 'gold' },
+  { year: '2024', title: '2,500 Kids & Counting', desc: 'LookFarOutdoors crosses 2,500 children guided safely. The team now counts 12 certified guides. A new base camp facility opens at Savandurga, and school partnership programs begin.', accent: 'gold' },
 ]
 
 
@@ -319,7 +319,7 @@ export default function AboutPage() {
 
           {/* Sub text + inline stats */}
           <p className="ap-manifesto__sub" style={{ opacity: 0 }}>
-            Latitude was born in Bangalore with a simple idea — that the outdoors is the best classroom, and every child deserves to experience it.
+            LookFarOutdoors was born in Bangalore with a simple idea — that the outdoors is the best classroom, and every child deserves to experience it.
           </p>
 
           <div className="ap-manifesto__stats">
@@ -364,8 +364,8 @@ export default function AboutPage() {
           <div className="ap-story__text">
             <span className="section-label section-label--gold-dark">How It Started</span>
             <h2 className="ap-section-title">Born From a <em>Simple Idea</em></h2>
-            <p>Latitude was founded with a simple belief: that children learn best when they're outside, hands in the dirt, eyes on the sky, and hearts full of curiosity.</p>
-            <p>Growing up in Bangalore, we saw how quickly green spaces were disappearing — and with them, opportunities for kids to experience unstructured outdoor play. We started Latitude to bridge that gap: connecting city children with the incredible natural landscapes just beyond their doorstep.</p>
+            <p>LookFarOutdoors was founded with a simple belief: that children learn best when they're outside, hands in the dirt, eyes on the sky, and hearts full of curiosity.</p>
+            <p>Growing up in Bangalore, we saw how quickly green spaces were disappearing — and with them, opportunities for kids to experience unstructured outdoor play. We started LookFarOutdoors to bridge that gap: connecting city children with the incredible natural landscapes just beyond their doorstep.</p>
             <p>What began as weekend nature walks in Cubbon Park has grown into a comprehensive outdoor education programme serving hundreds of families across Bangalore.</p>
           </div>
         </div>
@@ -552,7 +552,7 @@ export default function AboutPage() {
             Trusted by 2,500+ families
           </span>
           <h2 className="ap-cta-headline">Ready to Start the <em>Adventure?</em></h2>
-          <p className="ap-cta-sub">Your child's next great story starts outdoors. Get in touch and let's plan their first Latitude experience.</p>
+          <p className="ap-cta-sub">Your child's next great story starts outdoors. Get in touch and let's plan their first LookFarOutdoors experience.</p>
           <div className="cta-btns">
             <a href="/contact" className="cta-btn-primary">
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">

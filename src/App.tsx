@@ -33,48 +33,48 @@ const TermsPage             = lazy(() => import('./components/TermsPage'))
 // Per-page meta — title + description
 const PAGE_META: Record<string, { title: string; description: string }> = {
   home: {
-    title: 'Latitude — Kids Outdoor Adventures in Bangalore',
-    description: 'Latitude offers outdoor education experiences for kids in Bangalore. Nature trails, rock climbing, survival skills & more.',
+    title: 'LookFarOutdoors — Kids Outdoor Adventures in Bangalore',
+    description: 'LookFarOutdoors offers outdoor education experiences for kids in Bangalore. Nature trails, rock climbing, survival skills & more.',
   },
   programs: {
-    title: 'Programs — Latitude',
+    title: 'Programs — LookFarOutdoors',
     description: 'Explore our four age-appropriate outdoor programs for children aged 5–16 in Bangalore.',
   },
   guides: {
-    title: 'Our Guides — Latitude',
-    description: 'Meet the expert outdoor educators and guides behind every Latitude adventure.',
+    title: 'Our Guides — LookFarOutdoors',
+    description: 'Meet the expert outdoor educators and guides behind every LookFarOutdoors adventure.',
   },
   about: {
-    title: 'About Us — Latitude',
-    description: "Learn about Latitude's mission to get Bangalore's kids outside and into nature.",
+    title: 'About Us — LookFarOutdoors',
+    description: "Learn about LookFarOutdoors' mission to get Bangalore's kids outside and into nature.",
   },
   contact: {
-    title: 'Contact Us — Latitude',
-    description: 'Book a program or get in touch with the Latitude team in Bangalore.',
+    title: 'Contact Us — LookFarOutdoors',
+    description: 'Book a program or get in touch with the LookFarOutdoors team in Bangalore.',
   },
   'little-explorers': {
-    title: 'Little Explorers (Ages 5–7) — Latitude',
+    title: 'Little Explorers (Ages 5–7) — LookFarOutdoors',
     description: 'Half-day nature walks, sensory play and animal tracking for children aged 5–7 in Bangalore.',
   },
   'junior-adventurers': {
-    title: 'Junior Adventurers (Ages 8–10) — Latitude',
+    title: 'Junior Adventurers (Ages 8–10) — LookFarOutdoors',
     description: 'Full-day rock climbing, camping and survival skills for kids aged 8–10.',
   },
   'outdoor-leaders': {
-    title: 'Outdoor Leaders (Ages 11–13) — Latitude',
+    title: 'Outdoor Leaders (Ages 11–13) — LookFarOutdoors',
     description: 'Weekend trekking and leadership development programs for kids aged 11–13.',
   },
   'teen-expeditions': {
-    title: 'Teen Expeditions (Ages 14–16) — Latitude',
+    title: 'Teen Expeditions (Ages 14–16) — LookFarOutdoors',
     description: 'Multi-day wilderness expeditions and first aid training for teenagers aged 14–16.',
   },
   privacy: {
-    title: 'Privacy Policy — Latitude',
-    description: 'Privacy policy for Latitude outdoor education programs in Bangalore.',
+    title: 'Privacy Policy — LookFarOutdoors',
+    description: 'Privacy policy for LookFarOutdoors outdoor education programs in Bangalore.',
   },
   terms: {
-    title: 'Terms of Service — Latitude',
-    description: 'Terms and conditions for Latitude outdoor education programs in Bangalore.',
+    title: 'Terms of Service — LookFarOutdoors',
+    description: 'Terms and conditions for LookFarOutdoors outdoor education programs in Bangalore.',
   },
 }
 

@@ -90,7 +90,7 @@ export default function CTA() {
 
         <div className="cta-btns">
           <a
-            href="https://wa.me/919876543210?text=Hi%20Latitude!%20I%27d%20like%20to%20know%20more."
+            href="https://wa.me/919876543210?text=Hi%20LookFarOutdoors!%20I%27d%20like%20to%20know%20more."
             target="_blank"
             rel="noopener noreferrer"
             className="cta-btn-primary"

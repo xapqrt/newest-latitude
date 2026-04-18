@@ -288,7 +288,7 @@ export default function LittleExplorersPage() {
           </div>
           <div className="pd-reviews__grid">
             {[
-              { name: 'Preethi S.', child: 'Mum of Arya, 6', stars: 5, text: 'Arya came home absolutely buzzing with excitement. She couldn\'t stop talking about the butterflies she found and the leaf prints she made. Latitude has turned her into a proper little nature lover!' },
+              { name: 'Preethi S.', child: 'Mum of Arya, 6', stars: 5, text: 'Arya came home absolutely buzzing with excitement. She couldn\'t stop talking about the butterflies she found and the leaf prints she made. LookFarOutdoors has turned her into a proper little nature lover!' },
               { name: 'Rajesh M.', child: 'Dad of Kiran, 5', stars: 5, text: 'As a first-time outdoor experience for my son, I was a bit nervous. But the guides were so warm and patient. The 1:6 ratio meant Kiran always had someone with him. He already wants to come back next weekend.' },
               { name: 'Divya K.', child: 'Mum of twins, 7', stars: 5, text: 'Both my kids went on the same session and had completely different favourite moments — one loved the bird walk, the other loved the mud play. The guides managed to engage every single child individually. Truly impressive.' },
               { name: 'Suresh P.', child: 'Dad of Ishaan, 6', stars: 4, text: 'Well organised, safe, and genuinely educational. Ishaan learned the names of five birds he\'d never noticed before. The photo updates throughout the day were a lovely touch for anxious parents like me.' },

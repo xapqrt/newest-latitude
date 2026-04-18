@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 const WA_NUMBER = '919876543210'
-const WA_TEXT = encodeURIComponent("Hi Latitude! I'd like to know more about your programs.")
+const WA_TEXT = encodeURIComponent("Hi LookFarOutdoors! I'd like to know more about your programs.")
 
 export default function WhatsAppFloat() {
   const [visible, setVisible] = useState(false)

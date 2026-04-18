@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 
-const SESSION_KEY = 'latitude_splash_shown'
+const SESSION_KEY = 'lookfaroutdoors_splash_shown'
 
 export default function SplashLoader({ onDone }: { onDone: () => void }) {
   const splashRef = useRef<HTMLDivElement>(null)
@@ -75,8 +75,12 @@ export default function SplashLoader({ onDone }: { onDone: () => void }) {
         </div>
         {/* Wordmark */}
         <div className="sl-wordmark">
-          {'LATITUDE'.split('').map((l, i) => (
-            <span key={i} className="sl-letter" style={{ opacity: 0 }}>{l}</span>
+          {'LOOKFAR'.split('').map((l, i) => (
+            <span key={`a-${i}`} className="sl-letter" style={{ opacity: 0 }}>{l}</span>
+          ))}
+          <span className="sl-wordmark__divider" aria-hidden="true"> </span>
+          {'OUTDOORS'.split('').map((l, i) => (
+            <span key={`b-${i}`} className="sl-letter sl-letter--accent" style={{ opacity: 0 }}>{l}</span>
           ))}
         </div>
         {/* Tagline */}

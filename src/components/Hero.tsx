@@ -15,12 +15,6 @@ const SCENES = [
     showButtons: true,
   },
   {
-    eyebrow: 'Real Nature. Real Skills.',
-    headline: ['Where capable kids become', 'confident leaders.'],
-    sub: 'From granite boulder climbs at Ramanagara to overnight expeditions at Bheemeshwari — every program is designed to stretch and inspire.',
-    showButtons: false,
-  },
-  {
     eyebrow: 'Your Child. Their Adventure.',
     headline: ['Four programs.', 'One north star.'],
     sub: 'Little Explorers to Teen Expeditions — age-appropriate challenges that turn every outing into a story worth telling.',
@@ -205,6 +199,29 @@ export default function Hero() {
     const heroEl = wrapRef.current
     if (!heroEl) return
 
+    const isMobile = window.matchMedia('(max-width: 768px)').matches
+    if (isMobile) {
+      done.current = true
+      currentRef.current = 0
+      setCurrent(0)
+      SCENES.forEach((_, i) => gsap.set(`.hs${i}`, { opacity: i === 0 ? 1 : 0, y: 0 }))
+
+      gsap.fromTo('.hs0 .hero-headline',
+        { opacity: 0, y: 40, clipPath: 'inset(0 0 100% 0)' },
+        { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 0.9, ease: 'power3.out', delay: 0.2 }
+      )
+      gsap.fromTo('.hs0 .hero-sub',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.45 }
+      )
+      gsap.fromTo('.hs0 .hero-btns',
+        { opacity: 0, y: 14 },
+        { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out', delay: 0.6 }
+      )
+      getLenis()?.start()
+      return
+    }
+
     const heroInView = heroEl.getBoundingClientRect().bottom > 10
 
     if (heroInView) {
@@ -341,7 +358,7 @@ export default function Hero() {
                   </svg>
                 </a>
                 <a
-                  href="https://wa.me/919876543210?text=Hi%20Latitude!"
+                  href="https://wa.me/919876543210?text=Hi%20LookFarOutdoors!"
                   target="_blank" rel="noopener noreferrer"
                   className="btn-ghost-hero"
                 >
