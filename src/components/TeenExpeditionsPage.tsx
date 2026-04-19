@@ -59,14 +59,6 @@ export default function TeenExpeditionsPage() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo('.pd-hero__back',
-        { opacity: 0, y: -16 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.2 }
-      )
-      gsap.fromTo('.pd-hero__age-badge',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', delay: 0.35 }
-      )
       gsap.fromTo('.pd-hero__headline',
         { opacity: 0, y: 50, clipPath: 'inset(0 0 100% 0)' },
         { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 1.0, ease: 'power3.out', delay: 0.5 }
@@ -129,11 +121,6 @@ export default function TeenExpeditionsPage() {
         />
         <div className="pd-hero__overlay" />
         <div className="pd-hero__content">
-          <a href="/programs" className="pd-hero__back" style={{ opacity: 0 }}>
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-            All Programs
-          </a>
-          <div className="pd-hero__age-badge" style={{ background: 'rgba(20,72,32,0.9)', opacity: 0 }}>Ages 14–16</div>
           <h1 className="pd-hero__headline" style={{ opacity: 0 }}>
             Teen <em>Expeditions</em>
           </h1>

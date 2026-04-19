@@ -53,7 +53,7 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
     description: 'Book a program or get in touch with the LookFarOutdoors team in Bangalore.',
   },
   'little-explorers': {
-    title: 'Little Explorers (Ages 5–7) — LookFarOutdoors',
+    title: 'Outdoor Education Camp - 3D2N — LookFarOutdoors',
     description: 'Half-day nature walks, sensory play and animal tracking for children aged 5–7 in Bangalore.',
   },
   'junior-adventurers': {
