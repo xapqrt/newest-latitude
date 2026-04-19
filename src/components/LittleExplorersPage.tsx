@@ -2,31 +2,32 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import '../program-detail.css'
+import overviewImage from '../assets/lookfar-1.jpg'
 
 const ACTIVITIES = [
   {
-    icon: '🌿',
+    icon: '⛰️',
     color: 'green',
-    title: 'Nature Walks',
-    text: 'Guided exploration of Bangalore\'s beautiful parks. Children learn to identify trees, birds, insects, and flowers while developing observation skills and environmental awareness.',
+    title: 'Active Exploration',
+    text: 'Rappel down rock faces and trek through rugged valleys to explore hidden caves. These active, hands-on challenges safely push physical boundaries, helping kids build lasting resilience, confidence, and self-belief.',
   },
   {
-    icon: '🐾',
+    icon: '⛺',
     color: 'gold',
-    title: 'Animal Tracking',
-    text: 'Learn to spot wildlife signs — footprints, feathers, nests, and burrows. Children develop patience and attention to detail while connecting with the creatures that share their world.',
+    title: 'Collaborative Building',
+    text: 'Working in small groups, kids tackle real-world challenges like constructing lake rafts and building wilderness huts. It is a highly engaging way to naturally develop communication, problem-solving, and teamwork.',
   },
   {
-    icon: '🎨',
+    icon: '🤝',
     color: 'green',
-    title: 'Outdoor Crafts',
-    text: 'Create beautiful art using natural materials — leaf prints, bark rubbings, flower pressing, and nature collages. Creativity meets outdoor education in every session.',
+    title: 'Connections & Reflections',
+    text: 'Beyond the daily action, evenings are spent sharing stories around the campfire and participating in open reflection circles. These quieter moments foster deep empathy, lasting friendships, and self-awareness.',
   },
   {
     icon: '🌱',
     color: 'gold',
-    title: 'Sensory Play',
-    text: 'Touch, smell, listen, and explore. Children engage all five senses as they dig in soil, splash in streams, feel bark textures, and listen to birdsong — building a lifelong connection with nature.',
+    title: 'Sensory Immersion',
+    text: 'Touch, smell, listen, and explore. Kids engage all five senses as they dig in soil, splash in streams, feel bark textures, and listen to birdsong, building a lifelong connection with nature.',
   },
 ]
 
@@ -41,7 +42,7 @@ const SCHEDULE = [
 const SAFETY = [
   { title: 'Background-Verified Guides', text: 'Every guide undergoes thorough background checks and holds valid certifications.' },
   { title: 'First Aid on Site', text: 'Full first aid kit and trained first responder present at every session.' },
-  { title: '1:6 Guide Ratio', text: 'Extra supervision for the youngest explorers, ensuring individual attention.' },
+  { title: '1:3 Guide Ratio', text: 'A high-support setup ensures every child gets close supervision and personal coaching.' },
   { title: 'Live Updates for Parents', text: 'Photo and text updates throughout the session so you always know your child is safe and happy.' },
   { title: 'Parents Welcome', text: 'For this age group, parents are welcome to accompany their child on the session.' },
   { title: 'Weather Prepared', text: 'Shaded rest areas, rain plans, and full rescheduling in case of severe weather.' },
@@ -148,7 +149,7 @@ export default function LittleExplorersPage() {
             Outdoor Education <em>Camp - 3D2N</em>
           </h1>
           <p className="pd-hero__sub" style={{ opacity: 0 }}>
-            An introduction to the wonders of the natural world through sensory play, guided nature walks, and creative outdoor crafts.
+            Blending hands-on learning with real outdoor adventure. Kids tackle active wilderness challenges to build confidence and real-world resilience.
           </p>
         </div>
         <div className="pd-hero__wave">
@@ -162,10 +163,10 @@ export default function LittleExplorersPage() {
       <section className="pd-stats">
         <div className="pd-stats__grid">
           {[
-            { icon: '⏱', num: '3D2N', label: '' },
+            { icon: '⏱', num: '3 Days, 2 Nights', label: '' },
             { icon: '👥', num: 'Max 18', label: 'Kids Per Group' },
             { icon: '🧑‍🏫', num: '1:3', label: 'Guide-to-Child Ratio' },
-            { icon: '📍', num: 'Kanakpura', label: '' },
+            { icon: '📍', num: 'Kanakapura', label: '' },
           ].map((s, i) => (
             <div key={i} className="pd-stat-tile" style={{ opacity: 0 }}>
               <span className="pd-stat-tile__icon">{s.icon}</span>
@@ -183,18 +184,15 @@ export default function LittleExplorersPage() {
             <span className="pd-overview__label">Program Overview</span>
             <h2 className="pd-overview__title">Where Curiosity<br/>Meets <em>Nature</em></h2>
             <p className="pd-overview__text">
-              Little Explorers is designed for the youngest adventurers — children aged 5 to 7 who are just beginning to discover the natural world around them.
+              This camp is designed to give kids (ages 7 to 12) the space to push their boundaries through real, hands-on adventure. From building rafts together to rappelling down rock faces and exploring valleys, the days are packed with active outdoor challenges that test their physical limits.
             </p>
             <p className="pd-overview__text">
-              Through hands-on sensory activities, guided nature walks, and creative crafts made from natural materials, your child will develop a deep sense of wonder and respect for the environment.
-            </p>
-            <p className="pd-overview__text">
-              Every session is led by certified guides trained in early childhood outdoor education, with a 1:6 guide-to-child ratio to ensure every child gets personal attention and care.
+              Beyond the thrills, we also focus deeply on how kids connect and grow. Through collaborative camp planning, open-ended team games, and daily reflection circles, they naturally develop vital soft skills like communication, empathy, and problem-solving. With a dedicated 1:3 guide-to-child ratio, every child receives the personalised support needed to build lasting confidence.
             </p>
           </div>
           <div className="pd-overview__img" style={{ opacity: 0 }}>
             <img
-              src="https://images.pexels.com/photos/296234/pexels-photo-296234.jpeg?auto=compress&cs=tinysrgb&w=900"
+              src={overviewImage}
               alt="Young children exploring nature in Bangalore"
               loading="lazy"
             />
@@ -275,10 +273,10 @@ export default function LittleExplorersPage() {
           </div>
           <div className="pd-reviews__grid">
             {[
-              { name: 'Preethi S.', child: 'Mum of Arya, 6', stars: 5, text: 'Arya came home absolutely buzzing with excitement. She couldn\'t stop talking about the butterflies she found and the leaf prints she made. LookFarOutdoors has turned her into a proper little nature lover!' },
-              { name: 'Rajesh M.', child: 'Dad of Kiran, 5', stars: 5, text: 'As a first-time outdoor experience for my son, I was a bit nervous. But the guides were so warm and patient. The 1:6 ratio meant Kiran always had someone with him. He already wants to come back next weekend.' },
-              { name: 'Divya K.', child: 'Mum of twins, 7', stars: 5, text: 'Both my kids went on the same session and had completely different favourite moments — one loved the bird walk, the other loved the mud play. The guides managed to engage every single child individually. Truly impressive.' },
-              { name: 'Suresh P.', child: 'Dad of Ishaan, 6', stars: 4, text: 'Well organised, safe, and genuinely educational. Ishaan learned the names of five birds he\'d never noticed before. The photo updates throughout the day were a lovely touch for anxious parents like me.' },
+              { name: 'Preethi S.', child: 'Mum of Arya, 9', stars: 5, text: 'Arya came home absolutely buzzing with excitement. She could not stop talking about the rappelling wall and rafting challenge. LookFarOutdoors has really helped her come out of her shell.' },
+              { name: 'Rajesh M.', child: 'Dad of Kiran, 8', stars: 5, text: 'As a first outdoor camp experience for my son, I was a bit nervous. But the guides were warm, structured, and highly attentive. The 1:3 ratio meant Kiran always had the support he needed.' },
+              { name: 'Divya K.', child: 'Mum of twins, 11', stars: 5, text: 'Both my kids came back with completely different favourite moments, but the same confidence boost. One loved camp planning and teamwork, the other loved the physical challenges. Truly impressive facilitation.' },
+              { name: 'Suresh P.', child: 'Dad of Ishaan, 10', stars: 4, text: 'Well organised, safe, and genuinely developmental. Ishaan returned more confident and noticeably better at communicating in group situations. The photo updates were a great reassurance for parents.' },
             ].map((r, i) => (
               <div key={i} className="pd-review-card">
                 <div className="pd-review-card__stars">

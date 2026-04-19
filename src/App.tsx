@@ -54,7 +54,7 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
   },
   'little-explorers': {
     title: 'Outdoor Education Camp - 3D2N — LookFarOutdoors',
-    description: 'Half-day nature walks, sensory play and animal tracking for children aged 5–7 in Bangalore.',
+    description: 'Outdoor education camp with hands-on wilderness challenges for kids aged 7–12 in Kanakapura, guided at a 1:3 ratio.',
   },
   'junior-adventurers': {
     title: 'Junior Adventurers (Ages 8–10) — LookFarOutdoors',
