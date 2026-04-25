@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import '../program-detail.css'
@@ -30,15 +30,130 @@ const ACTIVITIES = [
   },
 ]
 
-const SCHEDULE = [
-  { time: '7:00 AM — Arrival & Warm-Up', color: 'green', dot: 'green', desc: 'Meet at the base camp near Ramanagara. Safety briefing, gear distribution, warm-up games, and team formation.' },
-  { time: '8:00 AM — Rock Climbing Session', color: 'green', dot: 'green', desc: 'Guided climbing on natural rock faces. Every child climbs at their own pace with belaying support and encouragement.' },
-  { time: '10:30 AM — Snack & Free Exploration', color: 'gold', dot: 'gold', desc: 'Energy refuel with healthy snacks. Kids explore the area, skip rocks, and socialise in a natural playground.' },
-  { time: '11:00 AM — Team Challenge', color: 'green', dot: 'green', desc: 'Obstacle course and team problem-solving missions. Communication, trust-building, and collaborative strategy.' },
-  { time: '12:30 PM — Lunch', color: 'gold', dot: 'gold', desc: 'Nutritious lunch served outdoors. Vegetarian and Jain options always available. Rest and recharge time.' },
-  { time: '1:30 PM — Navigation & Camping Skills', color: 'green', dot: 'green', desc: 'Compass introduction, treasure hunt orienteering, tent setup practice, and basic fire safety demonstration.' },
-  { time: '3:00 PM — Wrap-Up & Awards', color: 'muted', dot: 'dark', desc: 'Group reflection circle, adventure badges, certificates, and photo sharing. Pick-up by 3:30 PM.' },
-]
+const SCHEDULE_DAYS = [
+  {
+    tab: 'Day 1',
+    title: 'Day 1: Arrival & Group Cohesion',
+    items: [
+      {
+        time: '06:00 AM — DEPARTURE & BASECAMP ARRIVAL',
+        desc: 'Travel to the camp, welcome drinks, and basecamp orientation. (Breakfast at 9:00 AM).',
+      },
+      {
+        time: '10:00 AM — TEAM-BUILDING CHALLENGES',
+        desc: 'Ice-breaking games and open time to help the kids connect and make friends.',
+      },
+      {
+        time: '02:00 PM — LAKE RAFT-BUILDING',
+        desc: 'After lunch, kids work in small teams to construct functional rafts on Hosadoddi Lake.',
+      },
+      {
+        time: '06:30 PM — WILDERNESS SKILLS',
+        desc: 'Evening snacks followed by hands-on challenges like hut building, bridge construction, or camp planning.',
+      },
+      {
+        time: '09:00 PM — CAMPFIRE & STORYTELLING',
+        desc: 'Dinner followed by group games and storytelling around the fire before lights out.',
+      },
+    ],
+  },
+  {
+    tab: 'Day 2',
+    title: 'Day 2: Adventure & Skills',
+    items: [
+      {
+        time: '06:30 AM — MORNING MOVEMENT',
+        desc: 'Wake up and start the day with guided yoga and movement, followed by breakfast.',
+      },
+      {
+        time: '08:30 AM — ROCK RAPPELLING',
+        desc: 'Safely navigating rock faces to push physical boundaries and build confidence.',
+      },
+      {
+        time: '02:00 PM — AFTERNOON SKILL BLOCKS',
+        desc: 'Post-lunch outdoor challenges like treasure hunts and tower-building.',
+      },
+      {
+        time: '06:30 PM — REFLECTION CIRCLE',
+        desc: 'Unstructured play and guided group reflection to process the day\'s experiences.',
+      },
+      {
+        time: '09:00 PM — CAMPFIRE CHRONICLES',
+        desc: 'Dinner, evening group games, and fireside storytelling under the stars.',
+      },
+    ],
+  },
+  {
+    tab: 'Day 3',
+    title: 'Day 3: Creative Activities & Team Challenges',
+    items: [
+      {
+        time: '06:30 AM — MORNING MOVEMENT',
+        desc: 'Start the day with a guided yoga or dance session, followed by breakfast.',
+      },
+      {
+        time: '08:30 AM — NATURE IMMERSION',
+        desc: 'Hands-on outdoor blocks—options include bird watching, tree tagging, obstacle courses, or lake games.',
+      },
+      {
+        time: '02:00 PM — POTTERY & CRAFTING',
+        desc: 'After lunch and quiet time, kids engage in tactile, creative expression through pottery.',
+      },
+      {
+        time: '06:00 PM — TEAM-BUILDING ACTIVITIES',
+        desc: 'Evening snacks followed by collaborative group challenges to strengthen camp friendships.',
+      },
+      {
+        time: '08:00 PM — DINNER & REST',
+        desc: 'A hearty dinner to refuel before an early lights-out to prepare for tomorrow\'s trek.',
+      },
+    ],
+  },
+  {
+    tab: 'Day 4',
+    title: 'Day 4: Trek Day',
+    items: [
+      {
+        time: '06:30 AM — MORNING FITNESS',
+        desc: 'An energizing start to the day, followed by breakfast.',
+      },
+      {
+        time: '08:30 AM — VALLEY TREK & CAVE EXPLORATION',
+        desc: 'An 8 km guided trek through Devaragudda Valley to explore hidden caves.',
+      },
+      {
+        time: '02:00 PM — UNSTRUCTURED EXPLORATION',
+        desc: 'Post-lunch open time for kids to relax, play, and enjoy the outdoors at their own pace.',
+      },
+      {
+        time: '07:00 PM — EVENING WIND-DOWN',
+        desc: 'Light activities and dinner, followed by a cozy campfire to share stories from the trek.',
+      },
+    ],
+  },
+  {
+    tab: 'Day 5',
+    title: 'Day 5: Departure',
+    items: [
+      {
+        time: '06:30 AM — MORNING DANCE',
+        desc: 'A fun, upbeat start to the final morning, followed by breakfast.',
+      },
+      {
+        time: '08:30 AM — MUD GAMES',
+        desc: 'High-energy, messy outdoor fun and games before washing up.',
+      },
+      {
+        time: '12:30 PM — CLOSING CIRCLE',
+        desc: 'Group review and shared reflection on the week\'s experiences.',
+      },
+      {
+        time: '02:00 PM — FAREWELL LUNCH & DEPARTURE',
+        desc: 'Final camp meal together, followed by packing up and safe travel back to the drop-off point.',
+      },
+    ],
+  },
+] as const
 
 const SAFETY = [
   { title: 'Verified Instructors', text: 'Every instructor undergoes thorough background checks and holds valid certifications.' },
@@ -50,6 +165,8 @@ const SAFETY = [
 
 export default function JuniorAdventurersPage() {
   const pageRef = useRef<HTMLDivElement>(null)
+  const [activeDayTab, setActiveDayTab] = useState<(typeof SCHEDULE_DAYS)[number]['tab']>(SCHEDULE_DAYS[0].tab)
+  const activeDay = SCHEDULE_DAYS.find((day) => day.tab === activeDayTab) ?? SCHEDULE_DAYS[0]
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -195,16 +312,37 @@ export default function JuniorAdventurersPage() {
             <span className="pd-section-label pd-section-label--green">Schedule</span>
             <h2 className="pd-section-title">A Typical Day</h2>
           </div>
-          <div className="pd-timeline">
-            {SCHEDULE.map((item, i) => (
-              <div key={i} className="pd-timeline-item" style={{ opacity: 0 }}>
-                <div className={`pd-timeline-dot pd-timeline-dot--${item.dot}`} />
-                <div>
-                  <p className={`pd-timeline-time pd-timeline-time--${item.color}`}>{item.time}</p>
-                  <p className="pd-timeline-desc">{item.desc}</p>
+          <div className="pd-schedule-tabs" role="tablist" aria-label="Camp itinerary by day">
+            {SCHEDULE_DAYS.map((day) => {
+              const isActive = day.tab === activeDayTab
+              return (
+                <button
+                  key={day.tab}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`pd-schedule-tab${isActive ? ' pd-schedule-tab--active' : ''}`}
+                  onClick={() => setActiveDayTab(day.tab)}
+                >
+                  {day.tab}
+                </button>
+              )
+            })}
+          </div>
+          <div key={activeDay.tab} className="pd-timeline-panel">
+            <div className="pd-timeline">
+              <p className="pd-timeline-day-label">{activeDay.title}</p>
+              {activeDay.items.map((item) => (
+                <div key={item.time} className="pd-timeline-item">
+                  <div className="pd-timeline-dot pd-timeline-dot--green" />
+                  <div>
+                    <p className="pd-timeline-time pd-timeline-time--green">{item.time}</p>
+                    <p className="pd-timeline-desc">{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <p className="pd-schedule-footnote">*Timings are indicative and can be adjusted based on group needs and locale.</p>
           </div>
         </div>
       </section>
@@ -216,7 +354,7 @@ export default function JuniorAdventurersPage() {
             <span className="pd-section-label pd-section-label--green">Your Peace of Mind</span>
             <h2 className="pd-section-title">Safety &amp; Care</h2>
           </div>
-          <div className="pd-safety__grid">
+          <div className="pd-safety__grid pd-safety__grid--five">
             {SAFETY.map((s, i) => (
               <div key={i} className="pd-safety-card" style={{ opacity: 0 }}>
                 <div className="pd-safety-card__icon">
@@ -237,14 +375,12 @@ export default function JuniorAdventurersPage() {
         <div className="pd-reviews__inner">
           <div className="pd-section-header">
             <span className="pd-section-label pd-section-label--gold">Parent Reviews</span>
-            <h2 className="pd-section-title">What Families Are <em>Saying</em></h2>
+            <h2 className="pd-section-title">What Parents Are <em>Saying</em></h2>
           </div>
           <div className="pd-reviews__grid">
             {[
-              { name: 'Anita R.', child: 'Mum of Rohan, 9', stars: 5, text: 'Rohan came back with dirt on his knees, a massive smile, and more stories than I could count. He said climbing the rock was the "best thing he\'d ever done." The guides were brilliant — encouraging but never pushy.' },
-              { name: 'Vinod N.', child: 'Dad of Priya, 10', stars: 5, text: 'My daughter is not typically an outdoorsy kid, but she was absolutely hooked by the end of the day. The team challenge in the afternoon was her favourite — she\'s already asking when she can come back for another one.' },
-              { name: 'Meena T.', child: 'Mum of Dev, 8', stars: 5, text: 'The attention to safety was what stood out for me. Every activity was carefully managed, the equipment was clearly well-maintained, and the guides were genuinely engaged with every single child. Highly recommended.' },
-              { name: 'Kartik L.', child: 'Dad of Aditya, 9', stars: 4, text: 'A really well-run program. Aditya came home tired in the best way possible and immediately asked when the next one was. The WhatsApp photo updates throughout the day were a great touch — kept us in the loop.' },
+              { name: 'Garima S.', child: 'Mum of Arya, 9', stars: 5, text: 'Arya came home absolutely buzzing with excitement. She could not stop talking about the rappelling wall and rafting challenge. LookFarOutdoors has really helped her come out of her shell.' },
+              { name: 'Bishwadeep', child: 'Dad of Kiran, 8', stars: 5, text: 'As a first outdoor camp experience for my son, I was a bit nervous. But the guides were warm, structured, and highly attentive. The 1:3 ratio meant Kiran always had the support he needed.' },
             ].map((r, i) => (
               <div key={i} className="pd-review-card">
                 <div className="pd-review-card__stars">
