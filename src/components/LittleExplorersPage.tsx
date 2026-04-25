@@ -363,10 +363,8 @@ export default function LittleExplorersPage() {
           </div>
           <div className="pd-reviews__grid">
             {[
-              { name: 'Preethi S.', child: 'Mum of Arya, 9', stars: 5, text: 'Arya came home absolutely buzzing with excitement. She could not stop talking about the rappelling wall and rafting challenge. LookFarOutdoors has really helped her come out of her shell.' },
-              { name: 'Rajesh M.', child: 'Dad of Kiran, 8', stars: 5, text: 'As a first outdoor camp experience for my son, I was a bit nervous. But the guides were warm, structured, and highly attentive. The 1:3 ratio meant Kiran always had the support he needed.' },
-              { name: 'Divya K.', child: 'Mum of twins, 11', stars: 5, text: 'Both my kids came back with completely different favourite moments, but the same confidence boost. One loved camp planning and teamwork, the other loved the physical challenges. Truly impressive facilitation.' },
-              { name: 'Suresh P.', child: 'Dad of Ishaan, 10', stars: 4, text: 'Well organised, safe, and genuinely developmental. Ishaan returned more confident and noticeably better at communicating in group situations. The photo updates were a great reassurance for parents.' },
+              { name: 'Garima S.', child: 'Mum of Arya, 9', stars: 5, text: 'Arya came home absolutely buzzing with excitement. She could not stop talking about the rappelling wall and rafting challenge. LookFarOutdoors has really helped her come out of her shell.' },
+              { name: 'Bishwadeep', child: 'Dad of Kiran, 8', stars: 5, text: 'As a first outdoor camp experience for my son, I was a bit nervous. But the guides were warm, structured, and highly attentive. The 1:3 ratio meant Kiran always had the support he needed.' },
             ].map((r, i) => (
               <div key={i} className="pd-review-card">
                 <div className="pd-review-card__stars">
