@@ -8,7 +8,7 @@ export default function Navbar() {
   const lastY = useRef(0)
 
   const path = window.location.pathname
-  const PROGRAM_SUBROUTES = ['/little-explorers', '/junior-adventurers', '/outdoor-leaders', '/teen-expeditions']
+  const PROGRAM_SUBROUTES = ['/little-explorers', '/junior-adventurers']
   const isActive = (href: string) => {
     if (href === '/') return path === '/'
     if (href === '/programs') return path.startsWith('/programs') || PROGRAM_SUBROUTES.includes(path)

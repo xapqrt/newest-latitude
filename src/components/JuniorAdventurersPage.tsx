@@ -242,7 +242,7 @@ export default function JuniorAdventurersPage() {
           <div className="pd-reviews__grid">
             {[
               { name: 'Anita R.', child: 'Mum of Rohan, 9', stars: 5, text: 'Rohan came back with dirt on his knees, a massive smile, and more stories than I could count. He said climbing the rock was the "best thing he\'d ever done." The guides were brilliant — encouraging but never pushy.' },
-              { name: 'Vinod N.', child: 'Dad of Priya, 10', stars: 5, text: 'My daughter is not typically an outdoorsy kid, but she was absolutely hooked by the end of the day. The team challenge in the afternoon was her favourite — she\'s now asking to join the Outdoor Leaders program.' },
+              { name: 'Vinod N.', child: 'Dad of Priya, 10', stars: 5, text: 'My daughter is not typically an outdoorsy kid, but she was absolutely hooked by the end of the day. The team challenge in the afternoon was her favourite — she\'s already asking when she can come back for another one.' },
               { name: 'Meena T.', child: 'Mum of Dev, 8', stars: 5, text: 'The attention to safety was what stood out for me. Every activity was carefully managed, the equipment was clearly well-maintained, and the guides were genuinely engaged with every single child. Highly recommended.' },
               { name: 'Kartik L.', child: 'Dad of Aditya, 9', stars: 4, text: 'A really well-run program. Aditya came home tired in the best way possible and immediately asked when the next one was. The WhatsApp photo updates throughout the day were a great touch — kept us in the loop.' },
             ].map((r, i) => (

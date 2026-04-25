@@ -24,8 +24,6 @@ const AboutPage             = lazy(() => import('./components/AboutPage'))
 const ContactPage           = lazy(() => import('./components/ContactPage'))
 const LittleExplorersPage   = lazy(() => import('./components/LittleExplorersPage'))
 const JuniorAdventurersPage = lazy(() => import('./components/JuniorAdventurersPage'))
-const OutdoorLeadersPage    = lazy(() => import('./components/OutdoorLeadersPage'))
-const TeenExpeditionsPage   = lazy(() => import('./components/TeenExpeditionsPage'))
 const NotFoundPage          = lazy(() => import('./components/NotFoundPage'))
 const PrivacyPage           = lazy(() => import('./components/PrivacyPage'))
 const TermsPage             = lazy(() => import('./components/TermsPage'))
@@ -38,7 +36,7 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
   },
   programs: {
     title: 'Programs — LookFarOutdoors',
-    description: 'Explore our four age-appropriate outdoor programs for children aged 5–16 in Bangalore.',
+    description: 'Explore our age-appropriate outdoor programs for children in Bangalore.',
   },
   guides: {
     title: 'Our Guides — LookFarOutdoors',
@@ -109,8 +107,6 @@ function usePage() {
   const path = window.location.pathname
   if (path.includes('little-explorers'))   return 'little-explorers'
   if (path.includes('junior-adventurers')) return 'junior-adventurers'
-  if (path.includes('outdoor-leaders'))    return 'outdoor-leaders'
-  if (path.includes('teen-expeditions'))   return 'teen-expeditions'
   if (path.includes('programs'))           return 'programs'
   if (path.includes('guides'))             return 'guides'
   if (path.includes('about'))              return 'about'
@@ -154,8 +150,6 @@ function AppContent() {
     switch (page) {
       case 'little-explorers':    return <PageWrapper><LittleExplorersPage /></PageWrapper>
       case 'junior-adventurers':  return <PageWrapper><JuniorAdventurersPage /></PageWrapper>
-      case 'outdoor-leaders':     return <PageWrapper><OutdoorLeadersPage /></PageWrapper>
-      case 'teen-expeditions':    return <PageWrapper><TeenExpeditionsPage /></PageWrapper>
       case 'programs':            return <PageWrapper><ProgramsPage /></PageWrapper>
       case 'guides':              return <PageWrapper><GuidesPage /></PageWrapper>
       case 'about':               return <PageWrapper><AboutPage /></PageWrapper>

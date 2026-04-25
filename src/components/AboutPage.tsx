@@ -144,6 +144,14 @@ const TIMELINE = [
   { year: '2024', title: '2,500 Kids & Counting', desc: 'LookFarOutdoors crosses 2,500 children guided safely. The team now counts 12 certified guides. A new base camp facility opens at Savandurga, and school partnership programs begin.', accent: 'gold' },
 ]
 
+const HIDDEN_PROGRAM_NAMES = ['Outdoor Leaders', 'Teen Expeditions']
+
+const VISIBLE_LOCATIONS = LOCATIONS.filter((location) => !HIDDEN_PROGRAM_NAMES.includes(location.tag))
+
+const VISIBLE_TIMELINE = TIMELINE.filter((item) => {
+  return HIDDEN_PROGRAM_NAMES.every((name) => !item.title.includes(name) && !item.desc.includes(name))
+})
+
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
@@ -380,7 +388,7 @@ export default function AboutPage() {
             <p className="ap-section-sub">From a single nature walk to Bangalore's most trusted outdoor education company.</p>
           </div>
           <div className="ap-timeline">
-            {TIMELINE.map((item, i) => (
+            {VISIBLE_TIMELINE.map((item, i) => (
               <div key={i} className={`ap-timeline-item ap-timeline-item--${item.accent}`}>
                 <div className="ap-timeline-item__year">{item.year}</div>
                 <div className="ap-timeline-item__connector" aria-hidden="true" />
@@ -499,7 +507,7 @@ export default function AboutPage() {
             <p className="ap-section-sub">Bangalore is uniquely blessed — incredible natural spaces are just a short drive from the city.</p>
           </div>
           <div className="ap-locations-grid">
-            {LOCATIONS.map((loc, i) => (
+            {VISIBLE_LOCATIONS.map((loc, i) => (
               <div key={i} className={`ap-location-card ap-location-card--${loc.accent}`}>
                 <div className="ap-location-card__glyph">
                   <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36">

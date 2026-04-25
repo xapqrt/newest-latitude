@@ -12,6 +12,10 @@ const PROGRAMS_LIST = [
   { value: 'teen-expeditions', label: 'Teen Expeditions', age: 'Ages 14–16', duration: '2–3 Days', location: 'Bheemeshwari / Kanakapura' },
 ]
 
+const HIDDEN_PROGRAM_VALUES = new Set(['outdoor-leaders', 'teen-expeditions'])
+
+const VISIBLE_PROGRAMS_LIST = PROGRAMS_LIST.filter((program) => !HIDDEN_PROGRAM_VALUES.has(program.value))
+
 const TRUST_BADGES = [
   { label: '100% Secure', accent: 'green', icon: (
     <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
@@ -200,7 +204,7 @@ function BookingForm() {
             <p className="cp-form-step__sub">Select the program that best fits your child's age</p>
             <div className="cp-form-fields">
               <div className="cp-program-grid">
-                {PROGRAMS_LIST.map(p => (
+                {VISIBLE_PROGRAMS_LIST.map(p => (
                   <label key={p.value} className={`cp-program-option${form.program === p.value ? ' cp-program-option--selected' : ''}`}>
                     <input type="radio" name="program" value={p.value}
                       checked={form.program === p.value}

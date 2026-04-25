@@ -4386,7 +4386,8 @@ a { text-decoration: none; color: inherit; }
 }
 .pp-dates-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 420px));
+  justify-content: center;
   gap: 24px;
   margin-top: 48px;
 }

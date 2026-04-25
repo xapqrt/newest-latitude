@@ -1,4 +1,15 @@
 export default function Footer() {
+  const HIDDEN_PROGRAM_PATHS = new Set(['/outdoor-leaders', '/teen-expeditions'])
+
+  const FOOTER_PROGRAM_LINKS = [
+    { href: '/little-explorers', label: 'Little Explorers (5–7)' },
+    { href: '/junior-adventurers', label: 'Junior Adventurers (8–10)' },
+    { href: '/outdoor-leaders', label: 'Outdoor Leaders (11–13)' },
+    { href: '/teen-expeditions', label: 'Teen Expeditions (14–16)' },
+  ]
+
+  const visibleFooterProgramLinks = FOOTER_PROGRAM_LINKS.filter((program) => !HIDDEN_PROGRAM_PATHS.has(program.href))
+
   return (
     <footer className="footer">
       {/* SVG texture overlay */}
@@ -107,10 +118,9 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Programs</h4>
             <ul>
-              <li><a href="/little-explorers">Little Explorers (5–7)</a></li>
-              <li><a href="/junior-adventurers">Junior Adventurers (8–10)</a></li>
-              <li><a href="/outdoor-leaders">Outdoor Leaders (11–13)</a></li>
-              <li><a href="/teen-expeditions">Teen Expeditions (14–16)</a></li>
+              {visibleFooterProgramLinks.map((program) => (
+                <li key={program.href}><a href={program.href}>{program.label}</a></li>
+              ))}
             </ul>
           </div>
 

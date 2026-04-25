@@ -16,8 +16,8 @@ const SCENES = [
   },
   {
     eyebrow: 'Your Child. Their Adventure.',
-    headline: ['Four programs.', 'One north star.'],
-    sub: 'Little Explorers to Teen Expeditions — age-appropriate challenges that turn every outing into a story worth telling.',
+    headline: ['Outdoor programs.', 'One north star.'],
+    sub: 'Age-appropriate challenges that turn every outing into a story worth telling.',
     showButtons: true,
   },
 ]

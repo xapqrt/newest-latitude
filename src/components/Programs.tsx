@@ -45,6 +45,10 @@ const PROGRAMS = [
   },
 ]
 
+const HIDDEN_PROGRAM_HREFS = new Set(['/outdoor-leaders', '/teen-expeditions'])
+
+const VISIBLE_PROGRAMS = PROGRAMS.filter((program) => !HIDDEN_PROGRAM_HREFS.has(program.href))
+
 export default function Programs() {
   const sectionRef = useRef<HTMLElement>(null)
   const trackWrapRef = useRef<HTMLDivElement>(null)
@@ -223,7 +227,7 @@ export default function Programs() {
 
       <div ref={trackWrapRef} className="programs-track-wrap">
         <div ref={trackRef} className="programs-track">
-          {PROGRAMS.map((p, i) => (
+          {VISIBLE_PROGRAMS.map((p, i) => (
             <a
               key={i}
               href={p.href}

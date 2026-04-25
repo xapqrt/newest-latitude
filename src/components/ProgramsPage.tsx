@@ -213,6 +213,12 @@ const FAQS = [
   },
 ]
 
+const HIDDEN_PROGRAM_IDS = new Set(['outdoor-leaders', 'teen-expeditions'])
+
+const VISIBLE_PROGRAMS = PROGRAMS.filter((program) => !HIDDEN_PROGRAM_IDS.has(program.id))
+
+const VISIBLE_UPCOMING_DATES = UPCOMING_DATES.filter((item) => !HIDDEN_PROGRAM_IDS.has(item.programId))
+
 // ─────────────────────────────────────────────
 // Accordion item
 // ─────────────────────────────────────────────
@@ -447,7 +453,7 @@ export default function ProgramsPage() {
         </div>
 
         <div className="pp-programs-inner">
-          {PROGRAMS.map((p, i) => (
+          {VISIBLE_PROGRAMS.map((p, i) => (
             <ProgramRow key={p.id} p={p} reverse={i % 2 !== 0} />
           ))}
         </div>
@@ -462,7 +468,7 @@ export default function ProgramsPage() {
             <p className="pp-section-sub">Reserve your child's spot — popular sessions fill fast.</p>
           </div>
           <div className="pp-dates-grid">
-            {UPCOMING_DATES.map(prog => (
+            {VISIBLE_UPCOMING_DATES.map(prog => (
               <div key={prog.programId} className="pp-dates-card">
                 <div className="pp-dates-card__header" style={{ borderColor: prog.ageColor }}>
                   <span className="pp-dates-card__dot" style={{ background: prog.ageColor }} />
@@ -499,14 +505,14 @@ export default function ProgramsPage() {
           <div className="pp-section-header">
             <span className="section-label section-label--gold-dark">At a Glance</span>
             <h2 className="pp-section-title">Which Program is Right?</h2>
-            <p className="pp-section-sub">Compare all four programs side-by-side to find the perfect fit.</p>
+            <p className="pp-section-sub">Compare our currently available programs side-by-side to find the perfect fit.</p>
           </div>
           <div className="pp-compare-table-wrap">
             <table className="pp-compare-table">
               <thead>
                 <tr>
                   <th className="pp-compare-th pp-compare-th--label">Feature</th>
-                  {PROGRAMS.map(p => (
+                  {VISIBLE_PROGRAMS.map(p => (
                     <th key={p.id} className="pp-compare-th">
                       <span className="pp-compare-th__badge" style={{ background: p.ageColor }}>{p.age}</span>
                       <span className="pp-compare-th__name">{p.title}</span>
@@ -515,28 +521,28 @@ export default function ProgramsPage() {
                 </tr>
               </thead>
               <tbody>
-                {[
-                  { label: 'Age Group',      icon: '👧', vals: ['5–7 yrs', '8–10 yrs', '11–13 yrs', '14–16 yrs'] },
-                  { label: 'Duration',       icon: '⏱',  vals: ['Half Day (4 hrs)', 'Full Day (8 hrs)', 'Weekend (2 days)', '2–3 Days'] },
-                  { label: 'Location',       icon: '📍', vals: ['Cubbon Park / Lalbagh', 'Ramanagara', 'Savandurga', 'Bheemeshwari'] },
-                  { label: 'Group Size',     icon: '👥', vals: ['Max 12 kids', 'Max 15 kids', 'Max 15 kids', 'Max 12 teens'] },
-                  { label: 'Difficulty',     icon: '📊', vals: ['Easy', 'Moderate', 'Challenging', 'Advanced'] },
-                  { label: 'Key Activity',   icon: '🌿', vals: ['Nature Walks & Crafts', 'Rock Climbing & Camping', 'Trekking & Navigation', 'Multi-Day Expedition'] },
-                  { label: 'Overnight Stay', icon: '🏕', vals: ['No', 'No', 'Yes (1 night)', 'Yes (1–2 nights)'] },
-                ].map((row, ri) => (
-                  <tr key={ri} className={`pp-compare-row${ri % 2 === 0 ? ' pp-compare-row--alt' : ''}`}>
-                    <td className="pp-compare-td pp-compare-td--label">
-                      <span className="pp-compare-td__icon">{row.icon}</span>
-                      {row.label}
-                    </td>
-                    {row.vals.map((v, ci) => (
-                      <td key={ci} className="pp-compare-td">{v}</td>
-                    ))}
-                  </tr>
-                ))}
+                  {[
+                    { label: 'Age Group',      icon: '👧', vals: ['5–7 yrs', '8–10 yrs', '11–13 yrs', '14–16 yrs'] },
+                    { label: 'Duration',       icon: '⏱',  vals: ['Half Day (4 hrs)', 'Full Day (8 hrs)', 'Weekend (2 days)', '2–3 Days'] },
+                    { label: 'Location',       icon: '📍', vals: ['Cubbon Park / Lalbagh', 'Ramanagara', 'Savandurga', 'Bheemeshwari'] },
+                    { label: 'Group Size',     icon: '👥', vals: ['Max 12 kids', 'Max 15 kids', 'Max 15 kids', 'Max 12 teens'] },
+                    { label: 'Difficulty',     icon: '📊', vals: ['Easy', 'Moderate', 'Challenging', 'Advanced'] },
+                    { label: 'Key Activity',   icon: '🌿', vals: ['Nature Walks & Crafts', 'Rock Climbing & Camping', 'Trekking & Navigation', 'Multi-Day Expedition'] },
+                    { label: 'Overnight Stay', icon: '🏕', vals: ['No', 'No', 'Yes (1 night)', 'Yes (1–2 nights)'] },
+                  ].map((row, ri) => (
+                    <tr key={ri} className={`pp-compare-row${ri % 2 === 0 ? ' pp-compare-row--alt' : ''}`}>
+                      <td className="pp-compare-td pp-compare-td--label">
+                        <span className="pp-compare-td__icon">{row.icon}</span>
+                        {row.label}
+                      </td>
+                      {row.vals.filter((_, ci) => !HIDDEN_PROGRAM_IDS.has(PROGRAMS[ci].id)).map((v, ci) => (
+                        <td key={ci} className="pp-compare-td">{v}</td>
+                      ))}
+                    </tr>
+                  ))}
                 <tr className="pp-compare-row pp-compare-row--cta">
                   <td className="pp-compare-td pp-compare-td--label"></td>
-                  {PROGRAMS.map(p => (
+                  {VISIBLE_PROGRAMS.map(p => (
                     <td key={p.id} className="pp-compare-td pp-compare-td--action">
                       <a href={p.href} className="pp-compare-link" style={{ background: p.ageColor }}>
                         View Program
