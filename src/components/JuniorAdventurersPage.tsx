@@ -5,28 +5,28 @@ import '../program-detail.css'
 
 const ACTIVITIES = [
   {
-    icon: '🧗',
+    icon: '⛰️',
     color: 'green',
-    title: 'Rock Climbing',
-    text: 'Guided climbs on Ramanagara\'s natural rock faces with full safety harnesses and helmets. Kids learn trust, problem-solving, and the thrill of reaching the top under expert supervision.',
+    title: 'Adventure & Exploration',
+    text: 'Navigate rugged terrains through an 8km valley trek, explore hidden caves, and safely rappel down rock faces. These thrilling challenges push physical boundaries and build genuine self-reliance.',
   },
   {
-    icon: '🔥',
+    icon: '⛺',
     color: 'gold',
-    title: 'Camping Basics',
-    text: 'Hands-on tent setup, safe fire-starting techniques, and outdoor cooking fundamentals. Children gain practical life skills and the confidence that comes from self-reliance.',
+    title: 'Collaborative Building',
+    text: 'Working together, kids tackle hands-on wilderness tasks like constructing lake rafts and building shelters from scratch. These group challenges naturally develop communication and problem-solving skills.',
   },
   {
-    icon: '👥',
+    icon: '🎨',
     color: 'green',
-    title: 'Team Challenges',
-    text: 'Collaborative obstacle courses, rope bridges, and problem-solving missions that can only be completed as a team. Kids learn communication, leadership, and how to support each other.',
+    title: 'Creative & Tactile Play',
+    text: 'We encourage messy, hands-on creativity. From molding clay in pottery sessions to high-energy mud games, kids engage their senses to playfully connect with nature and express themselves.',
   },
   {
-    icon: '🧭',
+    icon: '🤝',
     color: 'gold',
-    title: 'Navigation',
-    text: 'Introduction to compass reading and basic map skills through treasure hunts and orienteering courses. Kids develop spatial awareness and directional confidence in the outdoors.',
+    title: 'Connection & Reflection',
+    text: 'Beyond the action, daily reflection circles and evening campfires provide quiet moments for kids to process their experiences, share stories, and forge deep, lasting friendships.',
   },
 ]
 
@@ -228,7 +228,7 @@ export default function JuniorAdventurersPage() {
         <div className="pd-hero__overlay" />
         <div className="pd-hero__content">
           <h1 className="pd-hero__headline" style={{ opacity: 0 }}>
-            Junior <em>Adventurers</em>
+            Outdoor Education Camp - <em>5D4N</em>
           </h1>
           <p className="pd-hero__sub" style={{ opacity: 0 }}>
             Physical challenges, team-building and outdoor skills that push boundaries and build real confidence.
@@ -245,15 +245,15 @@ export default function JuniorAdventurersPage() {
       <section className="pd-stats">
         <div className="pd-stats__grid">
           {[
-            { icon: '⏱', num: '8 hrs', label: 'Full-Day Program' },
-            { icon: '👥', num: 'Max 15', label: 'Kids Per Group' },
-            { icon: '🧑‍🏫', num: '1:8', label: 'Guide-to-Child Ratio' },
-            { icon: '📍', num: 'Ramanagara', label: 'Near Bangalore' },
+            { icon: '⏱', num: '5D,4N', label: 'MULTI-DAY PROGRAM' },
+            { icon: '👥', num: 'Max 25', label: 'Kids Per Group' },
+            { icon: '🧑‍🏫', num: '1:3', label: 'Guide-to-Child Ratio' },
+            { icon: '📍', num: 'Kanakapura', label: 'Near Bangalore' },
           ].map((s, i) => (
             <div key={i} className="pd-stat-tile" style={{ opacity: 0 }}>
               <span className="pd-stat-tile__icon">{s.icon}</span>
               <span className="pd-stat-tile__num">{s.num}</span>
-              <span className="pd-stat-tile__label">{s.label}</span>
+              {s.label ? <span className="pd-stat-tile__label">{s.label}</span> : null}
             </div>
           ))}
         </div>
@@ -266,7 +266,7 @@ export default function JuniorAdventurersPage() {
             <span className="pd-overview__label">Program Overview</span>
             <h2 className="pd-overview__title">Where Courage<br/>Meets <em>Adventure</em></h2>
             <p className="pd-overview__text">
-              Junior Adventurers is built for kids aged 8 to 10 who are ready to push their limits. This full-day program combines physical challenges like rock climbing with team-based problem-solving that builds genuine resilience and self-confidence.
+              Outdoor Education Camp - 5D4N is built for kids aged 8 to 10 who are ready to push their limits. This multi-day program combines physical challenges like rock climbing with team-based problem-solving that builds genuine resilience and self-confidence.
             </p>
             <p className="pd-overview__text">
               Set against the stunning backdrop of Ramanagara's rocky terrain, children learn camping fundamentals, basic navigation, and how to work together to overcome real obstacles — not just classroom exercises.
@@ -291,7 +291,7 @@ export default function JuniorAdventurersPage() {
           <div className="pd-section-header">
             <span className="pd-section-label pd-section-label--gold">What We Do</span>
             <h2 className="pd-section-title">Activities &amp; Experiences</h2>
-            <p className="pd-section-sub">A full day packed with physical challenges, teamwork, and outdoor skills.</p>
+            <p className="pd-section-sub">5 days packed with physical challenges, teamwork, and outdoor skills.</p>
           </div>
           <div className="pd-activities__grid">
             {ACTIVITIES.map((a, i) => (
