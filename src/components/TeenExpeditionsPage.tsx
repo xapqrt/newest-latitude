@@ -46,12 +46,11 @@ const SCHEDULE = [
 ]
 
 const SAFETY = [
-  { title: 'Background-Verified Guides', text: 'Every guide undergoes thorough background checks and holds valid wilderness certifications before leading any program.' },
+  { title: 'Verified Instructors', text: 'Every instructor undergoes thorough background checks and holds valid certifications.' },
   { title: 'Wilderness First Responder', text: 'At least one Wilderness First Responder (WFR)-certified guide is present at all times on multi-day expeditions.' },
   { title: '1:6 Guide Ratio', text: 'Our tightest supervision ratio — every six teens has a dedicated guide throughout all trekking and overnight sessions.' },
   { title: 'Daily Parent Updates', text: 'Morning and evening photo and message updates sent to parents every day so families stay connected and reassured.' },
   { title: 'Emergency Evacuation Plan', text: 'Detailed evacuation protocols are mapped for every site. Guides coordinate with local emergency services and have vehicle access at all times.' },
-  { title: 'Weather & Risk Assessment', text: 'A full site risk assessment is completed before every expedition. All programs have weather contingency and rescheduling policies.' },
 ]
 
 export default function TeenExpeditionsPage() {

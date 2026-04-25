@@ -44,12 +44,11 @@ const SCHEDULE = [
 ]
 
 const SAFETY = [
-  { title: 'Background-Verified Guides', text: 'Every guide undergoes thorough background checks and holds valid wilderness certifications before leading any program.' },
+  { title: 'Verified Instructors', text: 'Every instructor undergoes thorough background checks and holds valid certifications.' },
   { title: 'First Aid on Site', text: 'Full first aid kit and a trained first responder are present at all times throughout both days of the program.' },
   { title: '1:8 Guide Ratio', text: 'Our strict supervision ratio ensures every child has a guide\'s attention throughout the trek and overnight camp.' },
   { title: 'Emergency Evacuation Plan', text: 'A detailed evacuation protocol is in place for every site. Guides are trained in rapid response and coordination with local services.' },
   { title: '24/7 Overnight Supervision', text: 'For overnight programs, at least two certified guides are on-site throughout the night. Parents can contact us at any hour.' },
-  { title: 'Live Updates for Parents', text: 'Photo and message updates sent throughout both days so families always know their child is safe and thriving.' },
 ]
 
 export default function OutdoorLeadersPage() {

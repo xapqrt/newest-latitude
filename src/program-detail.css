@@ -261,6 +261,41 @@
   margin: 0 auto;
   padding: 0 48px;
 }
+.pd-schedule-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 0 0 22px;
+}
+.pd-schedule-tab {
+  appearance: none;
+  border: 1px solid rgba(125,216,143,0.34);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.72);
+  border-radius: 999px;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  position: relative;
+  overflow: hidden;
+}
+.pd-schedule-tab:hover {
+  border-color: rgba(125,216,143,0.6);
+  color: #fff;
+}
+.pd-schedule-tab--active {
+  background: linear-gradient(135deg, rgba(212,136,10,0.28), rgba(212,136,10,0.18));
+  border-color: rgba(212,136,10,0.85);
+  color: #fff;
+  transform: translateY(-1px);
+}
+.pd-timeline-panel {
+  animation: pdTimelineFade 0.45s ease;
+}
 .pd-day-label {
   display: inline-block;
   font-size: 0.7rem;
@@ -328,6 +363,33 @@
   line-height: 1.6;
   margin: 0;
 }
+.pd-schedule-footnote {
+  margin: 18px 0 0;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: rgba(255,255,255,0.55);
+  font-style: italic;
+}
+
+@keyframes pdTimelineFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pd-timeline-panel {
+    animation: none;
+  }
+  .pd-schedule-tab {
+    transition: none;
+  }
+}
 
 /* ── Safety ── */
 .pd-safety {
@@ -335,13 +397,13 @@
   padding: 90px 0;
 }
 .pd-safety__inner {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 48px;
 }
 .pd-safety__grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
 }
 .pd-safety-card {
@@ -545,6 +607,7 @@
   .pd-reviews__inner { padding: 0 32px; }
 }
 @media (max-width: 600px) {
+  .pd-schedule-tabs { grid-template-columns: 1fr; }
   .pd-activities__grid { grid-template-columns: 1fr; }
   .pd-safety__grid { grid-template-columns: 1fr; }
   .pd-stats__grid { grid-template-columns: repeat(2, 1fr); padding: 0 20px; }

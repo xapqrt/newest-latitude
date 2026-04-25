@@ -41,12 +41,11 @@ const SCHEDULE = [
 ]
 
 const SAFETY = [
-  { title: 'Background-Verified Guides', text: 'Every guide undergoes thorough background checks and holds valid certifications.' },
+  { title: 'Verified Instructors', text: 'Every instructor undergoes thorough background checks and holds valid certifications.' },
   { title: 'First Aid on Site', text: 'Full first aid kit and trained first responder present at every session.' },
   { title: '1:8 Guide Ratio', text: 'Strict supervision ratio ensures every child is seen, supported, and safe.' },
   { title: 'Live Updates for Parents', text: 'Photo and text updates throughout the day so you always know your child is safe and having fun.' },
   { title: 'Certified Safety Equipment', text: 'All climbing gear, harnesses, and helmets are professionally maintained and certified for safety.' },
-  { title: 'Weather Prepared', text: 'Shaded rest areas, rain plans, and full rescheduling in case of severe weather.' },
 ]
 
 export default function JuniorAdventurersPage() {

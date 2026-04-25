@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import '../program-detail.css'
@@ -31,25 +31,94 @@ const ACTIVITIES = [
   },
 ]
 
-const SCHEDULE = [
-  { time: '7:30 AM — Arrival & Circle Time', color: 'green', dot: 'green', desc: 'Meet at the park entrance, introductions, safety briefing, and a fun warm-up activity to get everyone excited.' },
-  { time: '8:00 AM — Nature Walk & Discovery', color: 'green', dot: 'green', desc: 'Guided walk through the park, identifying plants, insects, and birds. Kids use magnifying glasses and nature journals.' },
-  { time: '9:30 AM — Snack Break', color: 'gold', dot: 'gold', desc: 'Healthy snacks provided in the shade. A short rest and time for free play and socialisation.' },
-  { time: '10:00 AM — Hands-On Activity', color: 'green', dot: 'green', desc: 'Craft session, sensory play station, or animal tracking activity depending on the week\'s theme.' },
-  { time: '11:15 AM — Wrap-Up & Sharing', color: 'muted', dot: 'dark', desc: 'Group sharing circle where kids show what they found or made. Badges and certificates for participation. Pick-up by 11:30 AM.' },
-]
+const SCHEDULE_DAYS = [
+  {
+    tab: 'Day 1',
+    title: 'Day 1: Arrival & Group Cohesion',
+    items: [
+      {
+        time: '06:00 AM — DEPARTURE & BASECAMP ARRIVAL',
+        desc: 'Travel to the camp, welcome drinks, and basecamp orientation. (Breakfast at 9:00 AM).',
+      },
+      {
+        time: '10:00 AM — TEAM-BUILDING CHALLENGES',
+        desc: 'Ice-breaking games and group cohesion activities, followed by free-flowing social interaction to help the kids make friends.',
+      },
+      {
+        time: '02:00 PM — LAKE RAFT-BUILDING',
+        desc: 'After lunch, kids work in small teams to construct functional rafts on Hosadoddi Lake.',
+      },
+      {
+        time: '06:30 PM — WILDERNESS SKILLS',
+        desc: 'Evening snacks followed by hands-on challenges like hut building, bridge construction, or mock camp planning.',
+      },
+      {
+        time: '09:00 PM — CAMPFIRE & STORYTELLING',
+        desc: 'Dinner followed by group games and storytelling around the fire before lights out.',
+      },
+    ],
+  },
+  {
+    tab: 'Day 2',
+    title: 'Day 2: Adventure & Skills',
+    items: [
+      {
+        time: '06:30 AM — MORNING MOVEMENT',
+        desc: 'Wake up and start the day with guided yoga and movement, followed by a hearty breakfast.',
+      },
+      {
+        time: '08:30 AM — ROCK RAPPELLING',
+        desc: 'Safely navigating rock faces to push physical boundaries and build confidence.',
+      },
+      {
+        time: '02:00 PM — AFTERNOON SKILL BLOCKS',
+        desc: 'Post-lunch outdoor challenges like treasure hunts and tower-building.',
+      },
+      {
+        time: '06:30 PM — REFLECTION CIRCLE',
+        desc: 'Unstructured play and guided group reflection to process the day\'s experiences.',
+      },
+      {
+        time: '09:00 PM — CAMPFIRE CHRONICLES',
+        desc: 'Dinner, evening group games, and fireside storytelling under the stars.',
+      },
+    ],
+  },
+  {
+    tab: 'Day 3',
+    title: 'Day 3: Trek & Departure',
+    items: [
+      {
+        time: '06:30 AM — MORNING FITNESS',
+        desc: 'An energizing start to the final day, followed by breakfast.',
+      },
+      {
+        time: '08:30 AM — VALLEY TREK & CAVE EXPLORATION',
+        desc: 'An 8 km guided trek through Devaragudda Valley to explore hidden caves.',
+      },
+      {
+        time: '02:00 PM — CLOSING SESSION',
+        desc: 'Post-lunch group wrap-up, sharing experiences, and packing up the gear.',
+      },
+      {
+        time: '05:00 PM — DEPARTURE',
+        desc: 'Camp check-out and safe travel back to the drop-off point.',
+      },
+    ],
+  },
+] as const
 
 const SAFETY = [
-  { title: 'Background-Verified Guides', text: 'Every guide undergoes thorough background checks and holds valid certifications.' },
+  { title: 'Verified Instructors', text: 'Every instructor undergoes thorough background checks and holds valid certifications.' },
   { title: 'First Aid on Site', text: 'Full first aid kit and trained first responder present at every session.' },
   { title: '1:3 Guide Ratio', text: 'A high-support setup ensures every child gets close supervision and personal coaching.' },
   { title: 'Live Updates for Parents', text: 'Photo and text updates throughout the session so you always know your child is safe and happy.' },
-  { title: 'Parents Welcome', text: 'For this age group, parents are welcome to accompany their child on the session.' },
-  { title: 'Weather Prepared', text: 'Shaded rest areas, rain plans, and full rescheduling in case of severe weather.' },
 ]
 
 export default function LittleExplorersPage() {
   const pageRef = useRef<HTMLDivElement>(null)
+  const [activeDayTab, setActiveDayTab] = useState<(typeof SCHEDULE_DAYS)[number]['tab']>(SCHEDULE_DAYS[0].tab)
+  const activeDay = SCHEDULE_DAYS.find((day) => day.tab === activeDayTab) ?? SCHEDULE_DAYS[0]
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -227,16 +296,37 @@ export default function LittleExplorersPage() {
             <span className="pd-section-label pd-section-label--green">Schedule</span>
             <h2 className="pd-section-title">A Typical Day</h2>
           </div>
-          <div className="pd-timeline">
-            {SCHEDULE.map((item, i) => (
-              <div key={i} className="pd-timeline-item" style={{ opacity: 0 }}>
-                <div className={`pd-timeline-dot pd-timeline-dot--${item.dot}`} />
-                <div>
-                  <p className={`pd-timeline-time pd-timeline-time--${item.color}`}>{item.time}</p>
-                  <p className="pd-timeline-desc">{item.desc}</p>
+          <div className="pd-schedule-tabs" role="tablist" aria-label="Camp itinerary by day">
+            {SCHEDULE_DAYS.map((day) => {
+              const isActive = day.tab === activeDayTab
+              return (
+                <button
+                  key={day.tab}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  className={`pd-schedule-tab${isActive ? ' pd-schedule-tab--active' : ''}`}
+                  onClick={() => setActiveDayTab(day.tab)}
+                >
+                  {day.tab}
+                </button>
+              )
+            })}
+          </div>
+          <div key={activeDay.tab} className="pd-timeline-panel">
+            <div className="pd-timeline">
+              <p className="pd-timeline-day-label">{activeDay.title}</p>
+              {activeDay.items.map((item) => (
+                <div key={item.time} className="pd-timeline-item">
+                  <div className="pd-timeline-dot pd-timeline-dot--green" />
+                  <div>
+                    <p className="pd-timeline-time pd-timeline-time--green">{item.time}</p>
+                    <p className="pd-timeline-desc">{item.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+            <p className="pd-schedule-footnote">*Timings are indicative and can be adjusted based on group needs and locale.</p>
           </div>
         </div>
       </section>
