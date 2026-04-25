@@ -101,11 +101,6 @@ export default function TeenExpeditionsPage() {
         { opacity: 1, y: 0, stagger: 0.08, duration: 0.6, ease: 'power2.out',
           scrollTrigger: { trigger: '.pd-safety__grid', start: 'top 85%', once: true } }
       )
-      gsap.fromTo('.pd-cta__inner > *',
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, stagger: 0.1, duration: 0.7, ease: 'power2.out',
-          scrollTrigger: { trigger: '.pd-cta', start: 'top 85%', once: true } }
-      )
     }, pageRef)
     return () => ctx.revert()
   }, [])
@@ -274,27 +269,6 @@ export default function TeenExpeditionsPage() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
-      <section className="pd-cta">
-        <div className="pd-cta__inner">
-          <div className="pd-cta__trust">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
-            Trusted by 2,500+ families
-          </div>
-          <h2 className="pd-cta__title">Ready for the Ultimate <em style={{ color: 'var(--accent-warm)', fontStyle: 'italic', fontFamily: 'Playfair Display, serif' }}>Challenge?</em></h2>
-          <p className="pd-cta__sub">Enquire now to reserve a spot on the next expedition. Our team will get back to you within 24 hours.</p>
-          <div className="pd-cta__actions">
-            <a href="/contact?program=teen-expeditions" className="pd-cta__btn-primary">
-              Enquire Now
-              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-            </a>
-            <a href="/programs" className="pd-cta__btn-outline">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-              All Programs
-            </a>
-          </div>
-        </div>
-      </section>
     </div>
   )
 }

@@ -82,7 +82,7 @@ export default function PrivacyPage() {
           <h2>Contact Us</h2>
           <p>
             If you have any questions about this Privacy Policy or how we handle your data, please contact us at{' '}
-            <a href="mailto:hello@lookfaroutdoors.in">hello@lookfaroutdoors.in</a> or via WhatsApp at +91 98765 43210.
+            <a href="mailto:hello@lookfaroutdoors.in">hello@lookfaroutdoors.in</a> or via WhatsApp at +91 91484 22940.
           </p>
         </div>
       </div>

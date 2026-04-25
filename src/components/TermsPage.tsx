@@ -89,7 +89,7 @@ export default function TermsPage() {
           <h2>Contact</h2>
           <p>
             Questions about these terms? Contact us at{' '}
-            <a href="mailto:hello@lookfaroutdoors.in">hello@lookfaroutdoors.in</a> or via WhatsApp at +91 98765 43210.
+            <a href="mailto:hello@lookfaroutdoors.in">hello@lookfaroutdoors.in</a> or via WhatsApp at +91 91484 22940.
           </p>
         </div>
       </div>

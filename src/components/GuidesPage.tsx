@@ -302,7 +302,7 @@ function GuideModal({ guide, onClose }: { guide: typeof GUIDES[0]; onClose: () =
           ))}
         </div>
         <a
-          href={`https://wa.me/919876543210?text=${waMsg}`}
+          href={`https://wa.me/919148422940?text=${waMsg}`}
           target="_blank" rel="noopener noreferrer"
           className="guide-modal__cta"
         >
@@ -695,7 +695,7 @@ export default function GuidesPage() {
           <p className="gp-cta-sub">Get in touch and we'll tell you more about the guides who'll be leading your child's adventure.</p>
           <div className="cta-btns">
             <a
-              href="https://wa.me/919876543210?text=Hi%20LookFarOutdoors!%20I%20want%20to%20know%20more%20about%20your%20guides."
+              href="https://wa.me/919148422940?text=Hi%20LookFarOutdoors!%20I%20want%20to%20know%20more%20about%20your%20guides."
               target="_blank"
               rel="noopener noreferrer"
               className="cta-btn-primary"

@@ -358,7 +358,7 @@ export default function Hero() {
                   </svg>
                 </a>
                 <a
-                  href="https://wa.me/919876543210?text=Hi%20LookFarOutdoors!"
+                  href="https://wa.me/919148422940?text=Hi%20LookFarOutdoors!"
                   target="_blank" rel="noopener noreferrer"
                   className="btn-ghost-hero"
                 >
