@@ -374,45 +374,6 @@ function ProgramRow({ p, reverse }: { p: typeof PROGRAMS[0]; reverse: boolean })
 // Main page component
 // ─────────────────────────────────────────────
 export default function ProgramsPage() {
-  const [activeFilter, setActiveFilter] = useState('all')
-
-  const filtered = activeFilter === 'all'
-    ? PROGRAMS
-    : PROGRAMS.filter(p => p.ageFilter === activeFilter)
-
-  // Hero entrance — 4-panel age cards
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo('.pp-hero__kicker',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.2 }
-      )
-      gsap.fromTo('.pp-hero__headline',
-        { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 0.4 }
-      )
-      gsap.fromTo('.pp-age-card',
-        { opacity: 0, y: 60, scale: 0.94 },
-        { opacity: 1, y: 0, scale: 1, stagger: 0.1, duration: 0.8, ease: 'power3.out', delay: 0.5 }
-      )
-    })
-    return () => ctx.revert()
-  }, [])
-
-  // Filter tabs entrance
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo('.pp-filter-bar',
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
-          scrollTrigger: { trigger: '.pp-filter-bar', start: 'top 90%', once: true },
-        }
-      )
-    })
-    return () => ctx.revert()
-  }, [])
-
   // What to pack entrance
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -471,65 +432,6 @@ export default function ProgramsPage() {
 
   return (
     <>
-      {/* ── HERO — 4-Panel Age-Group Split ───── */}
-      <div className="pp-hero">
-        <div className="pp-hero__top">
-          <span className="pp-hero__kicker section-label" style={{ opacity: 0 }}>Our Programs</span>
-          <h1 className="pp-hero__headline" style={{ opacity: 0 }}>
-            Adventures for <em>Every Age</em>
-          </h1>
-        </div>
-
-        <div className="pp-age-cards">
-          {PROGRAMS.map((p) => (
-            <div
-              key={p.id}
-              className="pp-age-card"
-              style={{ opacity: 0 }}
-              onClick={() => setActiveFilter(p.ageFilter)}
-            >
-              <div className="pp-age-card__accent" style={{ background: p.ageColor }} />
-              <div className="pp-age-card__img">
-                <img src={p.img} alt={p.title} />
-              </div>
-              <div className="pp-age-card__body">
-                <span className="pp-age-card__age" style={{ color: p.ageColor }}>{p.age}</span>
-                <h2 className="pp-age-card__title">{p.title}</h2>
-                <p className="pp-age-card__location">{p.location}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="pp-hero__wave">
-          <svg viewBox="0 0 1440 70" preserveAspectRatio="none">
-            <path d="M0,0 C360,70 1080,0 1440,56 L1440,70 L0,70 Z" fill="#0d2416" />
-          </svg>
-        </div>
-      </div>
-
-      {/* ── FILTER BAR ───────────────────────── */}
-      <div className="pp-filter-bar" style={{ opacity: 0 }}>
-        <p className="pp-filter-bar__label">Filter by age group</p>
-        <div className="pp-filter-bar__pills">
-          {[
-            { key: 'all', label: 'All Ages' },
-            { key: '5-7', label: 'Ages 5–7' },
-            { key: '8-10', label: 'Ages 8–10' },
-            { key: '11-13', label: 'Ages 11–13' },
-            { key: '14-16', label: 'Ages 14–16' },
-          ].map(f => (
-            <button
-              key={f.key}
-              className={`pp-filter-btn${activeFilter === f.key ? ' pp-filter-btn--active' : ''}`}
-              onClick={() => setActiveFilter(f.key)}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       {/* ── PROGRAM ROWS ─────────────────────── */}
       <section className="pp-programs-section">
         {/* Subtle bg lines */}
@@ -538,7 +440,7 @@ export default function ProgramsPage() {
         </div>
 
         <div className="pp-programs-inner">
-          {filtered.map((p, i) => (
+          {PROGRAMS.map((p, i) => (
             <ProgramRow key={p.id} p={p} reverse={i % 2 !== 0} />
           ))}
         </div>
