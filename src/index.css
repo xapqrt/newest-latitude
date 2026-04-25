@@ -1742,7 +1742,7 @@ a { text-decoration: none; color: inherit; }
 /* ── Programs section ── */
 .pp-programs-section {
   background: var(--forest-deep);
-  padding: 110px 0 100px;
+  padding: 94px 0 100px;
   position: relative;
   overflow: hidden;
 }
@@ -2285,10 +2285,12 @@ a { text-decoration: none; color: inherit; }
   .pp-age-cards { grid-template-columns: repeat(2, 1fr); }
   .pp-hero { padding: 120px 24px 0; }
   .pp-hero--compact { padding: 116px 24px 64px; }
+  .pp-programs-section { padding-top: 84px; }
 }
 @media (max-width: 600px) {
   .pp-hero { padding: 100px 16px 0; }
   .pp-hero--compact { padding: 102px 16px 56px; }
+  .pp-programs-section { padding-top: 76px; }
   .pp-age-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .pp-age-card__img { aspect-ratio: 1/1; }
   .pp-program-row__features { grid-template-columns: 1fr; }

@@ -438,13 +438,6 @@ export default function ProgramsPage() {
 
   return (
     <>
-      {/* ── HERO LABEL ──────────────────────── */}
-      <div className="pp-hero pp-hero--compact">
-        <div className="pp-hero__top">
-          <span className="pp-hero__kicker section-label">Our Programs</span>
-        </div>
-      </div>
-
       {/* ── PROGRAM ROWS ─────────────────────── */}
       <section className="pp-programs-section">
         {/* Subtle bg lines */}
