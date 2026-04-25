@@ -43,6 +43,14 @@ const SCHEDULE = [
   { time: '12:00 PM — Debrief & Awards', color: 'muted', dot: 'dark', desc: 'Group reflection circle, leadership award presentations, certificates, and pick-up at 1:00 PM.' },
 ]
 
+const SAFETY = [
+  { title: 'Verified Instructors', text: 'Every instructor undergoes thorough background checks and holds valid certifications.' },
+  { title: 'First Aid on Site', text: 'Full first aid kit and a trained first responder are present at all times throughout both days of the program.' },
+  { title: '1:8 Guide Ratio', text: 'Our strict supervision ratio ensures every child has a guide\'s attention throughout the trek and overnight camp.' },
+  { title: 'Emergency Evacuation Plan', text: 'A detailed evacuation protocol is in place for every site. Guides are trained in rapid response and coordination with local services.' },
+  { title: '24/7 Overnight Supervision', text: 'For overnight programs, at least two certified guides are on-site throughout the night. Parents can contact us at any hour.' },
+]
+
 export default function OutdoorLeadersPage() {
   const pageRef = useRef<HTMLDivElement>(null)
 
@@ -85,6 +93,11 @@ export default function OutdoorLeadersPage() {
         { opacity: 0, x: -20 },
         { opacity: 1, x: 0, stagger: 0.1, duration: 0.6, ease: 'power2.out',
           scrollTrigger: { trigger: '.pd-timeline', start: 'top 85%', once: true } }
+      )
+      gsap.fromTo('.pd-safety-card',
+        { opacity: 0, y: 30 },
+        { opacity: 1, y: 0, stagger: 0.08, duration: 0.6, ease: 'power2.out',
+          scrollTrigger: { trigger: '.pd-safety__grid', start: 'top 85%', once: true } }
       )
       gsap.fromTo('.pd-cta__inner > *',
         { opacity: 0, y: 30 },
@@ -200,6 +213,29 @@ export default function OutdoorLeadersPage() {
                 <div>
                   <p className={`pd-timeline-time pd-timeline-time--${item.color}`}>{item.time}</p>
                   <p className="pd-timeline-desc">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SAFETY ── */}
+      <section className="pd-safety">
+        <div className="pd-safety__inner">
+          <div className="pd-section-header">
+            <span className="pd-section-label pd-section-label--green">Your Peace of Mind</span>
+            <h2 className="pd-section-title">Safety &amp; Care</h2>
+          </div>
+          <div className="pd-safety__grid">
+            {SAFETY.map((s, i) => (
+              <div key={i} className="pd-safety-card" style={{ opacity: 0 }}>
+                <div className="pd-safety-card__icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <div>
+                  <h3 className="pd-safety-card__title">{s.title}</h3>
+                  <p className="pd-safety-card__text">{s.text}</p>
                 </div>
               </div>
             ))}

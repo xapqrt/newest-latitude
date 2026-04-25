@@ -108,6 +108,13 @@ const SCHEDULE_DAYS = [
   },
 ] as const
 
+const SAFETY = [
+  { title: 'Verified Instructors', text: 'Every instructor undergoes thorough background checks and holds valid certifications.' },
+  { title: 'First Aid on Site', text: 'Full first aid kit and trained first responder present at every session.' },
+  { title: '1:3 Guide Ratio', text: 'A high-support setup ensures every child gets close supervision and personal coaching.' },
+  { title: 'Live Updates for Parents', text: 'Photo and text updates throughout the session so you always know your child is safe and happy.' },
+]
+
 export default function LittleExplorersPage() {
   const pageRef = useRef<HTMLDivElement>(null)
   const [activeDayTab, setActiveDayTab] = useState<(typeof SCHEDULE_DAYS)[number]['tab']>(SCHEDULE_DAYS[0].tab)
@@ -173,6 +180,15 @@ export default function LittleExplorersPage() {
         {
           opacity: 1, x: 0, stagger: 0.1, duration: 0.6, ease: 'power2.out',
           scrollTrigger: { trigger: '.pd-timeline', start: 'top 85%', once: true },
+        }
+      )
+
+      // Safety cards
+      gsap.fromTo('.pd-safety-card',
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1, y: 0, stagger: 0.08, duration: 0.6, ease: 'power2.out',
+          scrollTrigger: { trigger: '.pd-safety__grid', start: 'top 85%', once: true },
         }
       )
 
@@ -311,6 +327,29 @@ export default function LittleExplorersPage() {
               ))}
             </div>
             <p className="pd-schedule-footnote">*Timings are indicative and can be adjusted based on group needs and locale.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SAFETY ── */}
+      <section className="pd-safety">
+        <div className="pd-safety__inner">
+          <div className="pd-section-header">
+            <span className="pd-section-label pd-section-label--green">Your Peace of Mind</span>
+            <h2 className="pd-section-title">Safety &amp; Care</h2>
+          </div>
+          <div className="pd-safety__grid">
+            {SAFETY.map((s, i) => (
+              <div key={i} className="pd-safety-card" style={{ opacity: 0 }}>
+                <div className="pd-safety-card__icon">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                </div>
+                <div>
+                  <h3 className="pd-safety-card__title">{s.title}</h3>
+                  <p className="pd-safety-card__text">{s.text}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
