@@ -1,27 +1,24 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
+import lookfarCampImage from '../assets/lookfar-1.jpg'
 
 const PROGRAMS = [
   {
-    title: 'Little Explorers',
-    age: 'Ages 5–7',
-    duration: 'Half Day',
-    location: 'Cubbon Park',
-    desc: 'Nature walks, sensory play, animal tracking & outdoor crafts — igniting curiosity from the very first step.',
-    img: 'https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=800',
+    title: 'Outdoor Education Camp - 3D2N',
+    duration: '3 Days, 2 Nights',
+    location: 'Kanakapura',
+    desc: 'Rappelling, rafting, and valley exploration for ages 7-12, with a close 1:3 guide ratio that builds confidence through real outdoor challenges.',
+    img: lookfarCampImage,
     href: '/little-explorers',
-    ageColor: '#d4880a',
   },
   {
-    title: 'Junior Adventurers',
-    age: 'Ages 8–10',
-    duration: 'Full Day',
-    location: 'Ramanagara',
-    desc: 'Rock climbing, camping basics, team challenges & survival skills for kids who are ready to push further.',
-    img: 'https://images.pexels.com/photos/1545590/pexels-photo-1545590.jpeg?auto=compress&cs=tinysrgb&w=800',
+    title: 'Outdoor Education Camp - 5D4N',
+    duration: '5 Days, 4 Nights',
+    location: 'Kanakapura',
+    desc: 'A longer camp arc with trekking, cave exploration, campfire reflection, and collaborative problem-solving designed for deeper resilience growth.',
+    img: 'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=900',
     href: '/junior-adventurers',
-    ageColor: '#1f6b2e',
   },
   {
     title: 'Outdoor Leaders',
@@ -55,7 +52,6 @@ export default function Programs() {
   const trackRef = useRef<HTMLDivElement>(null)
   const headlineRef = useRef<HTMLHeadingElement>(null)
   const labelRef = useRef<HTMLSpanElement>(null)
-  const subRef = useRef<HTMLParagraphElement>(null)
 
   // ── Drag / wheel scroll ──────────────────────────────────────
   useEffect(() => {
@@ -70,7 +66,10 @@ export default function Programs() {
     let startScrollX = 0
     let raf: number
 
-    const maxX = () => -(track.scrollWidth - wrap.clientWidth + 96)
+      const maxX = () => {
+        const overflow = track.scrollWidth - wrap.clientWidth
+        return overflow > 0 ? -(overflow + 96) : 0
+      }
     const clamp = (v: number) => Math.max(maxX(), Math.min(0, v))
 
     let rafActive = false
@@ -170,15 +169,6 @@ export default function Programs() {
         }
       )
 
-      // Sub text
-      gsap.fromTo(subRef.current,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.25,
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 72%', once: true },
-        }
-      )
-
       // Cards — stagger up from below with slight rotation
       gsap.fromTo('.program-card',
         { opacity: 0, y: 80, rotateY: 4 },
@@ -214,10 +204,6 @@ export default function Programs() {
             Adventures for<br />
             <em>every age.</em>
           </h2>
-          <p ref={subRef}>
-            Four programs, one north star — getting your child outside,
-            challenged, and loving every minute of it.
-          </p>
         </div>
         <a href="/programs" className="programs-view-all">
           View all programs
@@ -249,7 +235,6 @@ export default function Programs() {
               <img src={p.img} alt={p.title} className="program-card__img" draggable={false} loading="lazy" />
               <div className="program-card__gradient" />
               <div className="program-card__body">
-                <span className="program-card__age" style={{ background: p.ageColor }}>{p.age}</span>
                 <div className="program-card__title">{p.title}</div>
                 <div className="program-card__meta">
                   <span>⏱ {p.duration}</span>

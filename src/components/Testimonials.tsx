@@ -4,28 +4,16 @@ import 'gsap/ScrollTrigger'
 
 const TESTIMONIALS = [
   {
-    quote: '"My son came back from the wilderness weekend with a newfound confidence. He hasn\'t stopped talking about how to build a shelter."',
-    name: 'Priya Sharma',
-    detail: 'Mother of Arjun, age 10',
-    initials: 'PS',
+    quote: '"Arya came home absolutely buzzing with excitement. She could not stop talking about the rappelling wall and rafting challenge. LookFarOutdoors has really helped her come out of her shell."',
+    name: 'Garima S.',
+    detail: 'Mum of Arya, 9',
+    initials: 'GS',
   },
   {
-    quote: '"The guides are extraordinary. They don\'t just keep kids safe — they inspire them to push their own limits."',
-    name: 'Rohan Mehta',
-    detail: 'Father of twins, ages 8 & 12',
-    initials: 'RM',
-  },
-  {
-    quote: '"Our daughter came home talking about ecosystems and asking to go back the very next weekend. Worth every rupee."',
-    name: 'Kavitha Nair',
-    detail: 'Parent of Ananya, age 9',
-    initials: 'KN',
-  },
-  {
-    quote: '"Best decision we made this year. My teenager actually put his phone down and engaged. Miraculous."',
-    name: 'Sanjay Iyer',
-    detail: 'Parent of Dev, age 15',
-    initials: 'SI',
+    quote: '"As a first outdoor camp experience for my son, I was a bit nervous. But the guides were warm, structured, and highly attentive. The 1:3 ratio meant Kiran always had the support he needed."',
+    name: 'Bishwadeep',
+    detail: 'Dad of Kiran, 8',
+    initials: 'BI',
   },
 ]
 

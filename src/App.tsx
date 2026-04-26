@@ -2,7 +2,6 @@ import { lazy, Suspense, useEffect, useState, useCallback } from 'react'
 import { useSmoothScroll, getLenis } from './hooks/useSmoothScroll'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
-import StatsBar from './components/StatsBar'
 import Programs from './components/Programs'
 import WhyUs from './components/WhyUs'
 import Testimonials from './components/Testimonials'
@@ -169,9 +168,6 @@ function AppContent() {
         return (
           <>
             <Hero />
-            <div className="stats-bar-wrap">
-              <StatsBar />
-            </div>
             <Programs />
             <WhyUs />
             <Testimonials />

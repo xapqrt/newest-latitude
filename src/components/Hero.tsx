@@ -11,15 +11,18 @@ const SCENES = [
   {
     eyebrow: null,
     headline: ['The greatest classroom', 'has no walls.'],
-    sub: 'Award-winning outdoor education programs that trade screens for sunlight - building confidence, resilience, and wonder in children aged 7 to 14.',
+    sub: 'A child who has learned to find their way on a trail, through a forest, or through a problem of their own making, will find it easier to find their way through everything that follows.',
     showButtons: true,
   },
-  {
-    eyebrow: 'Your Child. Their Adventure.',
-    headline: ['Outdoor programs.', 'One north star.'],
-    sub: 'Age-appropriate challenges that turn every outing into a story worth telling.',
-    showButtons: true,
-  },
+  // Keep this scene disabled for now so we can bring it back quickly.
+  ...((false)
+    ? [{
+      eyebrow: 'Your Child. Their Adventure.',
+      headline: ['Outdoor programs.', 'One north star.'],
+      sub: 'Age-appropriate challenges that turn every outing into a story worth telling.',
+      showButtons: true,
+    }]
+    : []),
 ]
 
 const LAST = SCENES.length - 1
@@ -374,16 +377,18 @@ export default function Hero() {
       ))}
 
       {/* Scene progress dots */}
-      <div className="hero-dots">
-        {SCENES.map((_, i) => (
-          <button
-            key={i}
-            className={`hero-dot${i === current ? ' hero-dot--active' : ''}`}
-            aria-label={`Scene ${i + 1}`}
-            onClick={() => goTo.current(i)}
-          />
-        ))}
-      </div>
+      {SCENES.length > 1 && (
+        <div className="hero-dots">
+          {SCENES.map((_, i) => (
+            <button
+              key={i}
+              className={`hero-dot${i === current ? ' hero-dot--active' : ''}`}
+              aria-label={`Scene ${i + 1}`}
+              onClick={() => goTo.current(i)}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Scroll hint arrow on first scene — no text */}
       <div className={`scroll-indicator${current > 0 ? ' scroll-indicator--hidden' : ''}`}>
