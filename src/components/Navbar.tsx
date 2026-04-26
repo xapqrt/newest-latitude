@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { SHOW_GUIDES_PAGE } from '../config/featureFlags'
+import lookfarWhiteLogo from '../assets/lookfar-white-logo.png'
 
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null)
@@ -38,13 +39,7 @@ export default function Navbar() {
       <nav ref={navRef} className={navClass}>
         {/* Logo */}
         <a href="/" className="navbar__logo">
-          <div className="navbar__logo-icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-          </div>
-          <span className="navbar__logo-text">
-            <span>lookfar</span>
-            <span className="navbar__logo-text-accent">outdoors</span>
-          </span>
+          <img src={lookfarWhiteLogo} alt="Lookfar Outdoors" className="navbar__logo-img" />
         </a>
 
         {/* Desktop links */}

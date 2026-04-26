@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
+import lookfarWhiteLogo from '../assets/lookfar-white-logo.png'
 
 interface PreloaderProps {
   onComplete: () => void
@@ -7,18 +8,21 @@ interface PreloaderProps {
 
 export default function Preloader({ onComplete }: PreloaderProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
-  const compassDrawRef = useRef<SVGPathElement>(null)
+  const logoRef = useRef<HTMLImageElement>(null)
   const barRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const tl = gsap.timeline()
 
-    // Draw compass stroke
-    if (compassDrawRef.current) {
-      tl.to(compassDrawRef.current, {
-        strokeDashoffset: 0,
-        duration: 0.9,
-        ease: 'power2.inOut',
+    if (logoRef.current) {
+      tl.fromTo(logoRef.current, {
+        opacity: 0,
+        y: 16,
+      }, {
+        opacity: 1,
+        y: 0,
+        duration: 0.75,
+        ease: 'power2.out',
       }, 0)
     }
 
@@ -47,20 +51,7 @@ export default function Preloader({ onComplete }: PreloaderProps) {
   return (
     <div ref={wrapRef} className="preloader">
       <div className="preloader__content">
-        {/* SVG Compass */}
-        <svg className="preloader__compass" viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="35" />
-          <path
-            ref={compassDrawRef}
-            className="compass-draw"
-            d="M40 5 A35 35 0 1 1 39.9 5 M40 40 L55 18 M40 40 L25 62 M40 15 L40 20 M40 65 L40 60 M15 40 L20 40 M65 40 L60 40"
-          />
-        </svg>
-
-        <div className="preloader__brand">
-          <span className="preloader__brand-main">lookfar</span>
-          <span className="preloader__brand-accent">outdoors</span>
-        </div>
+        <img ref={logoRef} src={lookfarWhiteLogo} alt="Lookfar Outdoors" className="preloader__logo" />
 
         <div className="preloader__bar-wrap">
           <div ref={barRef} className="preloader__bar" />
