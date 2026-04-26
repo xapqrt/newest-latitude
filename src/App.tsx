@@ -16,6 +16,7 @@ import ScrollProgress from './components/ScrollProgress'
 import SplashLoader from './components/SplashLoader'
 import PageTransition from './components/PageTransition'
 import MobileBottomNav from './components/MobileBottomNav'
+import { SHOW_GUIDES_PAGE } from './config/featureFlags'
 
 // Lazy-load page components — only the current page's JS is fetched
 const ProgramsPage          = lazy(() => import('./components/ProgramsPage'))
@@ -76,6 +77,13 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
   },
 }
 
+if (SHOW_GUIDES_PAGE) {
+  PAGE_META.guides = {
+    title: 'Our Guides — LookFarOutdoors',
+    description: 'Meet the expert outdoor educators and guides behind every LookFarOutdoors adventure.',
+  }
+}
+
 function usePageMeta(page: string) {
   useEffect(() => {
     const meta = PAGE_META[page] ?? PAGE_META.home
@@ -108,7 +116,7 @@ function usePage() {
   if (path.includes('little-explorers'))   return 'little-explorers'
   if (path.includes('junior-adventurers')) return 'junior-adventurers'
   if (path.includes('programs'))           return 'programs'
-  if (path.includes('guides'))             return 'guides'
+  if (path.includes('guides') && SHOW_GUIDES_PAGE) return 'guides'
   if (path.includes('about'))              return 'about'
   if (path.includes('contact'))            return 'contact'
   if (path.includes('privacy'))            return 'privacy'

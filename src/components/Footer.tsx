@@ -1,3 +1,5 @@
+import { SHOW_GUIDES_PAGE } from '../config/featureFlags'
+
 export default function Footer() {
   const HIDDEN_PROGRAM_PATHS = new Set(['/outdoor-leaders', '/teen-expeditions'])
 
@@ -109,7 +111,7 @@ export default function Footer() {
             <ul>
               <li><a href="/">Home</a></li>
               <li><a href="/programs">Programs</a></li>
-              <li><a href="/guides">Our Guides</a></li>
+              {SHOW_GUIDES_PAGE && <li><a href="/guides">Our Guides</a></li>}
               <li><a href="/about">About Us</a></li>
             </ul>
           </div>

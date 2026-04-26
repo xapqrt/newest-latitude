@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { SHOW_GUIDES_PAGE } from '../config/featureFlags'
 
 export default function Navbar() {
   const navRef = useRef<HTMLElement>(null)
@@ -50,7 +51,7 @@ export default function Navbar() {
         <ul className="navbar__links">
           <li><a href="/" className={isActive('/') ? 'navbar__link--active' : ''}>Home</a></li>
           <li><a href="/programs" className={isActive('/programs') ? 'navbar__link--active' : ''}>Programs</a></li>
-          <li><a href="/guides" className={isActive('/guides') ? 'navbar__link--active' : ''}>Our Guides</a></li>
+          {SHOW_GUIDES_PAGE && <li><a href="/guides" className={isActive('/guides') ? 'navbar__link--active' : ''}>Our Guides</a></li>}
           <li><a href="/about" className={isActive('/about') ? 'navbar__link--active' : ''}>About Us</a></li>
         </ul>
 
@@ -83,7 +84,7 @@ export default function Navbar() {
         <ul className="navbar__drawer-links">
           <li><a href="/" className={isActive('/') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>Home</a></li>
           <li><a href="/programs" className={isActive('/programs') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>Programs</a></li>
-          <li><a href="/guides" className={isActive('/guides') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>Our Guides</a></li>
+          {SHOW_GUIDES_PAGE && <li><a href="/guides" className={isActive('/guides') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>Our Guides</a></li>}
           <li><a href="/about" className={isActive('/about') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>About Us</a></li>
           <li><a href="/contact" className={isActive('/contact') ? 'navbar__link--active' : ''} onClick={() => setDrawerOpen(false)}>Contact Us</a></li>
         </ul>
