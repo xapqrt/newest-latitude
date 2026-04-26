@@ -158,7 +158,7 @@ const SCHEDULE_DAYS = [
 const SAFETY = [
   { title: 'Verified Instructors', text: 'Every instructor undergoes thorough background checks and holds valid certifications.' },
   { title: 'First Aid on Site', text: 'Full first aid kit and trained first responder present at every session.' },
-  { title: '1:8 Guide Ratio', text: 'Strict supervision ratio ensures every child is seen, supported, and safe.' },
+  { title: '1:3 Guide Ratio', text: 'Strict supervision ratio ensures every child is seen, supported, and safe.' },
   { title: 'Live Updates for Parents', text: 'Photo and text updates throughout the day so you always know your child is safe and having fun.' },
   { title: 'Certified Safety Equipment', text: 'All climbing gear, harnesses, and helmets are professionally maintained and certified for safety.' },
 ]
@@ -264,15 +264,12 @@ export default function JuniorAdventurersPage() {
         <div className="pd-overview__inner">
           <div className="pd-overview__left" style={{ opacity: 0 }}>
             <span className="pd-overview__label">Program Overview</span>
-            <h2 className="pd-overview__title">Where Courage<br/>Meets <em>Adventure</em></h2>
+            <h2 className="pd-overview__title">Where Courage Meets <em>Adventure</em></h2>
             <p className="pd-overview__text">
-              Outdoor Education Camp - 5D4N is built for kids aged 8 to 10 who are ready to push their limits. This multi-day program combines physical challenges like rock climbing with team-based problem-solving that builds genuine resilience and self-confidence.
+              This 5-day program gives kids the time and space to fully settle into the rhythm of the outdoors. The week perfectly balances thrilling physical challenges, like rock rappelling and a valley trek, with deeply tactile, joyful moments like clay pottery and high-energy mud games.
             </p>
             <p className="pd-overview__text">
-              Set against the stunning backdrop of Ramanagara's rocky terrain, children learn camping fundamentals, basic navigation, and how to work together to overcome real obstacles — not just classroom exercises.
-            </p>
-            <p className="pd-overview__text">
-              Every session is led by certified outdoor educators with a 1:8 guide-to-child ratio, ensuring personalised coaching and a safe, supportive environment for every adventurer.
+              Beyond the physical adventure, the camp is intentionally designed around connection. Whether working together to construct a functional lake raft or reflecting around the evening campfire, kids naturally hone their communication and teamwork. With an exceptionally good 1:3 instructor-to-child ratio, every child receives the personal mentorship needed to take safe risks and return home with quiet, hard-earned confidence.
             </p>
           </div>
           <div className="pd-overview__img" style={{ opacity: 0 }}>

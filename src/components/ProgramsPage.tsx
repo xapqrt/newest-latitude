@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
+import littleOverviewImage from '../assets/lookfar-1.jpg'
 
 // ─────────────────────────────────────────────
 // Data
@@ -8,39 +9,39 @@ import 'gsap/ScrollTrigger'
 const PROGRAMS = [
   {
     id: 'little-explorers',
-    title: 'Little Explorers',
+    title: 'Outdoor Education Camp - 3D2N',
     age: 'Ages 5–7',
     ageFilter: '5-7',
-    duration: 'Half Day (4 hrs)',
-    location: 'Cubbon Park / Lalbagh',
-    group: 'Max 12 kids',
+    duration: '3 Days, 2 Nights',
+    location: 'Kanakapura',
+    group: 'Max 18 kids',
     ageColor: '#d4880a',
-    img: 'https://images.pexels.com/photos/35537/child-children-girl-happy.jpg?auto=compress&cs=tinysrgb&w=900',
-    desc: 'An introduction to the wonders of the natural world. Through sensory play, guided nature walks, and creative crafts, young children develop a sense of curiosity and wonder about their environment.',
+    img: littleOverviewImage,
+    desc: 'Blending hands-on learning with real outdoor adventure. Kids tackle active wilderness challenges to build confidence and real-world resilience.',
     features: [
-      { icon: '🌿', title: 'Nature Walks', sub: 'Guided exploration of local parks' },
-      { icon: '🐾', title: 'Animal Tracking', sub: 'Learn to spot wildlife signs' },
-      { icon: '🎨', title: 'Outdoor Crafts', sub: 'Create with natural materials' },
-      { icon: '🌱', title: 'Sensory Play', sub: 'Touch, smell, explore nature' },
+      { icon: '⛰️', title: 'Active Exploration', sub: 'Rappelling, treks, and cave exploration' },
+      { icon: '⛺', title: 'Collaborative Building', sub: 'Build rafts and huts in small teams' },
+      { icon: '🤝', title: 'Connections & Reflections', sub: 'Campfires and circles build friendships' },
+      { icon: '🌱', title: 'Sensory Immersion', sub: 'Hands-on nature play for all five senses' },
     ],
     href: '/little-explorers',
   },
   {
     id: 'junior-adventurers',
-    title: 'Junior Adventurers',
+    title: 'Outdoor Education Camp - 5D4N',
     age: 'Ages 8–10',
     ageFilter: '8-10',
-    duration: 'Full Day (8 hrs)',
-    location: 'Ramanagara',
-    group: 'Max 15 kids',
+    duration: '5D,4N',
+    location: 'Kanakapura',
+    group: 'Max 25 kids',
     ageColor: '#1f6b2e',
-    img: 'https://images.pexels.com/photos/1545590/pexels-photo-1545590.jpeg?auto=compress&cs=tinysrgb&w=900',
-    desc: 'For kids ready to push their boundaries. This program combines physical challenges like rock climbing with team-based problem-solving activities that build resilience and self-confidence.',
+    img: 'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=900',
+    desc: 'Physical challenges, team-building and outdoor skills that push boundaries and build real confidence.',
     features: [
-      { icon: '🧗', title: 'Rock Climbing', sub: 'Guided climbs with full safety gear' },
-      { icon: '🔥', title: 'Camping Basics', sub: 'Tent setup, fire safety, cooking' },
-      { icon: '👥', title: 'Team Challenges', sub: 'Collaborative problem solving' },
-      { icon: '🧭', title: 'Navigation', sub: 'Basic compass & map skills' },
+      { icon: '⛰️', title: 'Adventure & Exploration', sub: 'Valley treks, caves, and rock rappelling' },
+      { icon: '⛺', title: 'Collaborative Building', sub: 'Build rafts and shelters as a team' },
+      { icon: '🎨', title: 'Creative & Tactile Play', sub: 'Pottery and mud play spark creativity' },
+      { icon: '🤝', title: 'Connection & Reflection', sub: 'Campfire circles strengthen bonds' },
     ],
     href: '/junior-adventurers',
   },
@@ -214,6 +215,8 @@ const FAQS = [
 ]
 
 const HIDDEN_PROGRAM_IDS = new Set(['outdoor-leaders', 'teen-expeditions'])
+const SHOW_UPCOMING_DATES = false
+const SHOW_READY_ADVENTURE_CTA = false
 
 const VISIBLE_PROGRAMS = PROGRAMS.filter((program) => !HIDDEN_PROGRAM_IDS.has(program.id))
 
@@ -325,7 +328,6 @@ function ProgramRow({ p, reverse }: { p: typeof PROGRAMS[0]; reverse: boolean })
       {/* Image */}
       <div className="pp-program-row__img-wrap">
         <img src={p.img} alt={p.title} className="pp-program-row__img" />
-        <span className="pp-program-row__age-badge" style={{ background: p.ageColor }}>{p.age}</span>
         <div className="pp-program-row__img-overlay" />
       </div>
 
@@ -424,6 +426,7 @@ export default function ProgramsPage() {
 
   // CTA entrance
   useEffect(() => {
+    if (!SHOW_READY_ADVENTURE_CTA) return
     const ctx = gsap.context(() => {
       gsap.fromTo('.pp-cta-section .pp-cta-inner',
         { opacity: 0, y: 50 },
@@ -453,44 +456,46 @@ export default function ProgramsPage() {
       </section>
 
       {/* ── UPCOMING DATES ───────────────────── */}
-      <section className="pp-dates-section">
-        <div className="pp-dates-inner">
-          <div className="pp-section-header">
-            <span className="section-label section-label--gold-dark">Availability</span>
-            <h2 className="pp-section-title">Upcoming Dates</h2>
-            <p className="pp-section-sub">Reserve your child's spot — popular sessions fill fast.</p>
-          </div>
-          <div className="pp-dates-grid">
-            {VISIBLE_UPCOMING_DATES.map(prog => (
-              <div key={prog.programId} className="pp-dates-card">
-                <div className="pp-dates-card__header" style={{ borderColor: prog.ageColor }}>
-                  <span className="pp-dates-card__dot" style={{ background: prog.ageColor }} />
-                  <span className="pp-dates-card__name">{prog.title}</span>
-                </div>
-                <div className="pp-dates-list">
-                  {prog.dates.map((d, i) => (
-                    <div key={i} className={`pp-date-row pp-date-row--${d.status}`}>
-                      <div className="pp-date-row__left">
-                        <span className="pp-date-row__date">{d.date}</span>
-                        <span className={`pp-date-row__badge pp-date-row__badge--${d.status}`}>
-                          {d.status === 'full' ? 'Full' : d.status === 'almost-full' ? `${d.slots} left` : `${d.slots} spots`}
-                        </span>
+      {SHOW_UPCOMING_DATES && (
+        <section className="pp-dates-section">
+          <div className="pp-dates-inner">
+            <div className="pp-section-header">
+              <span className="section-label section-label--gold-dark">Availability</span>
+              <h2 className="pp-section-title">Upcoming Dates</h2>
+              <p className="pp-section-sub">Reserve your child's spot — popular sessions fill fast.</p>
+            </div>
+            <div className="pp-dates-grid">
+              {VISIBLE_UPCOMING_DATES.map(prog => (
+                <div key={prog.programId} className="pp-dates-card">
+                  <div className="pp-dates-card__header" style={{ borderColor: prog.ageColor }}>
+                    <span className="pp-dates-card__dot" style={{ background: prog.ageColor }} />
+                    <span className="pp-dates-card__name">{prog.title}</span>
+                  </div>
+                  <div className="pp-dates-list">
+                    {prog.dates.map((d, i) => (
+                      <div key={i} className={`pp-date-row pp-date-row--${d.status}`}>
+                        <div className="pp-date-row__left">
+                          <span className="pp-date-row__date">{d.date}</span>
+                          <span className={`pp-date-row__badge pp-date-row__badge--${d.status}`}>
+                            {d.status === 'full' ? 'Full' : d.status === 'almost-full' ? `${d.slots} left` : `${d.slots} spots`}
+                          </span>
+                        </div>
+                        <a
+                          href={d.status === 'full' ? '#' : `/contact`}
+                          className={`pp-date-row__btn${d.status === 'full' ? ' pp-date-row__btn--disabled' : ''}`}
+                          aria-disabled={d.status === 'full'}
+                        >
+                          {d.status === 'full' ? 'Full' : 'Book this date'}
+                        </a>
                       </div>
-                      <a
-                        href={d.status === 'full' ? '#' : `/contact`}
-                        className={`pp-date-row__btn${d.status === 'full' ? ' pp-date-row__btn--disabled' : ''}`}
-                        aria-disabled={d.status === 'full'}
-                      >
-                        {d.status === 'full' ? 'Full' : 'Book this date'}
-                      </a>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── PROGRAM COMPARISON TABLE ─────────── */}
       <section className="pp-compare-section">
@@ -579,48 +584,50 @@ export default function ProgramsPage() {
           </div>
         </div>
 
-        {/* Wave into CTA */}
-        <div className="section-wave section-wave--bottom" aria-hidden="true">
-          <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-            <path d="M0,60 C360,0 1080,80 1440,20 L1440,80 L0,80 Z" fill="#0a1f10" />
-          </svg>
-        </div>
+        {SHOW_READY_ADVENTURE_CTA && (
+          <div className="section-wave section-wave--bottom" aria-hidden="true">
+            <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+              <path d="M0,60 C360,0 1080,80 1440,20 L1440,80 L0,80 Z" fill="#0a1f10" />
+            </svg>
+          </div>
+        )}
       </section>
 
-      {/* ── CTA ──────────────────────────────── */}
-      <section className="pp-cta-section">
-        <div
-          className="pp-cta-bg"
-          style={{ backgroundImage: 'url(https://images.pexels.com/photos/3608439/pexels-photo-3608439.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
-        />
-        <div className="pp-cta-overlay" />
-        <div className="pp-cta-inner">
-          <span className="cta-pill" style={{ marginBottom: 20, display: 'inline-flex' }}>
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
-            Trusted by 2,500+ families
-          </span>
-          <h2 className="pp-cta-headline">Ready to Start the Adventure?</h2>
-          <p className="pp-cta-sub">Get in touch to learn more about our programs or to book a spot for your child.</p>
-          <div className="cta-btns">
-            <a
-              href="https://wa.me/919148422940?text=Hi%20Lookfar%20Outdoors%2C%20I%27d%20like%20to%20know%20more%20about%20the%20Outdoor%20Education%20Camp."
-              target="_blank" rel="noopener noreferrer"
-              className="cta-btn-primary"
-            >
-              <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.975-1.306A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2"/>
-              </svg>
-              Chat on WhatsApp
-            </a>
-            <a href="/contact" className="cta-btn-secondary">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
-                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-              </svg>
-              Send a Message
-            </a>
+      {SHOW_READY_ADVENTURE_CTA && (
+        <section className="pp-cta-section">
+          <div
+            className="pp-cta-bg"
+            style={{ backgroundImage: 'url(https://images.pexels.com/photos/3608439/pexels-photo-3608439.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
+          />
+          <div className="pp-cta-overlay" />
+          <div className="pp-cta-inner">
+            <span className="cta-pill" style={{ marginBottom: 20, display: 'inline-flex' }}>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/></svg>
+              Trusted by 2,500+ families
+            </span>
+            <h2 className="pp-cta-headline">Ready to Start the Adventure?</h2>
+            <p className="pp-cta-sub">Get in touch to learn more about our programs or to book a spot for your child.</p>
+            <div className="cta-btns">
+              <a
+                href="https://wa.me/919148422940?text=Hi%20Lookfar%20Outdoors%2C%20I%27d%20like%20to%20know%20more%20about%20the%20Outdoor%20Education%20Camp."
+                target="_blank" rel="noopener noreferrer"
+                className="cta-btn-primary"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.975-1.306A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2"/>
+                </svg>
+                Chat on WhatsApp
+              </a>
+              <a href="/contact" className="cta-btn-secondary">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                Send a Message
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   )
 }
