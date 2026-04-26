@@ -197,8 +197,8 @@ const FAQS = [
     a: 'Comfortable outdoor clothing, sturdy shoes (no flip-flops), a water bottle, sunscreen, hat, and any personal medication. We provide all activity-specific gear and safety equipment.',
   },
   {
-    q: "What's the adult-to-child ratio?",
-    a: 'We maintain a strict 1:8 guide-to-child ratio for all programs. For younger age groups (5–7), we may have additional support staff to ensure every child gets individual attention.',
+    q: "What's the instructor-to-child ratio?",
+    a: 'We maintain a strict 1:3 instructor-to-child ratio for all programs.',
   },
   {
     q: 'Are meals included in longer programs?',
@@ -512,7 +512,7 @@ export default function ProgramsPage() {
                   <th className="pp-compare-th pp-compare-th--label">Feature</th>
                   {VISIBLE_PROGRAMS.map(p => (
                     <th key={p.id} className="pp-compare-th">
-                      <span className="pp-compare-th__badge" style={{ background: p.ageColor }}>{p.age}</span>
+                      <span className="pp-compare-th__badge" style={{ background: p.ageColor }}>AGES 7–12</span>
                       <span className="pp-compare-th__name">{p.title}</span>
                     </th>
                   ))}
@@ -520,13 +520,13 @@ export default function ProgramsPage() {
               </thead>
               <tbody>
                   {[
-                    { label: 'Age Group',      icon: '👧', vals: ['5–7 yrs', '8–10 yrs', '11–13 yrs', '14–16 yrs'] },
-                    { label: 'Duration',       icon: '⏱',  vals: ['Half Day (4 hrs)', 'Full Day (8 hrs)', 'Weekend (2 days)', '2–3 Days'] },
-                    { label: 'Location',       icon: '📍', vals: ['Cubbon Park / Lalbagh', 'Ramanagara', 'Savandurga', 'Bheemeshwari'] },
-                    { label: 'Group Size',     icon: '👥', vals: ['Max 12 kids', 'Max 15 kids', 'Max 15 kids', 'Max 12 teens'] },
-                    { label: 'Difficulty',     icon: '📊', vals: ['Easy', 'Moderate', 'Challenging', 'Advanced'] },
-                    { label: 'Key Activity',   icon: '🌿', vals: ['Nature Walks & Crafts', 'Rock Climbing & Camping', 'Trekking & Navigation', 'Multi-Day Expedition'] },
-                    { label: 'Overnight Stay', icon: '🏕', vals: ['No', 'No', 'Yes (1 night)', 'Yes (1–2 nights)'] },
+                    { label: 'Age Group',        icon: '🧒', vals: ['7–12 yrs', '7–12 yrs', '11-13 yrs', '14-16 yrs'] },
+                    { label: 'Duration',         icon: '⏱️', vals: ['3 Days, 2 Nights', '5 Days, 4 Nights', 'Weekend (2 days)', '2-3 Days'] },
+                    { label: 'Location',         icon: '📍', vals: ['Basecamp & Devaragudda Valley', 'Basecamp & Devaragudda Valley', 'Savandurga', 'Bheemeshwari'] },
+                    { label: 'Instructor Ratio', icon: '👥', vals: ['1:3 Guide-to-Child', '1:3 Guide-to-Child', 'Max 15 kids', 'Max 12 teens'] },
+                    { label: 'Difficulty',       icon: '📊', vals: ['Moderate (Active)', 'Moderate (Endurance)', 'Challenging', 'Advanced'] },
+                    { label: 'Key Activity',     icon: '🌿', vals: ['Raft-Building, Rappelling, 8km Trek', 'Valley Trek, Rappelling, Mud Games, Pottery', 'Trekking & Navigation', 'Multi-Day Expedition'] },
+                    { label: 'Overnight Stay',   icon: '⛺', vals: ['Yes (2 Nights)', 'Yes (4 Nights)', 'Yes (1 night)', 'Yes (1-2 nights)'] },
                   ].map((row, ri) => (
                     <tr key={ri} className={`pp-compare-row${ri % 2 === 0 ? ' pp-compare-row--alt' : ''}`}>
                       <td className="pp-compare-td pp-compare-td--label">

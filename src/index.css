@@ -1742,7 +1742,7 @@ a { text-decoration: none; color: inherit; }
 /* ── Programs section ── */
 .pp-programs-section {
   background: var(--forest-deep);
-  padding: 94px 0 100px;
+  padding: 98px 0 100px;
   position: relative;
   overflow: hidden;
 }
