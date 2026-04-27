@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 // ─────────────────────────────────────────────
 // Data
@@ -46,13 +45,6 @@ const VALUES = [
     desc: 'Adventure is for everyone. We actively create welcoming, inclusive spaces where every child feels they belong.',
     accent: 'gold',
   },
-]
-
-const STATS = [
-  { num: 2500, suffix: '+', label: 'Kids Taken Outdoors' },
-  { num: 500, suffix: '+', label: 'Outings Completed' },
-  { num: 12, suffix: '', label: 'Expert Guides' },
-  { num: 100, suffix: '%', label: 'Safety Record' },
 ]
 
 const SAFETY = [
@@ -118,15 +110,6 @@ const SAFETY = [
   },
 ]
 
-const LOCATIONS = [
-  { name: 'Cubbon Park', desc: 'Heart of Bangalore — nature walks, bird watching, and sensory exploration for our youngest explorers.', tag: 'Little Explorers', accent: 'green' },
-  { name: 'Ramanagara', desc: 'Famous for its dramatic rock formations — perfect for bouldering, rock climbing, and adventure activities.', tag: 'Junior Adventurers', accent: 'gold' },
-  { name: 'Savandurga', desc: 'One of Asia\'s largest monolith hills — trekking, survival skills, and leadership challenges for pre-teens.', tag: 'Outdoor Leaders', accent: 'green' },
-  { name: 'Bheemeshwari', desc: 'Cauvery Wildlife Sanctuary — multi-day camping, kayaking, and wildlife trails for our teen adventurers.', tag: 'Teen Expeditions', accent: 'gold' },
-  { name: 'Bannerghatta', desc: 'National park and biological reserve — wildlife safaris, butterfly parks, and nature photography sessions.', tag: 'All Ages', accent: 'green' },
-  { name: 'Nandi Hills', desc: 'Historic hill fortress with stunning sunrise viewpoints — cycling, trekking, and bird-watching excursions.', tag: 'Ages 8+', accent: 'gold' },
-]
-
 const FAQS = [
   { q: 'Is LookFarOutdoors a registered company?', a: 'Yes, LookFarOutdoors is a fully registered Indian private limited company. We operate with all necessary permits and insurance to run outdoor education programmes for children.' },
   { q: 'How do I book an outing for my child?', a: 'Simply fill out the inquiry form on our Contact page or message us on WhatsApp. We\'ll get back to you within 24 hours with available dates, pricing, and all the details you need.' },
@@ -134,24 +117,6 @@ const FAQS = [
   { q: 'Can I organise a private outing for a birthday or school group?', a: 'Absolutely! We love hosting birthday adventures, school field trips, and private group outings. Get in touch with the group size and preferred dates, and we\'ll create a custom itinerary just for you.' },
   { q: 'What happens if it rains on the day of the outing?', a: 'Light rain makes adventures even more exciting! We continue with most activities in light rain with appropriate rain gear. In case of heavy rain or severe weather warnings, we reschedule to the next available date at no extra cost.' },
 ]
-
-const TIMELINE = [
-  { year: '2019', title: 'The Spark', desc: 'Two childhood friends — Rahul and Nisha — run their first informal nature walk in Cubbon Park for a handful of neighbourhood kids. No website, no logo. Just a backpack full of curiosity.', accent: 'green' },
-  { year: '2020', title: 'LookFarOutdoors Is Born', desc: 'Incorporated as a private limited company in Bangalore. The Little Explorers program launches officially with 18 children on the first session. Parents rave about the photo updates.', accent: 'gold' },
-  { year: '2021', title: 'First Adventure Program', desc: 'Junior Adventurers launches at Ramanagara. Rock climbing proves to be an instant hit. The team grows to 5 guides. A waitlist forms for the first time.', accent: 'green' },
-  { year: '2022', title: 'Going Overnight', desc: 'Outdoor Leaders debuts — the first LookFarOutdoors overnight program. 120 children attend in the inaugural year. A full first-aid certification program is introduced for all guides.', accent: 'gold' },
-  { year: '2023', title: 'Teen Expeditions Launch', desc: 'The multi-day Teen Expeditions program brings conservation fieldwork to the curriculum. Partnerships formed with Bheemeshwari Wildlife Sanctuary and local forest departments.', accent: 'green' },
-  { year: '2024', title: '2,500 Kids & Counting', desc: 'LookFarOutdoors crosses 2,500 children guided safely. The team now counts 12 certified guides. A new base camp facility opens at Savandurga, and school partnership programs begin.', accent: 'gold' },
-]
-
-const HIDDEN_PROGRAM_NAMES = ['Outdoor Leaders', 'Teen Expeditions']
-
-const VISIBLE_LOCATIONS = LOCATIONS.filter((location) => !HIDDEN_PROGRAM_NAMES.includes(location.tag))
-
-const VISIBLE_TIMELINE = TIMELINE.filter((item) => {
-  return HIDDEN_PROGRAM_NAMES.every((name) => !item.title.includes(name) && !item.desc.includes(name))
-})
-
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false)
@@ -188,8 +153,6 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 // Main page
 // ─────────────────────────────────────────────
 export default function AboutPage() {
-  const statsRef = useRef<HTMLDivElement>(null)
-
   // Hero entrance — typographic manifesto style
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -205,39 +168,6 @@ export default function AboutPage() {
         { opacity: 0, y: 30 },
         { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', delay: 1.0 }
       )
-      gsap.fromTo('.ap-manifesto__stat',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, stagger: 0.15, duration: 0.7, ease: 'power2.out', delay: 1.2 }
-      )
-    })
-    return () => ctx.revert()
-  }, [])
-
-  // Stats count-up
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const els = document.querySelectorAll<HTMLElement>('.ap-stat__num')
-      els.forEach(el => {
-        const target = parseInt(el.dataset.target || '0', 10)
-        const suffix = el.dataset.suffix || ''
-        ScrollTrigger.create({
-          trigger: statsRef.current,
-          start: 'top 80%',
-          once: true,
-          onEnter: () => {
-            gsap.fromTo({ val: 0 }, { val: target, duration: 2, ease: 'power2.out',
-              onUpdate: function () { el.textContent = Math.round(this.targets()[0].val) + suffix }
-            }, {})
-          },
-        })
-      })
-      gsap.fromTo('.ap-stat',
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1, y: 0, stagger: 0.12, duration: 0.8, ease: 'power2.out',
-          scrollTrigger: { trigger: statsRef.current, start: 'top 85%', once: true },
-        }
-      )
     })
     return () => ctx.revert()
   }, [])
@@ -245,12 +175,6 @@ export default function AboutPage() {
   // Section reveals
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Timeline
-      gsap.fromTo('.ap-timeline-item',
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, stagger: 0.12, duration: 0.75, ease: 'power2.out',
-          scrollTrigger: { trigger: '.ap-timeline-section', start: 'top 80%', once: true } }
-      )
       // Story
       gsap.fromTo('.ap-story__img',
         { opacity: 0, x: -60 },
@@ -279,12 +203,6 @@ export default function AboutPage() {
         { opacity: 0, y: 40 },
         { opacity: 1, y: 0, stagger: 0.08, duration: 0.7, ease: 'power2.out',
           scrollTrigger: { trigger: '.ap-safety-section', start: 'top 82%', once: true } }
-      )
-      // Locations
-      gsap.fromTo('.ap-location-card',
-        { opacity: 0, y: 40 },
-        { opacity: 1, y: 0, stagger: 0.08, duration: 0.7, ease: 'power2.out',
-          scrollTrigger: { trigger: '.ap-locations-section', start: 'top 82%', once: true } }
       )
       // FAQ
       gsap.fromTo('.ap-faq-item',
@@ -325,27 +243,10 @@ export default function AboutPage() {
             <span className="ap-manifesto__line ap-manifesto__line--accent" style={{ opacity: 0 }}>Kids who grow.</span>
           </h1>
 
-          {/* Sub text + inline stats */}
+          {/* Sub text */}
           <p className="ap-manifesto__sub" style={{ opacity: 0 }}>
             LookFarOutdoors was born in Bangalore with a simple idea — that the outdoors is the best classroom, and every child deserves to experience it.
           </p>
-
-          <div className="ap-manifesto__stats">
-            <div className="ap-manifesto__stat" style={{ opacity: 0 }}>
-              <span className="ap-manifesto__stat-num">2,500<span>+</span></span>
-              <span className="ap-manifesto__stat-label">Kids outdoors</span>
-            </div>
-            <div className="ap-manifesto__stat-divider" aria-hidden="true" />
-            <div className="ap-manifesto__stat" style={{ opacity: 0 }}>
-              <span className="ap-manifesto__stat-num">500<span>+</span></span>
-              <span className="ap-manifesto__stat-label">Outings completed</span>
-            </div>
-            <div className="ap-manifesto__stat-divider" aria-hidden="true" />
-            <div className="ap-manifesto__stat" style={{ opacity: 0 }}>
-              <span className="ap-manifesto__stat-num">100<span>%</span></span>
-              <span className="ap-manifesto__stat-label">Safety record</span>
-            </div>
-          </div>
         </div>
 
         {/* Bottom wave into next section */}
@@ -375,29 +276,6 @@ export default function AboutPage() {
             <p>LookFarOutdoors was founded with a simple belief: that children learn best when they're outside, hands in the dirt, eyes on the sky, and hearts full of curiosity.</p>
             <p>Growing up in Bangalore, we saw how quickly green spaces were disappearing — and with them, opportunities for kids to experience unstructured outdoor play. We started LookFarOutdoors to bridge that gap: connecting city children with the incredible natural landscapes just beyond their doorstep.</p>
             <p>What began as weekend nature walks in Cubbon Park has grown into a comprehensive outdoor education programme serving hundreds of families across Bangalore.</p>
-          </div>
-        </div>
-      </section>
-
-      {/* ── TIMELINE ─────────────────────────── */}
-      <section className="ap-timeline-section">
-        <div className="ap-timeline-inner">
-          <div className="ap-section-header">
-            <span className="section-label section-label--gold-dark">Our Journey</span>
-            <h2 className="ap-section-title">Five Years of <em>Adventure</em></h2>
-            <p className="ap-section-sub">From a single nature walk to Bangalore's most trusted outdoor education company.</p>
-          </div>
-          <div className="ap-timeline">
-            {VISIBLE_TIMELINE.map((item, i) => (
-              <div key={i} className={`ap-timeline-item ap-timeline-item--${item.accent}`}>
-                <div className="ap-timeline-item__year">{item.year}</div>
-                <div className="ap-timeline-item__connector" aria-hidden="true" />
-                <div className="ap-timeline-item__card">
-                  <h3 className="ap-timeline-item__title">{item.title}</h3>
-                  <p className="ap-timeline-item__desc">{item.desc}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </section>
@@ -452,30 +330,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── IMPACT STATS ─────────────────────── */}
-      <section ref={statsRef} className="ap-stats-section">
-        <div className="ap-stats-inner">
-          <div className="ap-section-header">
-            <h2 className="ap-section-title ap-section-title--light">Our Impact <em>So Far</em></h2>
-            <p className="ap-section-sub">Numbers we're proud of — and growing every weekend.</p>
-          </div>
-          <div className="ap-stats-grid">
-            {STATS.map((s, i) => (
-              <div key={i} className="ap-stat">
-                <div
-                  className="ap-stat__num"
-                  data-target={s.num}
-                  data-suffix={s.suffix}
-                >
-                  0{s.suffix}
-                </div>
-                <p className="ap-stat__label">{s.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── SAFETY STANDARDS ─────────────────── */}
       <section className="ap-safety-section">
         <div className="ap-safety-inner">
@@ -491,33 +345,6 @@ export default function AboutPage() {
                 <div>
                   <h3>{s.title}</h3>
                   <p>{s.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── LOCATIONS ────────────────────────── */}
-      <section className="ap-locations-section">
-        <div className="ap-locations-inner">
-          <div className="ap-section-header">
-            <span className="section-label section-label--gold-dark">Our Playground</span>
-            <h2 className="ap-section-title ap-section-title--light">Where We <em>Adventure</em></h2>
-            <p className="ap-section-sub">Bangalore is uniquely blessed — incredible natural spaces are just a short drive from the city.</p>
-          </div>
-          <div className="ap-locations-grid">
-            {VISIBLE_LOCATIONS.map((loc, i) => (
-              <div key={i} className={`ap-location-card ap-location-card--${loc.accent}`}>
-                <div className="ap-location-card__glyph">
-                  <svg viewBox="0 0 24 24" fill="currentColor" width="36" height="36">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-                  </svg>
-                </div>
-                <div className="ap-location-card__body">
-                  <h3>{loc.name}</h3>
-                  <p>{loc.desc}</p>
-                  <span className={`ap-location-tag ap-location-tag--${loc.accent}`}>{loc.tag}</span>
                 </div>
               </div>
             ))}
