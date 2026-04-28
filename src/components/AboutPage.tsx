@@ -101,8 +101,8 @@ const SAFETY = [
         <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
       </svg>
     ),
-    title: 'Small Group Ratios',
-    desc: '1:5 guide-to-child ratio for ages 5–7, and 1:8 for ages 8–16. Every child gets personal attention.',
+    title: 'Dedicated Attention',
+    desc: 'We maintain an industry-leading 1:3 guide-to-child ratio. This ensures every single child receives dedicated personal attention, mentorship, and support on the trail.',
     accent: 'green',
   },
   {
@@ -111,8 +111,8 @@ const SAFETY = [
         <path d="M19 3H5c-1.1 0-1.99.9-1.99 2L3 19c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z"/>
       </svg>
     ),
-    title: 'First Aid & Medical',
-    desc: 'Comprehensive first-aid kits on every outing. All guides are Wilderness First Aid certified.',
+    title: 'First Aid Certified',
+    desc: 'All our outdoor educators are Wilderness First Aid certified. We carry comprehensive field medical kits and are trained to handle the realities of the outdoors.',
     accent: 'gold',
   },
   {
@@ -121,8 +121,8 @@ const SAFETY = [
         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
       </svg>
     ),
-    title: 'GPS Tracking & Updates',
-    desc: 'Real-time GPS tracking and live photo updates sent to parents throughout the outing via WhatsApp.',
+    title: 'Updates & Tracking',
+    desc: 'We keep parents quietly connected with location tracking and photo updates via WhatsApp, giving you absolute peace of mind while your child unplugs.',
     accent: 'green',
   },
   {
@@ -131,8 +131,8 @@ const SAFETY = [
         <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
       </svg>
     ),
-    title: 'Insurance & Emergency Plans',
-    desc: 'Every participant is covered by comprehensive insurance. Emergency protocols with tie-ups to nearby hospitals.',
+    title: 'Emergency Protocols',
+    desc: 'While we teach children to embrace calculated risks, we leave nothing to chance. We maintain clear emergency action plans and direct tie-ups with nearby hospitals.',
     accent: 'gold',
   },
   {
@@ -141,8 +141,8 @@ const SAFETY = [
         <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
       </svg>
     ),
-    title: 'Verified Guides',
-    desc: 'Every guide goes through thorough background verification, police clearance, and reference checks.',
+    title: 'Trusted Guides',
+    desc: 'Every instructor goes through thorough background verification, reference checks, and rigorous field testing. They are trusted professionals who lead with quiet confidence.',
     accent: 'green',
   },
   {
@@ -152,7 +152,7 @@ const SAFETY = [
       </svg>
     ),
     title: 'Site Risk Assessments',
-    desc: 'Every outdoor venue is personally scouted and risk-assessed by our team before any child steps foot there.',
+    desc: 'Every trail, rock face, and basecamp is personally scouted, mapped, and risk-assessed by our core team before any child ever steps foot there.',
     accent: 'gold',
   },
 ]
@@ -272,16 +272,15 @@ export default function AboutPage() {
               alt="Children exploring nature"
             />
             <div className="ap-story__img-badge">
-              <span>Est. 2020</span>
-              <span>Bangalore</span>
+              <span>The Lookfar Journey</span>
             </div>
           </div>
           <div className="ap-story__text">
             <span className="section-label section-label--gold-dark">How It Started</span>
-            <h2 className="ap-section-title">Born From a <em>Simple Idea</em></h2>
-            <p>LookFarOutdoors was founded with a simple belief: that children learn best when they're outside, hands in the dirt, eyes on the sky, and hearts full of curiosity.</p>
-            <p>Growing up in Bangalore, we saw how quickly green spaces were disappearing — and with them, opportunities for kids to experience unstructured outdoor play. We started LookFarOutdoors to bridge that gap: connecting city children with the incredible natural landscapes just beyond their doorstep.</p>
-            <p>What began as weekend nature walks in Cubbon Park has grown into a comprehensive outdoor education programme serving hundreds of families across Bangalore.</p>
+            <h2 className="ap-section-title">Born in <em>the Himalayas</em></h2>
+            <p>A couple of years ago, we walked away from our IT careers and moved to Dehradun. We traded our screens for the high trails and deep wilderness of the Himalayas across India and Nepal. It wasn't just a career break-it was a search for a better way to live and learn.</p>
+            <p>Out there, we realized something simple: the landscape is the ultimate teacher. A child learns more about resilience from crossing a real stream, or figuring out an unclear trail, than they ever will from a textbook. Genuine confidence comes from encountering the real world.</p>
+            <p>Lookfar Outdoors is everything we learned in the mountains, poured into a field school for the next generation. We aren't here to just take kids on a casual nature walk. We are here to guide them into real terrain, step back, and let them discover what they are truly made of.</p>
           </div>
         </div>
       </section>
@@ -361,7 +360,7 @@ export default function AboutPage() {
           <div className="ap-section-header">
             <span className="section-label section-label--green-dark">Your Peace of Mind</span>
             <h2 className="ap-section-title ap-section-title--light">Safety <em>Standards</em></h2>
-            <p className="ap-section-sub">Safety isn't a checkbox for us — it's our culture. Here's how we protect your child on every outing.</p>
+            <p className="ap-section-sub">Safety is not a checklist; it is the absolute foundation that makes real adventure possible. Here is how we ensure your child is protected on every journey.</p>
           </div>
           <div className="ap-safety-grid">
             {SAFETY.map((s, i) => (
