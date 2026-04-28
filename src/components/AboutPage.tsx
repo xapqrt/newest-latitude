@@ -236,16 +236,16 @@ export default function AboutPage() {
           </span>
 
           {/* Giant headline — each line animates separately */}
-          <h1 className="ap-manifesto__headline" aria-label="We believe in kids who climb, explore, wonder and grow.">
+          <h1 className="ap-manifesto__headline" aria-label="We believe in real terrain. Real challenges. Real discovery.">
             <span className="ap-manifesto__line" style={{ opacity: 0 }}>We believe in</span>
-            <span className="ap-manifesto__line ap-manifesto__line--accent" style={{ opacity: 0 }}>kids who climb.</span>
-            <span className="ap-manifesto__line" style={{ opacity: 0 }}>Kids who explore.</span>
-            <span className="ap-manifesto__line ap-manifesto__line--accent" style={{ opacity: 0 }}>Kids who grow.</span>
+            <span className="ap-manifesto__line ap-manifesto__line--accent" style={{ opacity: 0 }}>real terrain.</span>
+            <span className="ap-manifesto__line" style={{ opacity: 0 }}>Real challenges.</span>
+            <span className="ap-manifesto__line ap-manifesto__line--accent" style={{ opacity: 0 }}>Real discovery.</span>
           </h1>
 
           {/* Sub text */}
           <p className="ap-manifesto__sub" style={{ opacity: 0 }}>
-            LookFarOutdoors was born in Bangalore with a simple idea — that the outdoors is the best classroom, and every child deserves to experience it.
+            Somewhere between the homework schedule and the tuition class, a child's day has been planned to the last minute. Lookfar Outdoors takes children outside into the forests, fields and the open country, giving them back the one thing modern childhood rarely offers: the chance to discover what they are truly capable of.
           </p>
         </div>
 
@@ -284,27 +284,28 @@ export default function AboutPage() {
       <section className="ap-mission-section">
         <div className="ap-mission-inner">
           <div className="ap-section-header">
-            <span className="section-label section-label--gold-dark">What Drives Us</span>
-            <h2 className="ap-section-title">Mission &amp; <em>Vision</em></h2>
+            <span className="section-label section-label--gold-dark">Our Philosophy</span>
+            <h2 className="ap-section-title">The <em>Manifesto</em></h2>
           </div>
           <div className="ap-mission-grid">
             <div className="ap-mission-card ap-mission-card--green">
               <div className="ap-mission-card__icon">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                  <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/>
+                  <path d="M12 2a10 10 0 1 0 10 10A10.01 10.01 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8.01 8.01 0 0 1-8 8z"/>
+                  <path d="M9 15l2-6 4 2-2 4z"/>
                 </svg>
               </div>
-              <h3>Our Mission</h3>
-              <p>To build confident, resilient, and environmentally conscious young people through safe, age-appropriate outdoor education experiences that inspire a lifelong love for nature and adventure.</p>
+              <h3>A Vessel, Not a Vehicle</h3>
+              <p>We are not a vehicle for delivering classroom content. We are a vessel built to carry children into the unknown—through real terrain and real challenges—bringing them back more capable of navigating the world than when they left.</p>
             </div>
             <div className="ap-mission-card ap-mission-card--gold">
               <div className="ap-mission-card__icon">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                  <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                  <path d="M18.2 4.8c-3.6-.9-6.8.1-8.9 2.2C7 9.3 6 12.5 6.9 16.1l.1.3-.8 2.8 2.8-.8.3.1c3.6.9 6.8-.1 8.9-2.2 2.3-2.3 3.2-5.5 2.3-9.1l-.1-.4-.4-.1zM11 16c-1.9-.6-2.8-2.4-2.3-4.4.8.9 1.9 1.6 3.3 2.1 1.4.5 2.7.6 3.9.4-.7 1.8-2.6 2.6-4.9 1.9z"/>
                 </svg>
               </div>
-              <h3>Our Vision</h3>
-              <p>To be India's most trusted outdoor education brand for children — where every child in every city has access to transformative outdoor experiences led by the best guides in the country.</p>
+              <h3>Encounter the Real</h3>
+              <p>Children learn best when allowed to encounter something real. Not a simulation on a screen or a worksheet about ecosystems, but the actual forest floor and the real problem of where to go next when the trail is unclear.</p>
             </div>
           </div>
         </div>

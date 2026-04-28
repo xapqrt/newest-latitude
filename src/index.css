@@ -3062,7 +3062,7 @@ a { text-decoration: none; color: inherit; }
   font-size: clamp(1rem, 1.6vw, 1.15rem);
   color: rgba(255,255,255,0.62);
   line-height: 1.7;
-  max-width: 520px;
+  max-width: 660px;
   margin-bottom: 48px;
 }
 .ap-manifesto__stats {
