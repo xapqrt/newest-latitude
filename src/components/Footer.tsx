@@ -1,11 +1,12 @@
 import { SHOW_GUIDES_PAGE } from '../config/featureFlags'
+import { buildWhatsAppLink } from '../utils/whatsapp'
 
 export default function Footer() {
   const HIDDEN_PROGRAM_PATHS = new Set(['/outdoor-leaders', '/teen-expeditions'])
 
   const FOOTER_PROGRAM_LINKS = [
-    { href: '/little-explorers', label: 'Little Explorers (5–7)' },
-    { href: '/junior-adventurers', label: 'Junior Adventurers (8–10)' },
+    { href: '/little-explorers', label: 'Outdoor Education Camp - 3D2N' },
+    { href: '/junior-adventurers', label: 'Outdoor Education Camp - 5D4N' },
     { href: '/outdoor-leaders', label: 'Outdoor Leaders (11–13)' },
     { href: '/teen-expeditions', label: 'Teen Expeditions (14–16)' },
   ]
@@ -44,7 +45,7 @@ export default function Footer() {
         {/* WhatsApp CTA */}
         <div className="footer-wa-cta">
           <a
-            href="https://wa.me/919148422940?text=Hi%20Lookfar%20Outdoors%2C%20I%27d%20like%20to%20know%20more%20about%20the%20Outdoor%20Education%20Camp."
+            href={buildWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
             className="footer-wa-btn"

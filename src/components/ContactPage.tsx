@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
+import { buildWhatsAppLink } from '../utils/whatsapp'
 
 // ─────────────────────────────────────────────
 // Data
 // ─────────────────────────────────────────────
 const PROGRAMS_LIST = [
-  { value: 'little-explorers', label: 'Little Explorers', age: 'Ages 5–7', duration: 'Half Day (4 hrs)', location: 'Cubbon Park / Lalbagh' },
-  { value: 'junior-adventurers', label: 'Junior Adventurers', age: 'Ages 8–10', duration: 'Full Day (8 hrs)', location: 'Ramanagara' },
+  { value: 'little-explorers', label: 'Outdoor Education Camp - 3D2N', age: 'Ages 5–7', duration: '3 Days, 2 Nights', location: 'Kanakapura' },
+  { value: 'junior-adventurers', label: 'Outdoor Education Camp - 5D4N', age: 'Ages 8–10', duration: '5 Days, 4 Nights', location: 'Kanakapura' },
   { value: 'outdoor-leaders', label: 'Outdoor Leaders', age: 'Ages 11–13', duration: 'Weekend (2 days)', location: 'Savandurga / Turahalli' },
   { value: 'teen-expeditions', label: 'Teen Expeditions', age: 'Ages 14–16', duration: '2–3 Days', location: 'Bheemeshwari / Kanakapura' },
 ]
@@ -48,14 +49,13 @@ function BookingForm() {
   const [step, setStep] = useState(1)
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [selectedProgram, setSelectedProgram] = useState('')
   const [form, setForm] = useState<FormData>({
     name: '', email: '', phone: '', numChildren: '',
     program: '', message: '', agreeTerms: false,
   })
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
 
-  const prog = PROGRAMS_LIST.find(p => p.value === selectedProgram)
+  const prog = PROGRAMS_LIST.find(p => p.value === form.program)
 
   function setField<K extends keyof FormData>(k: K, v: FormData[K]) {
     setForm(f => ({ ...f, [k]: v }))
@@ -92,21 +92,23 @@ function BookingForm() {
       return
     }
     setSubmitting(true)
-    // Build a pre-filled WhatsApp message from form data
     const progLabel = PROGRAMS_LIST.find(p => p.value === form.program)?.label || form.program
-    const msg = [
-      `Hi LookFarOutdoors! I'd like to book an adventure.`,
-      `Name: ${form.name}`,
-      `Phone: ${form.phone}`,
-      `Email: ${form.email}`,
-      `Program: ${progLabel}`,
-      `Children: ${form.numChildren}`,
-      form.message ? `Notes: ${form.message}` : null,
-    ].filter(Boolean).join('\n')
-    const waUrl = `https://wa.me/919148422940?text=${encodeURIComponent(msg)}`
+    const waUrl = buildWhatsAppLink({
+      route: '/contact',
+      programLabel: progLabel,
+      ageRange: prog?.age,
+      lead: `Hi LookFar Outdoors! We are excited about ${progLabel}${prog?.age ? ` (${prog.age})` : ''} and would love to book a spot.`,
+      prompt: 'Could you confirm availability, share the next steps, and let us know what to prepare?',
+      details: [
+        `Name: ${form.name}`,
+        `Phone: ${form.phone}`,
+        `Email: ${form.email}`,
+        `Children: ${form.numChildren}`,
+        form.message ? `Notes: ${form.message}` : null,
+      ],
+    })
     setSubmitting(false)
     setSubmitted(true)
-    // Open WhatsApp in new tab after a brief moment to show success state
     setTimeout(() => window.open(waUrl, '_blank', 'noopener,noreferrer'), 600)
   }
 
@@ -122,7 +124,18 @@ function BookingForm() {
         </div>
         <h2>Booking Request Sent!</h2>
         <p>Thank you, <strong>{form.name}</strong>! We'll get back to you within 24 hours to confirm all the details for <strong>{prog?.label || form.program}</strong>.</p>
-        <a href="https://wa.me/919148422940?text=Hi%20Lookfar%20Outdoors%2C%20I%27d%20like%20to%20know%20more%20about%20the%20Outdoor%20Education%20Camp." target="_blank" rel="noopener noreferrer" className="cp-whatsapp-btn">
+        <a href={buildWhatsAppLink({
+          route: '/contact',
+          programLabel: prog?.label || form.program,
+          ageRange: prog?.age,
+          details: [
+            `Name: ${form.name}`,
+            `Phone: ${form.phone}`,
+            `Email: ${form.email}`,
+            `Children: ${form.numChildren}`,
+            form.message ? `Notes: ${form.message}` : null,
+          ],
+        })} target="_blank" rel="noopener noreferrer" className="cp-whatsapp-btn">
           <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.975-1.306A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2"/>
           </svg>
@@ -208,7 +221,7 @@ function BookingForm() {
                   <label key={p.value} className={`cp-program-option${form.program === p.value ? ' cp-program-option--selected' : ''}`}>
                     <input type="radio" name="program" value={p.value}
                       checked={form.program === p.value}
-                      onChange={() => { setField('program', p.value); setSelectedProgram(p.value) }}
+                      onChange={() => setField('program', p.value)}
                     />
                     <div className="cp-program-option__inner">
                       <div>
@@ -502,7 +515,7 @@ export default function ContactPage() {
             <h2>Prefer to chat <em>directly?</em></h2>
             <p>Message us on WhatsApp and we'll help you pick the right program, check availability, and answer any questions — in minutes.</p>
             <a
-              href="https://wa.me/919148422940?text=Hi%20LookFarOutdoors!%20I'd%20like%20to%20book%20an%20adventure."
+              href={buildWhatsAppLink({ route: '/contact' })}
               target="_blank"
               rel="noopener noreferrer"
               className="cp-whatsapp-btn"

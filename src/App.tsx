@@ -55,8 +55,8 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
     description: 'Outdoor education camp with hands-on wilderness challenges for kids aged 7–12 in Kanakapura, guided at a 1:3 ratio.',
   },
   'junior-adventurers': {
-    title: 'Junior Adventurers (Ages 8–10) — LookFarOutdoors',
-    description: 'Full-day rock climbing, camping and survival skills for kids aged 8–10.',
+    title: 'Outdoor Education Camp - 5D4N — LookFarOutdoors',
+    description: 'Outdoor education camp with hands-on wilderness challenges for kids aged 8–10 in Kanakapura, guided at a 1:3 ratio.',
   },
   'outdoor-leaders': {
     title: 'Outdoor Leaders (Ages 11–13) — LookFarOutdoors',

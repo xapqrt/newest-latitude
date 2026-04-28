@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { getLenis } from '../hooks/useSmoothScroll'
+import { buildWhatsAppLink } from '../utils/whatsapp'
 
 // ─────────────────────────────────────────────
 // Scene data
@@ -361,7 +362,7 @@ export default function Hero() {
                   </svg>
                 </a>
                 <a
-                  href="https://wa.me/919148422940?text=Hi%20Lookfar%20Outdoors%2C%20I%27d%20like%20to%20know%20more%20about%20the%20Outdoor%20Education%20Camp."
+                  href={buildWhatsAppLink()}
                   target="_blank" rel="noopener noreferrer"
                   className="btn-ghost-hero"
                 >

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import littleOverviewImage from '../assets/lookfar-1.jpg'
+import { buildWhatsAppLink } from '../utils/whatsapp'
 
 // ─────────────────────────────────────────────
 // Data
@@ -91,7 +92,7 @@ const PROGRAMS = [
 const UPCOMING_DATES = [
   {
     programId: 'little-explorers',
-    title: 'Little Explorers',
+    title: 'Outdoor Education Camp - 3D2N',
     ageColor: '#d4880a',
     dates: [
       { date: 'Sat 22 Mar 2026', slots: 4, status: 'open' },
@@ -101,7 +102,7 @@ const UPCOMING_DATES = [
   },
   {
     programId: 'junior-adventurers',
-    title: 'Junior Adventurers',
+    title: 'Outdoor Education Camp - 5D4N',
     ageColor: '#1f6b2e',
     dates: [
       { date: 'Sun 23 Mar 2026', slots: 2, status: 'almost-full' },
@@ -210,7 +211,7 @@ const FAQS = [
   },
   {
     q: 'Can parents participate or observe?',
-    a: 'For the Little Explorers program (Ages 5–7), parents are welcome to accompany their child. For older age groups, we encourage independent participation to maximise the learning experience. We share live photo updates throughout the day.',
+    a: 'For the Outdoor Education Camp - 3D2N program (Ages 5–7), parents are welcome to accompany their child. For older age groups, we encourage independent participation to maximise the learning experience. We share live photo updates throughout the day.',
   },
 ]
 
@@ -609,7 +610,7 @@ export default function ProgramsPage() {
             <p className="pp-cta-sub">Get in touch to learn more about our programs or to book a spot for your child.</p>
             <div className="cta-btns">
               <a
-                href="https://wa.me/919148422940?text=Hi%20Lookfar%20Outdoors%2C%20I%27d%20like%20to%20know%20more%20about%20the%20Outdoor%20Education%20Camp."
+                href={buildWhatsAppLink()}
                 target="_blank" rel="noopener noreferrer"
                 className="cta-btn-primary"
               >

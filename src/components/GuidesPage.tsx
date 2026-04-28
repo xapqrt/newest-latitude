@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import { getLenis } from '../hooks/useSmoothScroll'
+import { buildWhatsAppLink } from '../utils/whatsapp'
 // ─────────────────────────────────────────────
 // Data
 // ─────────────────────────────────────────────
@@ -244,7 +245,11 @@ const GUIDE_CERTS: Record<string, string[]> = {
 
 function GuideModal({ guide, onClose }: { guide: typeof GUIDES[0]; onClose: () => void }) {
   const certs = GUIDE_CERTS[guide.id] ?? []
-  const waMsg = encodeURIComponent(`Hi LookFarOutdoors! I'd like to request ${guide.name} as a guide for my child's program.`)
+  const waMsg = buildWhatsAppLink({
+    route: '/guides',
+    lead: `Hi LookFar Outdoors! We would love to request ${guide.name} as a guide for our child's program.`,
+    prompt: 'Could you share their availability and a little more about their experience?',
+  })
   const modalRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -302,7 +307,7 @@ function GuideModal({ guide, onClose }: { guide: typeof GUIDES[0]; onClose: () =
           ))}
         </div>
         <a
-          href={`https://wa.me/919148422940?text=${waMsg}`}
+          href={waMsg}
           target="_blank" rel="noopener noreferrer"
           className="guide-modal__cta"
         >
@@ -695,7 +700,7 @@ export default function GuidesPage() {
           <p className="gp-cta-sub">Get in touch and we'll tell you more about the guides who'll be leading your child's adventure.</p>
           <div className="cta-btns">
             <a
-              href="https://wa.me/919148422940?text=Hi%20LookFarOutdoors!%20I%20want%20to%20know%20more%20about%20your%20guides."
+              href={buildWhatsAppLink({ route: '/guides' })}
               target="_blank"
               rel="noopener noreferrer"
               className="cta-btn-primary"

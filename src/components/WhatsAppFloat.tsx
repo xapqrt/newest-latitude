@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react'
-
-const WA_NUMBER = '919148422940'
-const WA_TEXT = encodeURIComponent("Hi Lookfar Outdoors, I'd like to know more about the Outdoor Education Camp.")
+import { buildWhatsAppLink } from '../utils/whatsapp'
 
 export default function WhatsAppFloat() {
   const [visible, setVisible] = useState(false)
@@ -18,7 +16,7 @@ export default function WhatsAppFloat() {
 
   return (
     <a
-      href={`https://wa.me/${WA_NUMBER}?text=${WA_TEXT}`}
+      href={buildWhatsAppLink()}
       target="_blank"
       rel="noopener noreferrer"
       className="wa-float"

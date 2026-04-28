@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
+import { buildWhatsAppLink } from '../utils/whatsapp'
 
 const BG = 'https://images.pexels.com/photos/1365425/pexels-photo-1365425.jpeg?auto=compress&cs=tinysrgb&w=1200'
 
@@ -90,7 +91,7 @@ export default function CTA() {
 
         <div className="cta-btns">
           <a
-            href="https://wa.me/919148422940?text=Hi%20Lookfar%20Outdoors%2C%20I%27d%20like%20to%20know%20more%20about%20the%20Outdoor%20Education%20Camp."
+            href={buildWhatsAppLink()}
             target="_blank"
             rel="noopener noreferrer"
             className="cta-btn-primary"
