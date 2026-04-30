@@ -15,16 +15,7 @@ const SCENES = [
     sub: 'A child who has learned to find their way on a trail, through a forest, or through a problem of their own making, will find it easier to find their way through everything that follows.',
     showButtons: true,
   },
-  // Keep this scene disabled for now so we can bring it back quickly.
-  ...((false)
-    ? [{
-      eyebrow: 'Your Child. Their Adventure.',
-      headline: ['Outdoor programs.', 'One north star.'],
-      sub: 'Age-appropriate challenges that turn every outing into a story worth telling.',
-      showButtons: true,
-    }]
-    : []),
-]
+  ]
 
 const LAST = SCENES.length - 1
 

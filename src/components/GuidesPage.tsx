@@ -247,7 +247,7 @@ function GuideModal({ guide, onClose }: { guide: typeof GUIDES[0]; onClose: () =
   const certs = GUIDE_CERTS[guide.id] ?? []
   const waMsg = buildWhatsAppLink({
     route: '/guides',
-    lead: `Hi LookFar Outdoors! We would love to request ${guide.name} as a guide for our child's program.`,
+    lead: `Hi Lookfar Outdoors! We would love to request ${guide.name} as a guide for our child's program.`,
     prompt: 'Could you share their availability and a little more about their experience?',
   })
   const modalRef = useRef<HTMLDivElement>(null)
@@ -523,7 +523,7 @@ export default function GuidesPage() {
           {/* Left: text */}
           <div className="gp-hero__text">
             <span className="gp-hero__label section-label section-label--gold-dark" style={{ opacity: 0 }}>
-              The LookFarOutdoors Team
+              The LookfarOutdoors Team
             </span>
             <h1 className="gp-hero__headline" aria-label="Meet Our Guides">
               <span className="gp-hero__title-line" style={{ opacity: 0 }}>Meet Our</span>
@@ -570,7 +570,7 @@ export default function GuidesPage() {
       <section className="gp-trust-section">
         <div className="gp-trust-header">
           <p className="gp-trust-eyebrow">Standards & Credentials</p>
-          <h2 className="gp-trust-title">Every LookFarOutdoors Guide Is</h2>
+          <h2 className="gp-trust-title">Every LookfarOutdoors Guide Is</h2>
         </div>
         <div className="gp-trust-grid">
           {TRUST_BADGES.map((b, i) => (
@@ -634,7 +634,7 @@ export default function GuidesPage() {
           <div className="gp-section-header">
             <span className="section-label section-label--dark">Our Standards</span>
             <h2 className="gp-section-title--dark">How We Select Our <em>Guides</em></h2>
-            <p className="gp-section-sub--dark">Every LookFarOutdoors guide goes through a rigorous 5-step selection process before leading a single outing.</p>
+            <p className="gp-section-sub--dark">Every LookfarOutdoors guide goes through a rigorous 5-step selection process before leading a single outing.</p>
           </div>
 
           <div className="gp-steps">

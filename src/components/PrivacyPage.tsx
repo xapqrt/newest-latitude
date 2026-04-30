@@ -29,7 +29,7 @@ export default function PrivacyPage() {
       <div className="legal-inner">
         <div className="legal-body">
           <p>
-            LookFarOutdoors ("we", "our", or "us") operates the website at lookfaroutdoors.in. This Privacy Policy describes how we collect, use, and protect your personal information when you interact with our website or enquire about our programs.
+            LookfarOutdoors ("we", "our", or "us") operates the website at lookfaroutdoors.in. This Privacy Policy describes how we collect, use, and protect your personal information when you interact with our website or enquire about our programs.
           </p>
 
           <h2>Information We Collect</h2>

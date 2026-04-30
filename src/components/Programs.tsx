@@ -1,50 +1,9 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
-import lookfarCampImage from '../assets/lookfar-1.jpg'
+import { getVisiblePrograms } from '../data/programs'
 
-const PROGRAMS = [
-  {
-    title: 'Outdoor Education Camp - 3D2N',
-    duration: '3 Days, 2 Nights',
-    location: 'Kanakapura',
-    desc: 'Rappelling, rafting, and valley exploration for ages 7-12, with a close 1:3 guide ratio that builds confidence through real outdoor challenges.',
-    img: lookfarCampImage,
-    href: '/little-explorers',
-  },
-  {
-    title: 'Outdoor Education Camp - 5D4N',
-    duration: '5 Days, 4 Nights',
-    location: 'Kanakapura',
-    desc: 'A longer camp arc with trekking, cave exploration, campfire reflection, and collaborative problem-solving designed for deeper resilience growth.',
-    img: 'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=900',
-    href: '/junior-adventurers',
-  },
-  {
-    title: 'Outdoor Leaders',
-    age: 'Ages 11–13',
-    duration: 'Weekend',
-    location: 'Savandurga',
-    desc: 'Advanced trekking, navigation & real leadership development. Where capable kids become confident young adults.',
-    img: 'https://images.pexels.com/photos/2422294/pexels-photo-2422294.jpeg?auto=compress&cs=tinysrgb&w=800',
-    href: '/outdoor-leaders',
-    ageColor: '#7a4520',
-  },
-  {
-    title: 'Teen Expeditions',
-    age: 'Ages 14–16',
-    duration: '2–3 Days',
-    location: 'Bheemeshwari',
-    desc: 'Multi-day camps, wilderness first aid & environmental projects — forging the next generation of outdoor leaders.',
-    img: 'https://images.pexels.com/photos/1578750/pexels-photo-1578750.jpeg?auto=compress&cs=tinysrgb&w=800',
-    href: '/teen-expeditions',
-    ageColor: '#144820',
-  },
-]
-
-const HIDDEN_PROGRAM_HREFS = new Set(['/outdoor-leaders', '/teen-expeditions'])
-
-const VISIBLE_PROGRAMS = PROGRAMS.filter((program) => !HIDDEN_PROGRAM_HREFS.has(program.href))
+const VISIBLE_PROGRAMS = getVisiblePrograms()
 
 export default function Programs() {
   const sectionRef = useRef<HTMLElement>(null)

@@ -389,7 +389,7 @@ export default function AboutPage() {
             Trusted by 2,500+ families
           </span>
           <h2 className="ap-cta-headline">Ready to Start the <em>Adventure?</em></h2>
-          <p className="ap-cta-sub">Your child's next great story starts outdoors. Get in touch and let's plan their first LookFarOutdoors experience.</p>
+          <p className="ap-cta-sub">Your child's next great story starts outdoors. Get in touch and let's plan their first LookfarOutdoors experience.</p>
           <div className="cta-btns">
             <a href="/contact" className="cta-btn-primary">
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">

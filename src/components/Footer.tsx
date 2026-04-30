@@ -1,17 +1,9 @@
 import { SHOW_GUIDES_PAGE } from '../config/featureFlags'
 import { buildWhatsAppLink } from '../utils/whatsapp'
+import { getVisiblePrograms } from '../data/programs'
 
 export default function Footer() {
-  const HIDDEN_PROGRAM_PATHS = new Set(['/outdoor-leaders', '/teen-expeditions'])
-
-  const FOOTER_PROGRAM_LINKS = [
-    { href: '/little-explorers', label: 'Outdoor Education Camp - 3D2N' },
-    { href: '/junior-adventurers', label: 'Outdoor Education Camp - 5D4N' },
-    { href: '/outdoor-leaders', label: 'Outdoor Leaders (11–13)' },
-    { href: '/teen-expeditions', label: 'Teen Expeditions (14–16)' },
-  ]
-
-  const visibleFooterProgramLinks = FOOTER_PROGRAM_LINKS.filter((program) => !HIDDEN_PROGRAM_PATHS.has(program.href))
+  const visibleFooterProgramLinks = getVisiblePrograms()
 
   return (
     <footer className="footer">
@@ -121,8 +113,8 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Programs</h4>
             <ul>
-              {visibleFooterProgramLinks.map((program) => (
-                <li key={program.href}><a href={program.href}>{program.label}</a></li>
+              {visibleFooterProgramLinks.map((p) => (
+                <li key={p.href}><a href={p.href}>{p.title}</a></li>
               ))}
             </ul>
           </div>
@@ -151,7 +143,7 @@ export default function Footer() {
         <div className="footer-rule" aria-hidden="true" />
 
         <div className="footer-bottom">
-          <p>© 2026 LookFarOutdoors. All rights reserved.</p>
+          <p>© 2026 LookfarOutdoors. All rights reserved.</p>
           <div className="footer-bottom-links">
             <a href="/privacy">Privacy Policy</a>
             <a href="/terms">Terms of Service</a>

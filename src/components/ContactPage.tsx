@@ -2,20 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import { buildWhatsAppLink } from '../utils/whatsapp'
+import { getVisiblePrograms, getProgramById } from '../data/programs'
 
-// ─────────────────────────────────────────────
-// Data
-// ─────────────────────────────────────────────
-const PROGRAMS_LIST = [
-  { value: 'little-explorers', label: 'Outdoor Education Camp - 3D2N', age: 'Ages 5–7', duration: '3 Days, 2 Nights', location: 'Kanakapura' },
-  { value: 'junior-adventurers', label: 'Outdoor Education Camp - 5D4N', age: 'Ages 8–10', duration: '5 Days, 4 Nights', location: 'Kanakapura' },
-  { value: 'outdoor-leaders', label: 'Outdoor Leaders', age: 'Ages 11–13', duration: 'Weekend (2 days)', location: 'Savandurga / Turahalli' },
-  { value: 'teen-expeditions', label: 'Teen Expeditions', age: 'Ages 14–16', duration: '2–3 Days', location: 'Bheemeshwari / Kanakapura' },
-]
-
-const HIDDEN_PROGRAM_VALUES = new Set(['outdoor-leaders', 'teen-expeditions'])
-
-const VISIBLE_PROGRAMS_LIST = PROGRAMS_LIST.filter((program) => !HIDDEN_PROGRAM_VALUES.has(program.value))
+const VISIBLE_PROGRAMS_LIST = getVisiblePrograms()
 
 const TRUST_BADGES = [
   { label: '100% Secure', accent: 'green', icon: (
@@ -55,7 +44,7 @@ function BookingForm() {
   })
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
 
-  const prog = PROGRAMS_LIST.find(p => p.value === form.program)
+  const prog = getProgramById(form.program)
 
   function setField<K extends keyof FormData>(k: K, v: FormData[K]) {
     setForm(f => ({ ...f, [k]: v }))
@@ -92,12 +81,11 @@ function BookingForm() {
       return
     }
     setSubmitting(true)
-    const progLabel = PROGRAMS_LIST.find(p => p.value === form.program)?.label || form.program
+    const progTitle = getProgramById(form.program)?.title || form.program
     const waUrl = buildWhatsAppLink({
       route: '/contact',
-      programLabel: progLabel,
-      ageRange: prog?.age,
-      lead: `Hi LookFar Outdoors! We are excited about ${progLabel}${prog?.age ? ` (${prog.age})` : ''} and would love to book a spot.`,
+      programLabel: progTitle,
+      lead: `Hi Lookfar Outdoors! We are excited about ${progTitle} and would love to book a spot.`,
       prompt: 'Could you confirm availability, share the next steps, and let us know what to prepare?',
       details: [
         `Name: ${form.name}`,
@@ -123,11 +111,10 @@ function BookingForm() {
           </svg>
         </div>
         <h2>Booking Request Sent!</h2>
-        <p>Thank you, <strong>{form.name}</strong>! We'll get back to you within 24 hours to confirm all the details for <strong>{prog?.label || form.program}</strong>.</p>
+        <p>Thank you, <strong>{form.name}</strong>! We'll get back to you within 24 hours to confirm all the details for <strong>{prog?.title || form.program}</strong>.</p>
         <a href={buildWhatsAppLink({
           route: '/contact',
-          programLabel: prog?.label || form.program,
-          ageRange: prog?.age,
+          programLabel: prog?.title || form.program,
           details: [
             `Name: ${form.name}`,
             `Phone: ${form.phone}`,
@@ -218,23 +205,23 @@ function BookingForm() {
             <div className="cp-form-fields">
               <div className="cp-program-grid">
                 {VISIBLE_PROGRAMS_LIST.map(p => (
-                  <label key={p.value} className={`cp-program-option${form.program === p.value ? ' cp-program-option--selected' : ''}`}>
-                    <input type="radio" name="program" value={p.value}
-                      checked={form.program === p.value}
-                      onChange={() => setField('program', p.value)}
+                  <label key={p.id} className={`cp-program-option${form.program === p.id ? ' cp-program-option--selected' : ''}`}>
+                    <input type="radio" name="program" value={p.id}
+                      checked={form.program === p.id}
+                      onChange={() => setField('program', p.id)}
                     />
                     <div className="cp-program-option__inner">
                       <div>
-                        <div className="cp-program-option__name">{p.label}</div>
+                        <div className="cp-program-option__name">{p.title}</div>
                         <div className="cp-program-option__age">{p.age}</div>
                       </div>
-                      {form.program === p.value && (
+                      {form.program === p.id && (
                         <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" style={{ color: 'var(--primary)', flexShrink: 0 }}>
                           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
                         </svg>
                       )}
                     </div>
-                    {prog && form.program === p.value && (
+                    {prog && form.program === p.id && (
                       <div className="cp-program-snippet">
                         <span>
                           <svg viewBox="0 0 24 24" fill="currentColor" width="12" height="12"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
@@ -287,7 +274,7 @@ function BookingForm() {
                     ['Name', form.name],
                     ['Email', form.email],
                     ['Phone', form.phone],
-                    ['Program', prog?.label || form.program],
+                    ['Program', prog?.title || form.program],
                     ['Duration', prog?.duration || '—'],
                     ['Location', prog?.location || '—'],
                     ['Children', form.numChildren],

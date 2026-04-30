@@ -355,7 +355,7 @@ export default function LittleExplorersPage() {
           </div>
           <div className="pd-reviews__grid">
             {[
-              { name: 'Garima S.', child: 'Mum of Arya, 9', stars: 5, text: 'Arya came home absolutely buzzing with excitement. She could not stop talking about the rappelling wall and rafting challenge. LookFarOutdoors has really helped her come out of her shell.' },
+              { name: 'Garima S.', child: 'Mum of Arya, 9', stars: 5, text: 'Arya came home absolutely buzzing with excitement. She could not stop talking about the rappelling wall and rafting challenge. LookfarOutdoors has really helped her come out of her shell.' },
               { name: 'Bishwadeep', child: 'Dad of Kiran, 8', stars: 5, text: 'As a first outdoor camp experience for my son, I was a bit nervous. But the guides were warm, structured, and highly attentive. The 1:3 ratio meant Kiran always had the support he needed.' },
             ].map((r, i) => (
               <div key={i} className="pd-review-card">

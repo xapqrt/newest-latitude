@@ -31,55 +31,55 @@ const TermsPage             = lazy(() => import('./components/TermsPage'))
 // Per-page meta — title + description
 const PAGE_META: Record<string, { title: string; description: string }> = {
   home: {
-    title: 'LookFarOutdoors — Kids Outdoor Adventures in Bangalore',
-    description: 'LookFarOutdoors offers outdoor education experiences for kids in Bangalore. Nature trails, rock climbing, survival skills & more.',
+    title: 'LookfarOutdoors — Kids Outdoor Adventures in Bangalore',
+    description: 'LookfarOutdoors offers outdoor education experiences for kids in Bangalore. Nature trails, rock climbing, survival skills & more.',
   },
   programs: {
-    title: 'Programs — LookFarOutdoors',
+    title: 'Programs — LookfarOutdoors',
     description: 'Explore our age-appropriate outdoor programs for children in Bangalore.',
   },
   guides: {
-    title: 'Our Guides — LookFarOutdoors',
-    description: 'Meet the expert outdoor educators and guides behind every LookFarOutdoors adventure.',
+    title: 'Our Guides — LookfarOutdoors',
+    description: 'Meet the expert outdoor educators and guides behind every LookfarOutdoors adventure.',
   },
   about: {
-    title: 'About Us — LookFarOutdoors',
-    description: "Learn about LookFarOutdoors' mission to get Bangalore's kids outside and into nature.",
+    title: 'About Us — LookfarOutdoors',
+    description: "Learn about LookfarOutdoors' mission to get Bangalore's kids outside and into nature.",
   },
   contact: {
-    title: 'Contact Us — LookFarOutdoors',
-    description: 'Book a program or get in touch with the LookFarOutdoors team in Bangalore.',
+    title: 'Contact Us — LookfarOutdoors',
+    description: 'Book a program or get in touch with the LookfarOutdoors team in Bangalore.',
   },
   'little-explorers': {
-    title: 'Outdoor Education Camp - 3D2N — LookFarOutdoors',
+    title: 'Outdoor Education Camp - 3D2N — LookfarOutdoors',
     description: 'Outdoor education camp with hands-on wilderness challenges for kids aged 7–12 in Kanakapura, guided at a 1:3 ratio.',
   },
   'junior-adventurers': {
-    title: 'Outdoor Education Camp - 5D4N — LookFarOutdoors',
+    title: 'Outdoor Education Camp - 5D4N — LookfarOutdoors',
     description: 'Outdoor education camp with hands-on wilderness challenges for kids aged 8–10 in Kanakapura, guided at a 1:3 ratio.',
   },
   'outdoor-leaders': {
-    title: 'Outdoor Leaders (Ages 11–13) — LookFarOutdoors',
+    title: 'Outdoor Leaders (Ages 11–13) — LookfarOutdoors',
     description: 'Weekend trekking and leadership development programs for kids aged 11–13.',
   },
   'teen-expeditions': {
-    title: 'Teen Expeditions (Ages 14–16) — LookFarOutdoors',
+    title: 'Teen Expeditions (Ages 14–16) — LookfarOutdoors',
     description: 'Multi-day wilderness expeditions and first aid training for teenagers aged 14–16.',
   },
   privacy: {
-    title: 'Privacy Policy — LookFarOutdoors',
-    description: 'Privacy policy for LookFarOutdoors outdoor education programs in Bangalore.',
+    title: 'Privacy Policy — LookfarOutdoors',
+    description: 'Privacy policy for LookfarOutdoors outdoor education programs in Bangalore.',
   },
   terms: {
-    title: 'Terms of Service — LookFarOutdoors',
-    description: 'Terms and conditions for LookFarOutdoors outdoor education programs in Bangalore.',
+    title: 'Terms of Service — LookfarOutdoors',
+    description: 'Terms and conditions for LookfarOutdoors outdoor education programs in Bangalore.',
   },
 }
 
 if (SHOW_GUIDES_PAGE) {
   PAGE_META.guides = {
-    title: 'Our Guides — LookFarOutdoors',
-    description: 'Meet the expert outdoor educators and guides behind every LookFarOutdoors adventure.',
+    title: 'Our Guides — LookfarOutdoors',
+    description: 'Meet the expert outdoor educators and guides behind every LookfarOutdoors adventure.',
   }
 }
 

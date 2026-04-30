@@ -4,7 +4,7 @@ import 'gsap/ScrollTrigger'
 
 const TESTIMONIALS = [
   {
-    quote: '"Arya came home absolutely buzzing with excitement. She could not stop talking about the rappelling wall and rafting challenge. LookFarOutdoors has really helped her come out of her shell."',
+    quote: '"Arya came home absolutely buzzing with excitement. She could not stop talking about the rappelling wall and rafting challenge. LookfarOutdoors has really helped her come out of her shell."',
     name: 'Garima S.',
     detail: 'Mum of Arya, 9',
     initials: 'GS',
