@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useState, useCallback } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { useSmoothScroll, getLenis } from './hooks/useSmoothScroll'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -15,9 +16,11 @@ import ScrollProgress from './components/ScrollProgress'
 import SplashLoader from './components/SplashLoader'
 import PageTransition from './components/PageTransition'
 import MobileBottomNav from './components/MobileBottomNav'
-import { SHOW_GUIDES_PAGE } from './config/featureFlags'
+import JsonLd from './components/JsonLd'
+import { organizationSchema, programSchema } from './data/schema'
+import { getVisiblePrograms } from './data/programs'
 
-// Lazy-load page components — only the current page's JS is fetched
+// Lazy-load page components
 const ProgramsPage          = lazy(() => import('./components/ProgramsPage'))
 const GuidesPage            = lazy(() => import('./components/GuidesPage'))
 const AboutPage             = lazy(() => import('./components/AboutPage'))
@@ -28,8 +31,8 @@ const NotFoundPage          = lazy(() => import('./components/NotFoundPage'))
 const PrivacyPage           = lazy(() => import('./components/PrivacyPage'))
 const TermsPage             = lazy(() => import('./components/TermsPage'))
 
-// Per-page meta — title + description
-const PAGE_META: Record<string, { title: string; description: string }> = {
+// Per-page meta
+const PAGE_META: Record<string, { title: string; description: string; ogImage?: string }> = {
   home: {
     title: 'LookfarOutdoors — Kids Outdoor Adventures in Bangalore',
     description: 'LookfarOutdoors offers outdoor education experiences for kids in Bangalore. Nature trails, rock climbing, survival skills & more.',
@@ -37,10 +40,6 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
   programs: {
     title: 'Programs — LookfarOutdoors',
     description: 'Explore our age-appropriate outdoor programs for children in Bangalore.',
-  },
-  guides: {
-    title: 'Our Guides — LookfarOutdoors',
-    description: 'Meet the expert outdoor educators and guides behind every LookfarOutdoors adventure.',
   },
   about: {
     title: 'About Us — LookfarOutdoors',
@@ -56,15 +55,7 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
   },
   'junior-adventurers': {
     title: 'Outdoor Education Camp - 5D4N — LookfarOutdoors',
-    description: 'Outdoor education camp with hands-on wilderness challenges for kids aged 8–10 in Kanakapura, guided at a 1:3 ratio.',
-  },
-  'outdoor-leaders': {
-    title: 'Outdoor Leaders (Ages 11–13) — LookfarOutdoors',
-    description: 'Weekend trekking and leadership development programs for kids aged 11–13.',
-  },
-  'teen-expeditions': {
-    title: 'Teen Expeditions (Ages 14–16) — LookfarOutdoors',
-    description: 'Multi-day wilderness expeditions and first aid training for teenagers aged 14–16.',
+    description: 'Outdoor education camp with hands-on wilderness challenges for kids aged 7–12 in Kanakapura, guided at a 1:3 ratio.',
   },
   privacy: {
     title: 'Privacy Policy — LookfarOutdoors',
@@ -76,24 +67,23 @@ const PAGE_META: Record<string, { title: string; description: string }> = {
   },
 }
 
-if (SHOW_GUIDES_PAGE) {
-  PAGE_META.guides = {
-    title: 'Our Guides — LookfarOutdoors',
-    description: 'Meet the expert outdoor educators and guides behind every LookfarOutdoors adventure.',
-  }
+function getPageKey(pathname: string): string {
+  if (pathname === '/') return 'home'
+  const key = pathname.replace(/^\//, '').split('/')[0]
+  return PAGE_META[key] ? key : '404'
 }
 
-function usePageMeta(page: string) {
+function usePageMeta(pageKey: string) {
   useEffect(() => {
-    const meta = PAGE_META[page] ?? PAGE_META.home
+    const meta = PAGE_META[pageKey] ?? PAGE_META.home
     document.title = meta.title
     const el = document.querySelector<HTMLMetaElement>('meta[name="description"]')
     if (el) el.setAttribute('content', meta.description)
-  }, [page])
+  }, [pageKey])
 }
 
-// Scroll to top on every page mount
 function useScrollToTop() {
+  const { pathname } = useLocation()
   useEffect(() => {
     const lenis = getLenis()
     if (lenis) {
@@ -101,7 +91,7 @@ function useScrollToTop() {
     } else {
       window.scrollTo(0, 0)
     }
-  }, [])
+  }, [pathname])
 }
 
 function PageWrapper({ children }: { children: React.ReactNode }) {
@@ -109,77 +99,53 @@ function PageWrapper({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 
-// Minimal path helper — works with Vite dev server and SPA routing
-function usePage() {
-  const path = window.location.pathname
-  if (path.includes('little-explorers'))   return 'little-explorers'
-  if (path.includes('junior-adventurers')) return 'junior-adventurers'
-  if (path.includes('programs'))           return 'programs'
-  if (path.includes('guides') && SHOW_GUIDES_PAGE) return 'guides'
-  if (path.includes('about'))              return 'about'
-  if (path.includes('contact'))            return 'contact'
-  if (path.includes('privacy'))            return 'privacy'
-  if (path.includes('terms'))              return 'terms'
-  // Any path that isn't root and didn't match above is a 404
-  if (path !== '/')                        return '404'
-  return 'home'
-}
-
-// Minimal dark spinner shown while lazy chunks load
+// Dark spinner while lazy chunks load
 function PageFallback() {
   return (
     <div style={{
-      minHeight: '100vh',
-      background: '#0a1f10',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      minHeight: '100vh', background: '#0a1f10',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
     }}>
       <div style={{
         width: 36, height: 36,
         border: '3px solid rgba(255,255,255,0.1)',
         borderTop: '3px solid #d4880a',
-        borderRadius: '50%',
-        animation: 'spin 0.8s linear infinite',
+        borderRadius: '50%', animation: 'spin 0.8s linear infinite',
       }} />
     </div>
   )
 }
 
+function HomePage() {
+  return (
+    <>
+      <Hero />
+      <Programs />
+      <WhyUs />
+      <Testimonials />
+      <HowItWorks />
+      <CTA />
+    </>
+  )
+}
+
 function AppContent() {
   useSmoothScroll()
-  const page = usePage()
-  usePageMeta(page === '404' ? 'home' : page)
+  const { pathname } = useLocation()
+  const pageKey = getPageKey(pathname)
+  usePageMeta(pageKey === '404' ? 'home' : pageKey)
   const [splashDone, setSplashDone] = useState(false)
   const handleSplashDone = useCallback(() => setSplashDone(true), [])
 
-  const renderPage = () => {
-    switch (page) {
-      case 'little-explorers':    return <PageWrapper><LittleExplorersPage /></PageWrapper>
-      case 'junior-adventurers':  return <PageWrapper><JuniorAdventurersPage /></PageWrapper>
-      case 'programs':            return <PageWrapper><ProgramsPage /></PageWrapper>
-      case 'guides':              return <PageWrapper><GuidesPage /></PageWrapper>
-      case 'about':               return <PageWrapper><AboutPage /></PageWrapper>
-      case 'contact':             return <PageWrapper><ContactPage /></PageWrapper>
-      case 'privacy':             return <PageWrapper><PrivacyPage /></PageWrapper>
-      case 'terms':               return <PageWrapper><TermsPage /></PageWrapper>
-      case '404':                 return <PageWrapper><NotFoundPage /></PageWrapper>
-      default:
-        return (
-          <>
-            <Hero />
-            <Programs />
-            <WhyUs />
-            <Testimonials />
-            <HowItWorks />
-            <CTA />
-          </>
-        )
-    }
-  }
+  const orgSchema = organizationSchema()
+  const programSchemas = getVisiblePrograms().map(programSchema)
 
   return (
     <>
+      <JsonLd schema={orgSchema} />
+      {programSchemas.map((schema, i) => (
+        <JsonLd key={i} schema={schema} />
+      ))}
       <SplashLoader onDone={handleSplashDone} />
       <PageTransition />
       <ScrollProgress />
@@ -188,7 +154,18 @@ function AppContent() {
       <Navbar />
       <main style={{ visibility: splashDone ? 'visible' : 'hidden' }}>
         <Suspense fallback={<PageFallback />}>
-          {renderPage()}
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/programs" element={<PageWrapper><ProgramsPage /></PageWrapper>} />
+            <Route path="/guides" element={<PageWrapper><GuidesPage /></PageWrapper>} />
+            <Route path="/about" element={<PageWrapper><AboutPage /></PageWrapper>} />
+            <Route path="/contact" element={<PageWrapper><ContactPage /></PageWrapper>} />
+            <Route path="/little-explorers" element={<PageWrapper><LittleExplorersPage /></PageWrapper>} />
+            <Route path="/junior-adventurers" element={<PageWrapper><JuniorAdventurersPage /></PageWrapper>} />
+            <Route path="/privacy" element={<PageWrapper><PrivacyPage /></PageWrapper>} />
+            <Route path="/terms" element={<PageWrapper><TermsPage /></PageWrapper>} />
+            <Route path="*" element={<PageWrapper><NotFoundPage /></PageWrapper>} />
+          </Routes>
         </Suspense>
       </main>
       <Footer />

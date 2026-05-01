@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { buildWhatsAppLink } from '../utils/whatsapp'
 
 export default function WhatsAppFloat() {
+  const { pathname } = useLocation()
   const [visible, setVisible] = useState(false)
 
   // Only show after a short delay; hide on /contact page
   useEffect(() => {
-    const isContact = window.location.pathname.includes('contact')
-    if (isContact) return
+    if (pathname.includes('contact')) return
     const t = setTimeout(() => setVisible(true), 1800)
     return () => clearTimeout(t)
-  }, [])
+  }, [pathname])
 
   if (!visible) return null
 

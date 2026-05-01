@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import '../program-detail.css'
 import overviewImage from '../assets/lookfar-1.jpg'
+import { optimizeImage } from '../utils/images'
 
 const ACTIVITIES = [
   {
@@ -202,7 +203,7 @@ export default function LittleExplorersPage() {
       <div className="pd-hero">
         <div
           className="pd-hero__bg"
-          style={{ backgroundImage: 'url(https://images.pexels.com/photos/296234/pexels-photo-296234.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
+          style={{ backgroundImage: `url(${optimizeImage('https://images.pexels.com/photos/296234/pexels-photo-296234.jpeg?auto=compress&cs=tinysrgb&w=1920')})` }}
         />
         <div className="pd-hero__overlay" />
         <div className="pd-hero__content">

@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import { getLenis } from '../hooks/useSmoothScroll'
 import { buildWhatsAppLink } from '../utils/whatsapp'
+import { optimizeImage } from '../utils/images'
 // ─────────────────────────────────────────────
 // Data
 // ─────────────────────────────────────────────
@@ -686,7 +687,7 @@ export default function GuidesPage() {
       <section className="gp-cta-section">
         <div
           className="gp-cta-bg"
-          style={{ backgroundImage: 'url(https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
+          style={{ backgroundImage: `url(${optimizeImage('https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=1920')})` }}
         />
         <div className="gp-cta-overlay" />
         <div className="gp-cta-inner" style={{ opacity: 0 }}>

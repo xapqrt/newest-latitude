@@ -1,0 +1,22 @@
+/* ============================================================
+   SECTION WAVE DIVIDERS
+   ============================================================ */
+.section-wave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  line-height: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+.section-wave--bottom {
+  bottom: -1px;
+}
+.section-wave--top {
+  top: -1px;
+}
+.section-wave svg {
+  width: 100%;
+  height: 80px;
+  display: block;
+}

@@ -2,6 +2,9 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import { getVisiblePrograms } from '../data/programs'
+import TransitionLink from './TransitionLink'
+import { optimizeImage, imageSrcSet } from '../utils/images'
+import { prefersReducedMotion } from '../utils/motion'
 
 const VISIBLE_PROGRAMS = getVisiblePrograms()
 
@@ -93,6 +96,7 @@ export default function Programs() {
 
   // ── Cinematic entrance animations ───────────────────────────
   useEffect(() => {
+    if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       // Section bg reveal — clip-path wipe from bottom
       gsap.fromTo(sectionRef.current,
@@ -164,18 +168,18 @@ export default function Programs() {
             <em>every age.</em>
           </h2>
         </div>
-        <a href="/programs" className="programs-view-all">
+        <TransitionLink to="/programs" className="programs-view-all">
           View all programs
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-        </a>
+        </TransitionLink>
       </div>
 
       <div ref={trackWrapRef} className="programs-track-wrap">
         <div ref={trackRef} className="programs-track">
           {VISIBLE_PROGRAMS.map((p, i) => (
-            <a
+            <TransitionLink
               key={i}
-              href={p.href}
+              to={p.href}
               className="program-card"
               draggable={false}
               onMouseMove={e => {
@@ -191,7 +195,7 @@ export default function Programs() {
                 e.currentTarget.style.transform = ''
               }}
             >
-              <img src={p.img} alt={p.title} className="program-card__img" draggable={false} loading="lazy" />
+              <img src={optimizeImage(p.img as string)} alt={p.title} className="program-card__img" draggable={false} loading="lazy" srcSet={imageSrcSet(p.img as string)} />
               <div className="program-card__gradient" />
               <div className="program-card__body">
                 <div className="program-card__title">{p.title}</div>
@@ -205,7 +209,7 @@ export default function Programs() {
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
                 </span>
               </div>
-            </a>
+            </TransitionLink>
           ))}
         </div>
       </div>

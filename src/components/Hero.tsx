@@ -2,11 +2,13 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import { getLenis } from '../hooks/useSmoothScroll'
 import { buildWhatsAppLink } from '../utils/whatsapp'
+import TransitionLink from './TransitionLink'
+import { prefersReducedMotion } from '../utils/motion'
 
 // ─────────────────────────────────────────────
 // Scene data
 // ─────────────────────────────────────────────
-const HERO_VIDEO_SRC = '/1448735-sd_960_506_24fps.mp4'
+const HERO_VIDEO_SRC = '/hero-video.mp4'
 
 const SCENES = [
   {
@@ -201,18 +203,20 @@ export default function Hero() {
       setCurrent(0)
       SCENES.forEach((_, i) => gsap.set(`.hs${i}`, { opacity: i === 0 ? 1 : 0, y: 0 }))
 
-      gsap.fromTo('.hs0 .hero-headline',
+      if (!prefersReducedMotion()) {
+        gsap.fromTo('.hs0 .hero-headline',
         { opacity: 0, y: 40, clipPath: 'inset(0 0 100% 0)' },
         { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 0.9, ease: 'power3.out', delay: 0.2 }
       )
       gsap.fromTo('.hs0 .hero-sub',
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.45 }
-      )
-      gsap.fromTo('.hs0 .hero-btns',
-        { opacity: 0, y: 14 },
-        { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out', delay: 0.6 }
-      )
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.45 }
+        )
+        gsap.fromTo('.hs0 .hero-btns',
+          { opacity: 0, y: 14 },
+          { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out', delay: 0.6 }
+        )
+      }
       getLenis()?.start()
       return
     }
@@ -232,18 +236,20 @@ export default function Hero() {
       tryStop()
 
       gsap.set('.hs0', { opacity: 1 })
-      gsap.fromTo('.hs0 .hero-headline',
+      if (!prefersReducedMotion()) {
+        gsap.fromTo('.hs0 .hero-headline',
         { opacity: 0, y: 50, clipPath: 'inset(0 0 100% 0)' },
         { opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)', duration: 1.1, ease: 'power3.out', delay: 0.3 }
       )
       gsap.fromTo('.hs0 .hero-sub',
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', delay: 0.65 }
-      )
-      gsap.fromTo('.hs0 .hero-btns',
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.9 }
-      )
+          { opacity: 0, y: 24 },
+          { opacity: 1, y: 0, duration: 0.9, ease: 'power2.out', delay: 0.65 }
+        )
+        gsap.fromTo('.hs0 .hero-btns',
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.9 }
+        )
+      }
     } else {
       // Reloaded below hero — skip lock, show last scene silently
       done.current = true
@@ -318,13 +324,14 @@ export default function Hero() {
         muted
         loop
         playsInline
-        preload="auto"
+preload="auto"
+        poster="/hero-poster.jpg"
         aria-hidden="true"
         disablePictureInPicture
         disableRemotePlayback
         style={{ opacity: 0 }}
       >
-        <source src={HERO_VIDEO_SRC} type="video/mp4" />
+        <source src={HERO_VIDEO_SRC + '?v=1'} type="video/mp4" />
       </video>
       <div className="hero-overlay" />
 
@@ -346,12 +353,12 @@ export default function Hero() {
             <p className="hero-sub" style={{ opacity: 0 }}>{scene.sub}</p>
             {scene.showButtons && (
               <div className="hero-btns" style={{ opacity: 0 }}>
-                <a href="/programs" className="btn-primary-hero">
+                <TransitionLink to="/programs" className="btn-primary-hero">
                   Explore Programs
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                     <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
                   </svg>
-                </a>
+                </TransitionLink>
                 <a
                   href={buildWhatsAppLink()}
                   target="_blank" rel="noopener noreferrer"

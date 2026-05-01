@@ -10,10 +10,16 @@ export interface ProgramFeature {
   sub: string
 }
 
+export interface ProgramSlot {
+  date: string
+  slots: number
+  status: 'open' | 'almost-full' | 'full'
+}
+
 export interface Program {
   id: string
   title: string
-  label: string        // shorter display label
+  label: string
   age: string
   ageFilter: string
   duration: string
@@ -24,6 +30,12 @@ export interface Program {
   desc: string
   features: ProgramFeature[]
   href: string
+  upcomingDates: ProgramSlot[]
+  compareKeyActivity: string
+  compareDifficulty: string
+  compareOvernight: string
+  compareLocationFull: string
+  compareRatio: string
 }
 
 export const PROGRAMS: Program[] = [
@@ -46,6 +58,16 @@ export const PROGRAMS: Program[] = [
       { icon: '🌱', title: 'Sensory Immersion', sub: 'Hands-on nature play for all five senses' },
     ],
     href: '/little-explorers',
+    upcomingDates: [
+      { date: 'Sat 22 Mar 2026', slots: 4, status: 'open' },
+      { date: 'Sat 5 Apr 2026', slots: 8, status: 'open' },
+      { date: 'Sat 19 Apr 2026', slots: 12, status: 'open' },
+    ],
+    compareKeyActivity: 'Raft-Building, Rappelling, 8km Trek',
+    compareDifficulty: 'Moderate (Active)',
+    compareOvernight: 'Yes (2 Nights)',
+    compareLocationFull: 'Basecamp & Devaragudda Valley',
+    compareRatio: '1:3 Guide-to-Child',
   },
   {
     id: 'junior-adventurers',
@@ -66,11 +88,21 @@ export const PROGRAMS: Program[] = [
       { icon: '🤝', title: 'Connection & Reflection', sub: 'Campfire circles strengthen bonds' },
     ],
     href: '/junior-adventurers',
+    upcomingDates: [
+      { date: 'Sun 23 Mar 2026', slots: 2, status: 'almost-full' },
+      { date: 'Sat–Sun 5–6 Apr 2026', slots: 7, status: 'open' },
+      { date: 'Sat–Sun 26–27 Apr 2026', slots: 15, status: 'open' },
+    ],
+    compareKeyActivity: 'Valley Trek, Rappelling, Mud Games, Pottery',
+    compareDifficulty: 'Moderate (Endurance)',
+    compareOvernight: 'Yes (4 Nights)',
+    compareLocationFull: 'Basecamp & Devaragudda Valley',
+    compareRatio: '1:3 Guide-to-Child',
   },
   {
     id: 'outdoor-leaders',
     title: 'Outdoor Leaders',
-    label: 'Outdoor Leaders (11–13)',
+    label: 'Outdoor Leaders',
     age: 'Ages 7–12',
     ageFilter: '7-12',
     duration: 'Weekend (2 days)',
@@ -86,11 +118,21 @@ export const PROGRAMS: Program[] = [
       { icon: '🏆', title: 'Leadership', sub: 'Decision-making & teamwork' },
     ],
     href: '/outdoor-leaders',
+    upcomingDates: [
+      { date: 'Sat–Sun 29–30 Mar 2026', slots: 0, status: 'full' },
+      { date: 'Sat–Sun 12–13 Apr 2026', slots: 5, status: 'open' },
+      { date: 'Sat–Sun 3–4 May 2026', slots: 15, status: 'open' },
+    ],
+    compareKeyActivity: 'Trekking & Navigation',
+    compareDifficulty: 'Challenging',
+    compareOvernight: 'Yes (1 night)',
+    compareLocationFull: 'Savandurga',
+    compareRatio: 'Max 15 kids',
   },
   {
     id: 'teen-expeditions',
     title: 'Teen Expeditions',
-    label: 'Teen Expeditions (14–16)',
+    label: 'Teen Expeditions',
     age: 'Ages 7–12',
     ageFilter: '7-12',
     duration: '2–3 Days',
@@ -106,6 +148,16 @@ export const PROGRAMS: Program[] = [
       { icon: '🧠', title: 'Problem Solving', sub: 'Critical thinking under pressure' },
     ],
     href: '/teen-expeditions',
+    upcomingDates: [
+      { date: 'Fri–Sun 4–6 Apr 2026', slots: 3, status: 'almost-full' },
+      { date: 'Fri–Sun 25–27 Apr 2026', slots: 10, status: 'open' },
+      { date: 'Fri–Sun 16–18 May 2026', slots: 12, status: 'open' },
+    ],
+    compareKeyActivity: 'Multi-Day Expedition',
+    compareDifficulty: 'Advanced',
+    compareOvernight: 'Yes (1-2 nights)',
+    compareLocationFull: 'Bheemeshwari',
+    compareRatio: 'Max 12 teens',
   },
 ]
 

@@ -1,0 +1,105 @@
+/* ============================================================
+   CTA
+   ============================================================ */
+.cta-section {
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0;
+  text-align: center;
+}
+.cta-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  will-change: transform;
+}
+.cta-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(10,31,16,0.88) 0%,
+    rgba(13,36,22,0.75) 60%,
+    rgba(31,107,46,0.55) 100%
+  );
+}
+.cta-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 740px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.cta-inner h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+.cta-inner p {
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.7;
+  margin-bottom: 44px;
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.cta-btns {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.cta-btn-primary {
+  background: #fff;
+  color: var(--primary-dark);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px 36px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+.cta-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.cta-btn-secondary {
+  border: 2px solid rgba(255,255,255,0.4);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 12px 36px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: background 0.2s;
+}
+.cta-btn-secondary:hover { background: rgba(255,255,255,0.1); }
+
+.cta-pills {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.cta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  padding: 7px 16px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+}
+.cta-pill svg { width: 14px; height: 14px; fill: var(--accent-warm); }

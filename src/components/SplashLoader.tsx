@@ -32,21 +32,18 @@ export default function SplashLoader({ onDone }: { onDone: () => void }) {
 
     tl.fromTo(logo,
       { opacity: 0, y: 20 },
-      { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out' }
+      { opacity: 1, y: 0, duration: 0.3, ease: 'power2.out' }
     )
-    // Tagline fades in
     tl.fromTo(tagline,
       { opacity: 0, y: 10 },
-      { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' },
-      '-=0.1'
+      { opacity: 1, y: 0, duration: 0.2, ease: 'power2.out' },
+      '-=0.05'
     )
-    // Hold
-    tl.to({}, { duration: 0.4 })
-    // Sweep the whole splash upward + fade
+    tl.to({}, { duration: 0.15 })
     tl.to(splash, {
       yPercent: -100,
-      duration: 0.7,
-      ease: 'power3.inOut',
+      duration: 0.4,
+      ease: 'power2.inOut',
       onComplete: onDone,
     })
   }, [show, onDone])
@@ -57,10 +54,12 @@ export default function SplashLoader({ onDone }: { onDone: () => void }) {
     <div ref={splashRef} className="splash-loader">
       <div className="splash-loader__inner">
         <img ref={logoRef} src={lookfarWhiteLogo} alt="Lookfar Outdoors" className="sl-logo" />
-        {/* Tagline */}
         <p ref={taglineRef} className="sl-tagline" style={{ opacity: 0 }}>
           Kids Outdoor Adventures · Bangalore
         </p>
+        <div className="sl-bar-wrap">
+          <div className="sl-bar" />
+        </div>
       </div>
     </div>
   )

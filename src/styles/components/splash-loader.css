@@ -1,0 +1,57 @@
+/* ─────────────────────────────────────────────
+   SPLASH LOADER
+───────────────────────────────────────────── */
+.splash-loader {
+  position: fixed;
+  inset: 0;
+  background: var(--forest-deep);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.splash-loader__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.sl-logo {
+  display: block;
+  width: auto;
+  max-height: 268px;
+  object-fit: contain;
+}
+.sl-tagline {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  margin: 0;
+}
+.sl-bar-wrap {
+  width: 180px;
+  height: 2px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+.sl-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--accent-warm);
+  border-radius: 2px;
+  animation: sl-bar-fill 2s ease-out forwards;
+}
+@keyframes sl-bar-fill {
+  0%   { width: 0%; }
+  60%  { width: 65%; }
+  100% { width: 100%; }
+}
+
+@media (max-width: 480px) {
+  .sl-logo { max-height: 200px; }
+  .sl-tagline { font-size: 0.64rem; letter-spacing: 0.12em; text-align: center; }
+}

@@ -1,0 +1,45 @@
+/* ─────────────────────────────────────────────
+   MOBILE BOTTOM NAV
+───────────────────────────────────────────── */
+.mobile-bottom-nav {
+  display: none;
+}
+@media (max-width: 639px) {
+  .mobile-bottom-nav {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: rgba(10,31,16,0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(74,138,52,0.18);
+    z-index: 1100;
+    align-items: stretch;
+  }
+  .mobile-bottom-nav__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    text-decoration: none;
+    color: rgba(255,255,255,0.45);
+    transition: color 0.18s;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .mobile-bottom-nav__item--active {
+    color: var(--accent-warm);
+  }
+  .mobile-bottom-nav__label {
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  /* Push footer up so it doesn't hide behind the bar */
+  body { padding-bottom: 64px; }
+}

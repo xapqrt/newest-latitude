@@ -46,13 +46,9 @@ function getRouteDefaults(route: string) {
 export function buildWhatsAppMessage(options: WhatsAppOptions = {}) {
   const route = options.route ?? (typeof window !== 'undefined' ? window.location.pathname : '/')
   const defaults = getRouteDefaults(route)
-  const programDescriptor = options.programLabel
-    ? options.programLabel
-    : ''
-
   const lead = options.lead ?? defaults.lead
-  const intro = programDescriptor && !lead.includes(programDescriptor)
-    ? `${lead} We're especially interested in ${programDescriptor}.`
+  const intro = options.programLabel && !lead.includes(options.programLabel)
+    ? `${lead} We're especially interested in ${options.programLabel}.`
     : lead
   const prompt = options.prompt ?? defaults.prompt
 

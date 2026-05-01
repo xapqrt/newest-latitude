@@ -1,0 +1,186 @@
+/* ============================================================
+   PROGRAMS
+   ============================================================ */
+.programs-section {
+  padding: 72px 0 80px;
+  background: var(--forest-deep);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Subtle texture lines */
+.programs-bg-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.programs-bg-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255,255,255,0.03);
+}
+.programs-bg-line:nth-child(1) { left: 16.6%; }
+.programs-bg-line:nth-child(2) { left: 33.3%; }
+.programs-bg-line:nth-child(3) { left: 50%; }
+.programs-bg-line:nth-child(4) { left: 66.6%; }
+.programs-bg-line:nth-child(5) { left: 83.3%; }
+
+.programs-header {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  text-align: left;
+  margin-bottom: 56px;
+}
+.programs-header-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.programs-label {
+  color: var(--accent-warm) !important;
+  border-color: rgba(240,165,0,0.3) !important;
+  background: rgba(240,165,0,0.08) !important;
+}
+
+.programs-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.8rem, 5.5vw, 4.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: #fff;
+  margin-top: 18px;
+  margin-bottom: 16px;
+}
+.programs-header h2 em {
+  font-style: italic;
+  color: var(--accent-warm);
+}
+.programs-header p {
+  color: rgba(255,255,255,0.55);
+  max-width: 420px;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+.programs-view-all {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  color: var(--accent-warm);
+  white-space: nowrap;
+  transition: gap 0.2s;
+  border: 1px solid rgba(240,165,0,0.3);
+  padding: 10px 20px;
+  border-radius: 999px;
+}
+.programs-view-all:hover { gap: 12px; background: rgba(240,165,0,0.08); }
+.programs-view-all svg { width: 16px; height: 16px; }
+
+.programs-track-wrap {
+  max-width: 1280px;
+  margin: 0 auto;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
+  padding: 0 48px 24px;
+}
+.programs-track-wrap:active { cursor: grabbing; }
+.programs-track {
+  display: flex;
+  gap: 24px;
+  will-change: transform;
+  justify-content: flex-start;
+}
+
+.program-card {
+  flex-shrink: 0;
+  width: min(520px, calc(50vw - 72px));
+  aspect-ratio: 4 / 3;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background: #111;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.23,1,0.32,1), box-shadow 0.35s;
+}
+.program-card:hover {
+  box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+}
+.program-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+.program-card:hover .program-card__img { transform: scale(1.07); }
+.program-card__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(10,31,16,0.95) 0%, rgba(10,31,16,0.35) 55%, transparent 100%);
+}
+.program-card__body {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 28px 24px;
+}
+.program-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.program-card__meta {
+  display: flex;
+  gap: 14px;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 12px;
+}
+.program-card__desc {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.72);
+  line-height: 1.55;
+  margin-bottom: 16px;
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: opacity 0.35s, max-height 0.35s;
+}
+.program-card:hover .program-card__desc { opacity: 1; max-height: 80px; }
+.program-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-warm);
+  letter-spacing: 0.04em;
+}
+.program-card__cta svg { width: 14px; height: 14px; transition: transform 0.2s; }
+.program-card:hover .program-card__cta svg { transform: translateX(4px); }
+
+.programs-drag-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.28);
+  margin-top: 16px;
+  padding-bottom: 8px;
+}

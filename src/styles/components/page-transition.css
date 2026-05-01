@@ -1,0 +1,11 @@
+/* ─────────────────────────────────────────────
+   PAGE TRANSITION WIPE PANEL
+───────────────────────────────────────────── */
+.page-transition-panel {
+  position: fixed;
+  inset: 0;
+  background: var(--forest-deep);
+  z-index: 9998;
+  transform: translateY(100%);
+  pointer-events: none;
+}

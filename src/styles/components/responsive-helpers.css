@@ -1,0 +1,15 @@
+/* ============================================================
+   RESPONSIVE HELPERS
+   ============================================================ */
+@media (max-width: 768px) {
+  .programs-header { flex-direction: column; align-items: flex-start; gap: 12px; padding: 0 24px; }
+  .programs-header-left { align-items: flex-start; }
+  .programs-track-wrap { padding: 0 24px 24px; }
+  .program-card { width: 280px; }
+  .whyus-inner, .hiw-inner { padding: 0 24px; }
+  .stats-bar { flex-direction: column; }
+  .stats-bar__item + .stats-bar__item::before { top: 0; left: 20%; width: 60%; height: 1px; }
+  .cta-inner { padding: 0 24px; }
+  .footer-inner { padding: 0 24px; }
+  .navbar { height: 64px; }
+}

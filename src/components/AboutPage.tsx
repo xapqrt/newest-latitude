@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
 import { gsap } from 'gsap'
+import TransitionLink from './TransitionLink'
+import { optimizeImage } from '../utils/images'
 
 // ─────────────────────────────────────────────
 // Data
@@ -268,8 +270,9 @@ export default function AboutPage() {
         <div className="ap-story__inner">
           <div className="ap-story__img">
             <img
-              src="https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=900"
+              src={optimizeImage('https://images.pexels.com/photos/1271619/pexels-photo-1271619.jpeg?auto=compress&cs=tinysrgb&w=900')}
               alt="Children exploring nature"
+              loading="lazy"
             />
             <div className="ap-story__img-badge">
               <span>The Lookfar Journey</span>
@@ -380,7 +383,7 @@ export default function AboutPage() {
       <section className="ap-cta-section">
         <div
           className="ap-cta-bg"
-          style={{ backgroundImage: 'url(https://images.pexels.com/photos/1545590/pexels-photo-1545590.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
+          style={{ backgroundImage: `url(${optimizeImage('https://images.pexels.com/photos/1545590/pexels-photo-1545590.jpeg?auto=compress&cs=tinysrgb&w=1920')})` }}
         />
         <div className="ap-cta-overlay" />
         <div className="ap-cta-inner">
@@ -391,16 +394,16 @@ export default function AboutPage() {
           <h2 className="ap-cta-headline">Ready to Start the <em>Adventure?</em></h2>
           <p className="ap-cta-sub">Your child's next great story starts outdoors. Get in touch and let's plan their first LookfarOutdoors experience.</p>
           <div className="cta-btns">
-            <a href="/contact" className="cta-btn-primary">
+            <TransitionLink to="/contact" className="cta-btn-primary">
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
               </svg>
               Get in Touch
-            </a>
-            <a href="/programs" className="cta-btn-secondary">
+            </TransitionLink>
+            <TransitionLink to="/programs" className="cta-btn-secondary">
               Explore Programs
               <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-            </a>
+            </TransitionLink>
           </div>
         </div>
       </section>

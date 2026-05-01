@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import '../program-detail.css'
+import { optimizeImage, imageSrcSet } from '../utils/images'
 
 const ACTIVITIES = [
   {
@@ -223,7 +224,7 @@ export default function JuniorAdventurersPage() {
       <div className="pd-hero">
         <div
           className="pd-hero__bg"
-          style={{ backgroundImage: 'url(https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
+          style={{ backgroundImage: `url(${optimizeImage('https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=1920')})` }}
         />
         <div className="pd-hero__overlay" />
         <div className="pd-hero__content">
@@ -274,7 +275,8 @@ export default function JuniorAdventurersPage() {
           </div>
           <div className="pd-overview__img" style={{ opacity: 0 }}>
             <img
-              src="https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=900"
+              src={optimizeImage('https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=900')}
+              srcSet={imageSrcSet('https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=900')}
               alt="Kids rock climbing near Ramanagara"
               loading="lazy"
             />

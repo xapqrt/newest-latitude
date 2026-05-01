@@ -3,55 +3,17 @@ import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import { buildWhatsAppLink } from '../utils/whatsapp'
 import { PROGRAMS, getVisiblePrograms } from '../data/programs'
-import { HIDDEN_PROGRAM_SLUGS } from '../config/featureFlags'
+import { SHOW_UPCOMING_DATES, SHOW_READY_ADVENTURE_CTA } from '../config/featureFlags'
+import { optimizeImage, imageSrcSet } from '../utils/images'
+import { prefersReducedMotion } from '../utils/motion'
 
 const VISIBLE_PROGRAMS = getVisiblePrograms()
-
-// ─────────────────────────────────────────────
-// Upcoming dates data
-// ─────────────────────────────────────────────
-const UPCOMING_DATES = [
-  {
-    programId: 'little-explorers',
-    title: 'Outdoor Education Camp - 3D2N',
-    ageColor: '#d4880a',
-    dates: [
-      { date: 'Sat 22 Mar 2026', slots: 4, status: 'open' },
-      { date: 'Sat 5 Apr 2026', slots: 8, status: 'open' },
-      { date: 'Sat 19 Apr 2026', slots: 12, status: 'open' },
-    ],
-  },
-  {
-    programId: 'junior-adventurers',
-    title: 'Outdoor Education Camp - 5D4N',
-    ageColor: '#1f6b2e',
-    dates: [
-      { date: 'Sun 23 Mar 2026', slots: 2, status: 'almost-full' },
-      { date: 'Sat–Sun 5–6 Apr 2026', slots: 7, status: 'open' },
-      { date: 'Sat–Sun 26–27 Apr 2026', slots: 15, status: 'open' },
-    ],
-  },
-  {
-    programId: 'outdoor-leaders',
-    title: 'Outdoor Leaders',
-    ageColor: '#7a4520',
-    dates: [
-      { date: 'Sat–Sun 29–30 Mar 2026', slots: 0, status: 'full' },
-      { date: 'Sat–Sun 12–13 Apr 2026', slots: 5, status: 'open' },
-      { date: 'Sat–Sun 3–4 May 2026', slots: 15, status: 'open' },
-    ],
-  },
-  {
-    programId: 'teen-expeditions',
-    title: 'Teen Expeditions',
-    ageColor: '#144820',
-    dates: [
-      { date: 'Fri–Sun 4–6 Apr 2026', slots: 3, status: 'almost-full' },
-      { date: 'Fri–Sun 25–27 Apr 2026', slots: 10, status: 'open' },
-      { date: 'Fri–Sun 16–18 May 2026', slots: 12, status: 'open' },
-    ],
-  },
-]
+const VISIBLE_UPCOMING_DATES = getVisiblePrograms().map((p) => ({
+  programId: p.id,
+  title: p.title,
+  ageColor: p.ageColor,
+  dates: p.upcomingDates,
+}))
 
 const PACK_ITEMS = [
   {
@@ -136,11 +98,6 @@ const FAQS = [
   },
 ]
 
-const SHOW_UPCOMING_DATES = false
-const SHOW_READY_ADVENTURE_CTA = false
-
-const VISIBLE_UPCOMING_DATES = UPCOMING_DATES.filter((item) => !HIDDEN_PROGRAM_SLUGS.has(item.programId))
-
 // ─────────────────────────────────────────────
 // Accordion item
 // ─────────────────────────────────────────────
@@ -188,6 +145,20 @@ function AccordionItem({ title, icon, items }: { title: string; icon: React.Reac
 }
 
 // ─────────────────────────────────────────────
+// Comparison table rows (derived from source of truth)
+// ─────────────────────────────────────────────
+
+const COMPARISON_ROWS: { label: string; icon: string; getVal: (p: typeof PROGRAMS[0]) => string }[] = [
+  { label: 'Age Group',        icon: '🧒', getVal: (p) => p.ageFilter },
+  { label: 'Duration',         icon: '⏱️', getVal: (p) => p.duration },
+  { label: 'Location',         icon: '📍', getVal: (p) => p.compareLocationFull },
+  { label: 'Instructor Ratio', icon: '👥', getVal: (p) => p.compareRatio },
+  { label: 'Difficulty',       icon: '📊', getVal: (p) => p.compareDifficulty },
+  { label: 'Key Activity',     icon: '🌿', getVal: (p) => p.compareKeyActivity },
+  { label: 'Overnight Stay',   icon: '⛺', getVal: (p) => p.compareOvernight },
+]
+
+// ─────────────────────────────────────────────
 // FAQ item
 // ─────────────────────────────────────────────
 function FaqItem({ q, a }: { q: string; a: string }) {
@@ -230,6 +201,7 @@ function ProgramRow({ p, reverse }: { p: typeof PROGRAMS[0]; reverse: boolean })
   useEffect(() => {
     const el = rowRef.current
     if (!el) return
+    if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       gsap.fromTo(el,
         { opacity: 0, y: 70 },
@@ -246,7 +218,7 @@ function ProgramRow({ p, reverse }: { p: typeof PROGRAMS[0]; reverse: boolean })
     <div ref={rowRef} className={`pp-program-row${reverse ? ' pp-program-row--reverse' : ''}`}>
       {/* Image */}
       <div className="pp-program-row__img-wrap">
-        <img src={p.img} alt={p.title} className="pp-program-row__img" />
+        <img src={optimizeImage(p.img as string)} alt={p.title} className="pp-program-row__img" srcSet={imageSrcSet(p.img as string)} loading="lazy" />
         <div className="pp-program-row__img-overlay" />
       </div>
 
@@ -303,6 +275,7 @@ function ProgramRow({ p, reverse }: { p: typeof PROGRAMS[0]; reverse: boolean })
 export default function ProgramsPage() {
   // What to pack entrance
   useEffect(() => {
+    if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       gsap.fromTo('.pp-pack-section .pp-section-header',
         { opacity: 0, y: 40 },
@@ -324,6 +297,7 @@ export default function ProgramsPage() {
 
   // FAQ entrance
   useEffect(() => {
+    if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       gsap.fromTo('.pp-faq-section .pp-section-header',
         { opacity: 0, y: 40 },
@@ -346,6 +320,7 @@ export default function ProgramsPage() {
   // CTA entrance
   useEffect(() => {
     if (!SHOW_READY_ADVENTURE_CTA) return
+    if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       gsap.fromTo('.pp-cta-section .pp-cta-inner',
         { opacity: 0, y: 50 },
@@ -438,22 +413,14 @@ export default function ProgramsPage() {
                 </tr>
               </thead>
               <tbody>
-                  {[
-                    { label: 'Age Group',        icon: '🧒', vals: ['7–12 yrs', '7–12 yrs', '7–12 yrs', '7–12 yrs'] },
-                    { label: 'Duration',         icon: '⏱️', vals: ['3 Days, 2 Nights', '5 Days, 4 Nights', 'Weekend (2 days)', '2-3 Days'] },
-                    { label: 'Location',         icon: '📍', vals: ['Basecamp & Devaragudda Valley', 'Basecamp & Devaragudda Valley', 'Savandurga', 'Bheemeshwari'] },
-                    { label: 'Instructor Ratio', icon: '👥', vals: ['1:3 Guide-to-Child', '1:3 Guide-to-Child', 'Max 15 kids', 'Max 12 teens'] },
-                    { label: 'Difficulty',       icon: '📊', vals: ['Moderate (Active)', 'Moderate (Endurance)', 'Challenging', 'Advanced'] },
-                    { label: 'Key Activity',     icon: '🌿', vals: ['Raft-Building, Rappelling, 8km Trek', 'Valley Trek, Rappelling, Mud Games, Pottery', 'Trekking & Navigation', 'Multi-Day Expedition'] },
-                    { label: 'Overnight Stay',   icon: '⛺', vals: ['Yes (2 Nights)', 'Yes (4 Nights)', 'Yes (1 night)', 'Yes (1-2 nights)'] },
-                  ].map((row, ri) => (
+                  {COMPARISON_ROWS.map((row, ri) => (
                     <tr key={ri} className={`pp-compare-row${ri % 2 === 0 ? ' pp-compare-row--alt' : ''}`}>
                       <td className="pp-compare-td pp-compare-td--label">
                         <span className="pp-compare-td__icon">{row.icon}</span>
                         {row.label}
                       </td>
-                      {row.vals.filter((_, ci) => !HIDDEN_PROGRAM_SLUGS.has(PROGRAMS[ci].id)).map((v, ci) => (
-                        <td key={ci} className="pp-compare-td">{v}</td>
+                      {VISIBLE_PROGRAMS.map((p) => (
+                        <td key={p.id} className="pp-compare-td">{row.getVal(p)}</td>
                       ))}
                     </tr>
                   ))}
@@ -516,7 +483,7 @@ export default function ProgramsPage() {
         <section className="pp-cta-section">
           <div
             className="pp-cta-bg"
-            style={{ backgroundImage: 'url(https://images.pexels.com/photos/3608439/pexels-photo-3608439.jpeg?auto=compress&cs=tinysrgb&w=1920)' }}
+            style={{ backgroundImage: `url(${optimizeImage('https://images.pexels.com/photos/3608439/pexels-photo-3608439.jpeg?auto=compress&cs=tinysrgb&w=1920')})` }}
           />
           <div className="pp-cta-overlay" />
           <div className="pp-cta-inner">

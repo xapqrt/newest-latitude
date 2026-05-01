@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
+import TransitionLink from './TransitionLink'
 
 const STEPS = [
   {
@@ -123,12 +124,12 @@ export default function HowItWorks() {
         </div>
 
         <div className="hiw-cta">
-          <a href="/contact" className="btn-book">
+          <TransitionLink to="/contact" className="btn-book">
             Book Now
             <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
               <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
             </svg>
-          </a>
+          </TransitionLink>
         </div>
       </div>
     </section>

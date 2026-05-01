@@ -1,0 +1,39 @@
+/* ============================================================
+   FALLING LEAVES — global ambient overlay
+   ============================================================ */
+.falling-leaves {
+  position: fixed;
+  inset: 0;
+  z-index: 9990; /* above content, below modals/nav drawer */
+  pointer-events: none;
+  overflow: hidden;
+}
+.falling-leaf {
+  position: absolute;
+  top: -30px;
+  color: #4a8a34;
+  animation: leafFall linear infinite, leafSway ease-in-out infinite;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+@keyframes leafFall {
+  0% {
+    transform: translateY(-30px) rotate(0deg);
+  }
+  100% {
+    transform: translateY(calc(100vh + 40px)) rotate(360deg);
+  }
+}
+
+@keyframes leafSway {
+  0%, 100% {
+    margin-left: 0;
+  }
+  25% {
+    margin-left: 30px;
+  }
+  75% {
+    margin-left: -30px;
+  }
+}

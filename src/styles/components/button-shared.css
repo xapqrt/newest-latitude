@@ -1,0 +1,22 @@
+/* ============================================================
+   BUTTON SHARED
+   ============================================================ */
+.btn-book {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px 36px;
+  border-radius: 12px;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.2s;
+  box-shadow: 0 4px 20px rgba(31,107,46,0.3);
+}
+.btn-book:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+}
+.btn-book svg { width: 18px; height: 18px; fill: currentColor; }

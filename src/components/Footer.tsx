@@ -1,6 +1,7 @@
 import { SHOW_GUIDES_PAGE } from '../config/featureFlags'
 import { buildWhatsAppLink } from '../utils/whatsapp'
 import { getVisiblePrograms } from '../data/programs'
+import TransitionLink from './TransitionLink'
 
 export default function Footer() {
   const visibleFooterProgramLinks = getVisiblePrograms()
@@ -102,10 +103,10 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Quick Links</h4>
             <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="/programs">Programs</a></li>
-              {SHOW_GUIDES_PAGE && <li><a href="/guides">Our Guides</a></li>}
-              <li><a href="/about">About Us</a></li>
+              <li><TransitionLink to="/">Home</TransitionLink></li>
+              <li><TransitionLink to="/programs">Programs</TransitionLink></li>
+              {SHOW_GUIDES_PAGE && <li><TransitionLink to="/guides">Our Guides</TransitionLink></li>}
+              <li><TransitionLink to="/about">About Us</TransitionLink></li>
             </ul>
           </div>
 
@@ -114,7 +115,7 @@ export default function Footer() {
             <h4>Programs</h4>
             <ul>
               {visibleFooterProgramLinks.map((p) => (
-                <li key={p.href}><a href={p.href}>{p.title}</a></li>
+                <li key={p.href}><TransitionLink to={p.href}>{p.title}</TransitionLink></li>
               ))}
             </ul>
           </div>
@@ -145,8 +146,8 @@ export default function Footer() {
         <div className="footer-bottom">
           <p>© 2026 LookfarOutdoors. All rights reserved.</p>
           <div className="footer-bottom-links">
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/terms">Terms of Service</a>
+            <TransitionLink to="/privacy">Privacy Policy</TransitionLink>
+            <TransitionLink to="/terms">Terms of Service</TransitionLink>
           </div>
         </div>
       </div>

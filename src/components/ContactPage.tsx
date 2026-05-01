@@ -3,6 +3,7 @@ import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import { buildWhatsAppLink } from '../utils/whatsapp'
 import { getVisiblePrograms, getProgramById } from '../data/programs'
+import { prefersReducedMotion } from '../utils/motion'
 
 const VISIBLE_PROGRAMS_LIST = getVisiblePrograms()
 
@@ -43,7 +44,6 @@ function BookingForm() {
     program: '', message: '', agreeTerms: false,
   })
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
-
   const prog = getProgramById(form.program)
 
   function setField<K extends keyof FormData>(k: K, v: FormData[K]) {
@@ -74,7 +74,7 @@ function BookingForm() {
     setStep(s => s + 1)
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!form.agreeTerms) {
       setErrors({ agreeTerms: 'You must agree to continue' })
@@ -84,7 +84,6 @@ function BookingForm() {
     const progTitle = getProgramById(form.program)?.title || form.program
     const waUrl = buildWhatsAppLink({
       route: '/contact',
-      programLabel: progTitle,
       lead: `Hi Lookfar Outdoors! We are excited about ${progTitle} and would love to book a spot.`,
       prompt: 'Could you confirm availability, share the next steps, and let us know what to prepare?',
       details: [
@@ -291,8 +290,8 @@ function BookingForm() {
                 <input type="checkbox" checked={form.agreeTerms}
                   onChange={e => setField('agreeTerms', e.target.checked)} />
                 <span>
-                  I agree to LookFarOutdoors' <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
-                  I understand this is a booking request and final confirmation will be provided by the LookFarOutdoors team.
+                  I agree to Lookfar Outdoors' <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+                  I understand this is a booking request and final confirmation will be provided by the Lookfar Outdoors team.
                 </span>
               </label>
               {errors.agreeTerms && <span className="cp-error">{errors.agreeTerms}</span>}
@@ -322,6 +321,7 @@ export default function ContactPage() {
 
   // Hero entrance
   useEffect(() => {
+    if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       gsap.fromTo('.cp-hero__eyebrow',
         { opacity: 0, y: 20 },
@@ -349,6 +349,7 @@ export default function ContactPage() {
 
   // Trust badges entrance
   useEffect(() => {
+    if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       gsap.fromTo('.cp-trust-badge',
         { opacity: 0, y: 30 },
@@ -363,6 +364,7 @@ export default function ContactPage() {
 
   // Form section
   useEffect(() => {
+    if (prefersReducedMotion()) return
     const ctx = gsap.context(() => {
       gsap.fromTo('.cp-form-card',
         { opacity: 0, y: 50 },

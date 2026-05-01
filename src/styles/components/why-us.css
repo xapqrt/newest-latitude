@@ -1,0 +1,107 @@
+/* ============================================================
+   WHY US
+   ============================================================ */
+.whyus-section {
+  background: var(--forest-mid);
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0;
+}
+.whyus-section::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: var(--bg-light);
+  clip-path: ellipse(55% 100% at 50% 0%);
+}
+.whyus-section::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: var(--bg-light);
+  clip-path: ellipse(55% 100% at 50% 100%);
+}
+.whyus-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 1;
+}
+.whyus-header {
+  text-align: center;
+  margin-bottom: 72px;
+}
+.whyus-header .section-label {
+  color: rgba(255,255,255,0.6);
+  border-color: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.06);
+}
+.whyus-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: #fff;
+  margin-top: 16px;
+  line-height: 1.2;
+}
+.whyus-header h2 span { color: #8BCC70; }
+.whyus-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+}
+.whyus-item {
+  padding: 40px 32px;
+  border-right: 1px solid rgba(255,255,255,0.08);
+  position: relative;
+  overflow: hidden;  /* required for scaleY flip animation */
+}
+.whyus-item:last-child { border-right: none; }
+.whyus-num {
+  font-family: var(--font-serif);
+  font-size: 4rem;
+  font-weight: 800;
+  color: rgba(255,255,255,0.05);
+  line-height: 1;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+.whyus-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.07);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.whyus-icon svg { width: 24px; height: 24px; fill: var(--accent-warm); }
+.whyus-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.whyus-desc {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.58);
+  line-height: 1.7;
+}
+
+@media (max-width: 900px) {
+  .whyus-grid { grid-template-columns: repeat(2, 1fr); }
+  .whyus-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); }
+}
+@media (max-width: 540px) {
+  .whyus-grid { grid-template-columns: 1fr; }
+}
