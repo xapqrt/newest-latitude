@@ -1,0 +1,1 @@
+var e=`/newest-latitude/assets/camp-DhFkekPL.webp`;export{e as t};
