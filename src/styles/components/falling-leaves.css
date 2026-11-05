@@ -11,7 +11,7 @@
 .falling-leaf {
   position: absolute;
   top: -30px;
-  color: #4a8a34;
+  color: #5fa886;
   animation: leafFall linear infinite, leafSway ease-in-out infinite;
   transform: translateZ(0);
   will-change: transform;

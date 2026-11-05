@@ -28,11 +28,12 @@ export default function TransitionLink({ to, onClick, children, ...props }: Prop
     const panel = document.querySelector<HTMLElement>('.page-transition-panel')
     if (!panel) { navigate(href); return }
 
+    gsap.set(panel, { visibility: 'visible' })
     gsap.fromTo(panel,
       { yPercent: 100 },
       {
         yPercent: 0,
-        duration: 0.4,
+        duration: 0.25,
         ease: 'power3.inOut',
         onComplete: () => {
           window.scrollTo(0, 0)

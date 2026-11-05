@@ -13,7 +13,7 @@
   border-radius: 12px;
   letter-spacing: 0.02em;
   transition: background 0.2s, transform 0.2s;
-  box-shadow: 0 4px 20px rgba(31,107,46,0.3);
+  box-shadow: 0 4px 20px rgba(47,122,92,0.3);
 }
 .btn-book:hover {
   background: var(--primary-light);

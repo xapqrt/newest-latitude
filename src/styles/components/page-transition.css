@@ -7,5 +7,6 @@
   background: var(--forest-deep);
   z-index: 9998;
   transform: translateY(100%);
+  visibility: hidden;
   pointer-events: none;
 }

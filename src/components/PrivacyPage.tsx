@@ -29,7 +29,7 @@ export default function PrivacyPage() {
       <div className="legal-inner">
         <div className="legal-body">
           <p>
-            LookfarOutdoors ("we", "our", or "us") operates the website at lookfaroutdoors.in. This Privacy Policy describes how we collect, use, and protect your personal information when you interact with our website or enquire about our programs.
+            LookfarOutdoors ("we", "our", or "us") operates the website at lookfaroutdoors.com. This Privacy Policy describes how we collect, use, and protect your personal information when you interact with our website or enquire about our programs.
           </p>
 
           <h2>Information We Collect</h2>
@@ -82,7 +82,7 @@ export default function PrivacyPage() {
           <h2>Contact Us</h2>
           <p>
             If you have any questions about this Privacy Policy or how we handle your data, please contact us at{' '}
-            <a href="mailto:hello@lookfaroutdoors.in">hello@lookfaroutdoors.in</a> or via WhatsApp at +91 91484 22940.
+            <a href="mailto:hello@lookfaroutdoors.com">hello@lookfaroutdoors.com</a> or via WhatsApp at +91 91484 22940.
           </p>
         </div>
       </div>

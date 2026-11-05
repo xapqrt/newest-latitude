@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
 import { buildWhatsAppLink } from '../utils/whatsapp'
@@ -36,12 +37,14 @@ type FormData = {
 }
 
 function BookingForm() {
+  const [searchParams] = useSearchParams()
+  const requestedProgram = searchParams.get('program') ?? ''
   const [step, setStep] = useState(1)
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [form, setForm] = useState<FormData>({
     name: '', email: '', phone: '', numChildren: '',
-    program: '', message: '', agreeTerms: false,
+    program: VISIBLE_PROGRAMS_LIST.some(p => p.id === requestedProgram) ? requestedProgram : '', message: '', agreeTerms: false,
   })
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({})
   const prog = getProgramById(form.program)
@@ -171,7 +174,7 @@ function BookingForm() {
                 </div>
                 <div className="cp-field">
                   <label>Phone Number *</label>
-                  <input type="tel" placeholder="+91 91484 22940" value={form.phone}
+                  <input type="tel" placeholder="Your phone number" value={form.phone}
                     onChange={e => setField('phone', e.target.value)} />
                   {errors.phone && <span className="cp-error">{errors.phone}</span>}
                 </div>
@@ -200,7 +203,7 @@ function BookingForm() {
         {step === 2 && (
           <div className="cp-form-step">
             <h2 className="cp-form-step__title">Choose Your Adventure</h2>
-            <p className="cp-form-step__sub">Select the program that best fits your child's age</p>
+            <p className="cp-form-step__sub">Choose the camp that suits you. Family Camps are for parents and kids together.</p>
             <div className="cp-form-fields">
               <div className="cp-program-grid">
                 {VISIBLE_PROGRAMS_LIST.map(p => (
@@ -386,7 +389,7 @@ export default function ContactPage() {
           <div className="cp-hero__left">
             <span className="cp-hero__eyebrow section-label" style={{ opacity: 0 }}>Secure Your Spot</span>
             <h1 className="cp-hero__headline" style={{ opacity: 0 }}>
-              Book Your Child's <em>Adventure</em>
+              Book Your Next <em>Adventure</em>
             </h1>
             <p className="cp-hero__sub" style={{ opacity: 0 }}>
               Choose your program and reserve a spot. Our team confirms within 24 hours.
@@ -407,7 +410,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="cp-hero__info-label">Email us</p>
-                  <p className="cp-hero__info-val">hello@lookfaroutdoors.in</p>
+                  <p className="cp-hero__info-val">hello@lookfaroutdoors.com</p>
                 </div>
               </div>
               <div className="cp-hero__info-item" style={{ opacity: 0 }}>
@@ -416,7 +419,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="cp-hero__info-label">WhatsApp</p>
-                  <p className="cp-hero__info-val">+91 91484 22940</p>
+                  <p className="cp-hero__info-val">+91 91484 22940<br />+91 91481 17002</p>
                 </div>
               </div>
               <div className="cp-hero__info-item" style={{ opacity: 0 }}>
@@ -447,7 +450,7 @@ export default function ContactPage() {
         </div>
         <div className="cp-hero__wave">
           <svg viewBox="0 0 1440 60" preserveAspectRatio="none">
-            <path d="M0,0 C360,60 1080,0 1440,48 L1440,60 L0,60 Z" fill="var(--forest-deep)" />
+            <path d="M0,0 C360,60 1080,0 1440,48 L1440,60 L0,60 Z" fill="var(--bg-light)" />
           </svg>
         </div>
       </div>
@@ -522,7 +525,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="cp-contact-item__label">Email</p>
-                <p className="cp-contact-item__val">hello@lookfaroutdoors.in</p>
+                <p className="cp-contact-item__val">hello@lookfaroutdoors.com</p>
               </div>
             </div>
             <div className="cp-contact-item">
@@ -531,7 +534,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="cp-contact-item__label">Phone</p>
-                <p className="cp-contact-item__val">+91 91484 22940</p>
+                <p className="cp-contact-item__val">+91 91484 22940<br />+91 91481 17002</p>
               </div>
             </div>
             <div className="cp-contact-item">

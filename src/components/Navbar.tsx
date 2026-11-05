@@ -2,7 +2,8 @@ import { useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { SHOW_GUIDES_PAGE } from '../config/featureFlags'
 import TransitionLink from './TransitionLink'
-import lookfarWhiteLogo from '../assets/lookfar-white-logo.png'
+import lookfarWhiteLogo from '../assets/lookfar-white-logo.webp'
+import { PROGRAMS } from '../data/programs'
 
 export default function Navbar() {
   const { pathname } = useLocation()
@@ -12,10 +13,9 @@ export default function Navbar() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const lastY = useRef(0)
 
-  const PROGRAM_SUBROUTES = ['/little-explorers', '/junior-adventurers']
   const isActive = (href: string) => {
     if (href === '/') return pathname === '/'
-    if (href === '/programs') return pathname.startsWith('/programs') || PROGRAM_SUBROUTES.includes(pathname)
+    if (href === '/programs') return pathname.startsWith('/programs') || PROGRAMS.some((p) => p.href === pathname)
     return pathname.startsWith(href)
   }
 

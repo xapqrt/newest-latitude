@@ -3,7 +3,7 @@
 ───────────────────────────────────────────── */
 .wa-float {
   position: fixed;
-  bottom: 88px; /* above mobile bottom nav on mobile, normal on desktop */
+  bottom: 32px;
   right: 24px;
   width: 56px;
   height: 56px;
@@ -41,4 +41,8 @@
 }
 @media (min-width: 640px) {
   .wa-float { bottom: 32px; }
+}
+/* On phones WhatsApp is a tab in the bottom nav, so nothing floats over content */
+@media (max-width: 639px) {
+  .wa-float { display: none; }
 }

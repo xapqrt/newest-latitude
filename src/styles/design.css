@@ -1,0 +1,78 @@
+/* ============================================================
+   DESIGN LAYER: depth, glow and motion on top of the olive palette
+   ============================================================ */
+:root { --ease: cubic-bezier(0.22, 1, 0.36, 1); }
+html { scroll-behavior: auto; }
+body { background: var(--forest-deep); }
+:focus-visible { outline: 3px solid var(--accent-warm); outline-offset: 3px; }
+main { background: var(--forest-deep); }
+
+/* Nav */
+.navbar--shadow { background: rgba(15,31,28,0.88); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); }
+.navbar__links a { text-shadow: none; }
+.navbar__cta { border-radius: 999px; background: var(--accent-warm); color: var(--forest-deep); }
+.navbar__cta:hover { background: #fff; }
+
+/* Hero */
+.hero-wrapper { max-height: 940px; }
+.hero-poster, .hero-video-bg { will-change: transform; }
+.hero-overlay { background:
+  radial-gradient(120% 80% at 50% 110%, rgba(15,31,28,0.95) 0%, transparent 60%),
+  linear-gradient(to bottom, rgba(15,31,28,0.55), rgba(15,31,28,0.25) 40%, rgba(15,31,28,0.7)); }
+.hero-headline { font-size: clamp(3rem, 7.4vw, 6.4rem); font-weight: 800; }
+.hero-headline em { font-style: italic; }
+.btn-primary-hero, .btn-ghost-hero { border-radius: 999px; }
+.btn-primary-hero { background: var(--accent-warm); color: var(--forest-deep); }
+.btn-primary-hero:hover { background: #fff; }
+
+/* Program detail pages: dark, matching the rest */
+main .fp { background: var(--forest-deep); color: #fff; }
+main .fp-text, main .fp-activity p, main .fp-safety__item p, main .fp-timeline__desc, main .fp-note, main .fp-review figcaption, main .fp-fact__label, main .fp-price__unit { color: rgba(255,255,255,0.92); }
+main .fp-title { color: #fff; }
+main .fp-eyebrow { color: var(--accent-warm); }
+main .fp-fact, main .fp-activity, main .fp-safety__item, main .fp-review { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); box-shadow: none; border-radius: 22px; }
+main .fp-fact__value { color: var(--accent-warm); }
+main .fp-band { background: var(--forest-mid); }
+main .fp-safety__item h3 { color: #fff; }
+main .fp-timeline__item { border-bottom-color: rgba(255,255,255,0.12); }
+main .fp-timeline__time { color: var(--accent-warm); }
+main .fp-timeline__title { color: #fff; }
+main .fp-review blockquote { color: #fff; }
+main .fp-pricing { background: linear-gradient(160deg, #1f5a45, #17352f); }
+main .fp-enquiry { background: var(--forest-mid); color: #fff; }
+main .fp-enquiry p { color: rgba(255,255,255,0.92); }
+main .fp-btn--outline { border-color: #fff; color: #fff; }
+main .fp-btn--whatsapp { background: #1fa855; }
+main .fp-btn, main .pp-btn-outline, main .pp-btn-primary { border-radius: 999px; }
+
+@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
+
+
+main .fp { background: var(--forest-deep); color: #fff; }
+main .fp-text, main .fp-activity p, main .fp-safety__item p, main .fp-timeline__desc, main .fp-note, main .fp-review figcaption, main .fp-fact__label, main .fp-price__unit { color: rgba(255,255,255,0.92); }
+main .fp-title { color: #fff; }
+main .fp-eyebrow { color: var(--accent-warm); }
+main .fp-fact, main .fp-activity, main .fp-safety__item, main .fp-review { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); box-shadow: none; border-radius: 22px; }
+main .fp-fact__value { color: var(--accent-warm); }
+main .fp-band { background: var(--forest-mid); }
+main .fp-safety__item h3 { color: #fff; }
+main .fp-timeline__item { border-bottom-color: rgba(255,255,255,0.12); }
+main .fp-timeline__time { color: var(--accent-warm); }
+main .fp-timeline__title { color: #fff; }
+main .fp-review blockquote { color: #fff; }
+main .fp-pricing { background: linear-gradient(160deg, #1f5a45, #17352f); }
+main .fp-enquiry { background: var(--forest-mid); color: #fff; }
+main .fp-enquiry p { color: rgba(255,255,255,0.92); }
+main .fp-btn--outline { border-color: #fff; color: #fff; }
+main .fp-btn--whatsapp { background: #1fa855; }
+main .fp-btn, main .pp-btn-outline, main .pp-btn-primary { border-radius: 999px; }
+main .fp-fact__value, main .fp-timeline__title { color: #fff; }
+main .fp-fact__value { color: var(--accent-warm); }
+main .fp-day__heading { background: var(--primary); color: #fff; }
+main .fp-hero__link { color: #fff; }
+main .fp-day__heading--hidden { display: none; }
+.hero-overlay { background:
+  radial-gradient(120% 70% at 50% 115%, rgba(196,80,26,0.35) 0%, transparent 60%),
+  linear-gradient(to bottom, rgba(7,16,14,0.6), rgba(7,16,14,0.2) 40%, rgba(7,16,14,0.78)); }
+.btn-primary-hero { box-shadow: 0 8px 28px -8px rgba(255,180,84,0.6); }
+main { background: var(--forest-deep); }

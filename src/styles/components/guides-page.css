@@ -62,7 +62,7 @@
 }
 .gp-hero__sub {
   font-size: clamp(1rem, 1.5vw, 1.1rem);
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.92);
   line-height: 1.7;
   max-width: 440px;
 }
@@ -131,9 +131,9 @@
   line-height: 1.1;
 }
 .gp-stat-label {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.92);
   margin-top: 6px;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -149,7 +149,7 @@
   margin-bottom: 40px;
 }
 .gp-trust-eyebrow {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -190,10 +190,10 @@
   transition: opacity 0.28s;
   border-radius: 20px;
 }
-.gp-trust-badge--green { background: rgba(31,107,46,0.18); }
-.gp-trust-badge--green::before { background: radial-gradient(ellipse at center, rgba(31,107,46,0.25) 0%, transparent 70%); }
-.gp-trust-badge--gold  { background: rgba(232,150,10,0.14); }
-.gp-trust-badge--gold::before  { background: radial-gradient(ellipse at center, rgba(232,150,10,0.20) 0%, transparent 70%); }
+.gp-trust-badge--green { background: rgba(47,122,92,0.18); }
+.gp-trust-badge--green::before { background: radial-gradient(ellipse at center, rgba(47,122,92,0.25) 0%, transparent 70%); }
+.gp-trust-badge--gold  { background: rgba(196,80,26,0.14); }
+.gp-trust-badge--gold::before  { background: radial-gradient(ellipse at center, rgba(196,80,26,0.20) 0%, transparent 70%); }
 .gp-trust-badge:hover {
   transform: translateY(-6px);
   box-shadow: 0 16px 40px rgba(0,0,0,0.4);
@@ -213,12 +213,12 @@
   z-index: 1;
 }
 .gp-trust-badge__icon--green {
-  background: rgba(31,107,46,0.35);
-  box-shadow: 0 4px 20px rgba(31,107,46,0.35);
+  background: rgba(47,122,92,0.35);
+  box-shadow: 0 4px 20px rgba(47,122,92,0.35);
 }
 .gp-trust-badge__icon--gold  {
-  background: rgba(232,150,10,0.28);
-  box-shadow: 0 4px 20px rgba(232,150,10,0.25);
+  background: rgba(196,80,26,0.28);
+  box-shadow: 0 4px 20px rgba(196,80,26,0.25);
 }
 .gp-trust-badge__title {
   font-size: 1rem;
@@ -230,7 +230,7 @@
 }
 .gp-trust-badge__sub {
   font-size: 0.8rem;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.92);
   line-height: 1.6;
   position: relative;
   z-index: 1;
@@ -274,7 +274,7 @@
   outline: none;
   transition: border-color 0.2s, background 0.2s;
 }
-.gp-search-input::placeholder { color: rgba(255,255,255,0.38); }
+.gp-search-input::placeholder { color: rgba(255,255,255,0.92); }
 .gp-search-input:focus {
   border-color: var(--accent-warm);
   background: rgba(255,255,255,0.1);
@@ -292,7 +292,7 @@
   font-weight: 700;
   border: 1px solid rgba(255,255,255,0.18);
   background: transparent;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.92);
   cursor: pointer;
   transition: all 0.2s;
   letter-spacing: 0.02em;
@@ -321,7 +321,7 @@
 }
 .gp-no-results {
   text-align: center;
-  color: rgba(255,255,255,0.45);
+  color: rgba(255,255,255,0.92);
   font-size: 0.95rem;
   padding: 60px 0;
 }
@@ -363,7 +363,7 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  font-size: 0.65rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -383,7 +383,7 @@
   margin-bottom: 3px;
 }
 .gp-guide-card__role {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--accent-warm);
   margin-bottom: 10px;
@@ -391,13 +391,13 @@
 .gp-guide-card__meta {
   display: flex;
   gap: 14px;
-  font-size: 0.73rem;
-  color: rgba(255,255,255,0.42);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.92);
   margin-bottom: 10px;
 }
 .gp-guide-card__bio {
   font-size: 0.8rem;
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.92);
   line-height: 1.6;
   margin-bottom: 14px;
   display: -webkit-box;
@@ -411,19 +411,19 @@
   gap: 6px;
 }
 .gp-tag {
-  font-size: 0.68rem;
+  font-size: 0.8rem;
   font-weight: 700;
   padding: 4px 11px;
   border-radius: 999px;
   letter-spacing: 0.03em;
 }
 .gp-tag--green {
-  background: rgba(31,107,46,0.25);
-  color: #7de893;
+  background: rgba(47,122,92,0.25);
+  color: #bfe3cd;
 }
 .gp-tag--gold {
-  background: rgba(232,150,10,0.22);
-  color: #f5cc68;
+  background: rgba(196,80,26,0.22);
+  color: #ffb454;
 }
 
 /* ── Selection section (dark) ── */
@@ -456,7 +456,7 @@
   color: var(--accent-warm);
 }
 .gp-section-sub--dark {
-  color: rgba(255,255,255,0.55);
+  color: rgba(255,255,255,0.92);
   font-size: 0.95rem;
   margin-top: 10px;
   line-height: 1.65;
@@ -467,14 +467,14 @@
 
 /* Light-on-dark section label */
 .section-label--dark {
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.92);
   border-color: rgba(255,255,255,0.18);
   background: rgba(255,255,255,0.08);
 }
 .section-label--gold-dark {
   color: var(--accent-warm);
-  border-color: rgba(232,150,10,0.35);
-  background: rgba(232,150,10,0.12);
+  border-color: rgba(196,80,26,0.35);
+  background: rgba(196,80,26,0.12);
 }
 
 .gp-steps {
@@ -502,7 +502,7 @@
   font-size: 1.3rem;
   font-weight: 800;
   font-family: var(--font-serif);
-  box-shadow: 0 6px 24px rgba(31,107,46,0.5);
+  box-shadow: 0 6px 24px rgba(47,122,92,0.5);
   margin-bottom: 16px;
   position: relative;
   z-index: 2;
@@ -513,7 +513,7 @@
   left: 50%;
   width: 100%;
   height: 2px;
-  background: linear-gradient(to right, rgba(45,145,66,0.4), rgba(45,145,66,0.12));
+  background: linear-gradient(to right, rgba(95,168,134,0.4), rgba(95,168,134,0.12));
   z-index: 1;
 }
 .gp-step__title {
@@ -523,8 +523,8 @@
   margin-bottom: 6px;
 }
 .gp-step__sub {
-  font-size: 0.76rem;
-  color: rgba(255,255,255,0.5);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.92);
   line-height: 1.55;
 }
 
@@ -554,7 +554,7 @@
   align-items: flex-start;
   gap: 12px;
   font-size: 0.875rem;
-  color: rgba(255,255,255,0.65);
+  color: rgba(255,255,255,0.92);
   line-height: 1.55;
 }
 .gp-checklist__item strong {
@@ -564,13 +564,13 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: rgba(31,107,46,0.3);
-  border: 1px solid rgba(45,145,66,0.4);
-  color: #6dda82;
+  background: rgba(47,122,92,0.3);
+  border: 1px solid rgba(95,168,134,0.4);
+  color: #bfe3cd;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
   flex-shrink: 0;
   margin-top: 1px;
@@ -596,12 +596,12 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 .gp-promise-tile--green {
-  background: rgba(31,107,46,0.15);
-  border-color: rgba(31,107,46,0.25);
+  background: rgba(47,122,92,0.15);
+  border-color: rgba(47,122,92,0.25);
 }
 .gp-promise-tile--gold {
-  background: rgba(232,150,10,0.10);
-  border-color: rgba(232,150,10,0.2);
+  background: rgba(196,80,26,0.10);
+  border-color: rgba(196,80,26,0.2);
 }
 .gp-promise-tile__icon { font-size: 2.4rem; }
 .gp-promise-tile__label {
@@ -629,9 +629,9 @@
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(10,31,16,0.92) 0%,
-    rgba(13,36,22,0.80) 55%,
-    rgba(31,107,46,0.62) 100%
+    rgba(15,31,28,0.92) 0%,
+    rgba(15,31,28,0.80) 55%,
+    rgba(47,122,92,0.62) 100%
   );
 }
 .gp-cta-inner {
@@ -659,7 +659,7 @@
 }
 .gp-cta-sub {
   font-size: 1.05rem;
-  color: rgba(255,255,255,0.72);
+  color: rgba(255,255,255,0.92);
   line-height: 1.7;
   margin-bottom: 36px;
   max-width: 520px;
@@ -691,7 +691,7 @@
 @media (max-width: 600px) {
   .gp-hero { padding: 100px 20px 70px; }
   .gp-hero__avatars { grid-template-columns: repeat(4, 44px); grid-template-rows: repeat(2, 44px); gap: 6px; }
-  .gp-hero__avatar-item { width: 44px; height: 44px; border-radius: 10px; font-size: 0.72rem; }
+  .gp-hero__avatar-item { width: 44px; height: 44px; border-radius: 10px; font-size: 0.8rem; }
   .gp-steps { grid-template-columns: 1fr; gap: 24px; }
   .gp-grid { grid-template-columns: 1fr; }
   .gp-promise-grid { grid-template-columns: 1fr 1fr; }
@@ -729,8 +729,8 @@
   to   { opacity: 1; }
 }
 .guide-modal {
-  background: #0e2b16;
-  border: 1px solid rgba(74,138,52,0.22);
+  background: #14302a;
+  border: 1px solid rgba(95,168,134,0.22);
   border-radius: 20px;
   padding: 36px;
   max-width: 520px;
@@ -749,7 +749,7 @@
   top: 16px; right: 16px;
   background: rgba(255,255,255,0.08);
   border: none;
-  color: rgba(255,255,255,0.6);
+  color: rgba(255,255,255,0.92);
   width: 32px; height: 32px;
   border-radius: 50%;
   cursor: pointer;
@@ -775,7 +775,7 @@
 }
 .guide-modal__role {
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255,255,255,0.92);
   margin-bottom: 16px;
 }
 .guide-modal__stats {
@@ -795,13 +795,13 @@
   display: block;
 }
 .guide-modal__stat-lbl {
-  font-size: 0.72rem;
-  color: rgba(255,255,255,0.45);
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.92);
   letter-spacing: 0.05em;
 }
 .guide-modal__bio {
   font-size: 0.95rem;
-  color: rgba(255,255,255,0.75);
+  color: rgba(255,255,255,0.92);
   line-height: 1.7;
   margin-bottom: 20px;
 }
@@ -812,7 +812,7 @@
   margin-bottom: 24px;
 }
 .guide-modal__certs-title {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -824,12 +824,12 @@
   align-items: center;
   gap: 8px;
   font-size: 0.85rem;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.92);
   padding: 4px 0;
 }
 .guide-modal__cert-item::before {
   content: '✓';
-  color: #6fce82;
+  color: #bfe3cd;
   font-weight: 700;
   flex-shrink: 0;
 }
@@ -854,4 +854,4 @@
   text-decoration: none;
   transition: background 0.2s;
 }
-.guide-modal__cta:hover { background: #1a5a26; }
+.guide-modal__cta:hover { background: #1f5a45; }

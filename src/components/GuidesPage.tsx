@@ -1,3 +1,4 @@
+import TransitionLink from './TransitionLink'
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
 import 'gsap/ScrollTrigger'
@@ -14,9 +15,9 @@ const GUIDES = [
     initials: 'AK',
     role: 'Senior Outdoor Educator',
     badge: 'Lead Guide',
-    badgeColor: '#e8960a',
-    avatarColor: '#1f6b2e',
-    avatarBg: 'linear-gradient(135deg, rgba(31,107,46,0.22) 0%, rgba(31,107,46,0.06) 100%)',
+    badgeColor: '#c4501a',
+    avatarColor: '#2f7a5c',
+    avatarBg: 'linear-gradient(135deg, rgba(47,122,92,0.22) 0%, rgba(47,122,92,0.06) 100%)',
     exp: '8 yrs exp',
     trips: '200+ trips',
     bio: 'Passionate naturalist specializing in Western Ghats ecology. Arjun has led over 200 treks and nature walks for children aged 5–16.',
@@ -33,9 +34,9 @@ const GUIDES = [
     initials: 'MR',
     role: 'Adventure Sports Specialist',
     badge: 'Adventure Lead',
-    badgeColor: '#1f6b2e',
-    avatarColor: '#e8960a',
-    avatarBg: 'linear-gradient(135deg, rgba(232,150,10,0.22) 0%, rgba(232,150,10,0.06) 100%)',
+    badgeColor: '#2f7a5c',
+    avatarColor: '#c4501a',
+    avatarBg: 'linear-gradient(135deg, rgba(196,80,26,0.22) 0%, rgba(196,80,26,0.06) 100%)',
     exp: '6 yrs exp',
     trips: '150+ trips',
     bio: 'Former national-level rock climber turned outdoor educator. Meera brings high-energy adventure activities with an unwavering focus on safety.',
@@ -53,8 +54,8 @@ const GUIDES = [
     role: 'Nature & Wildlife Educator',
     badge: null,
     badgeColor: null,
-    avatarColor: '#4a9e42',
-    avatarBg: 'linear-gradient(135deg, rgba(74,158,66,0.22) 0%, rgba(74,158,66,0.06) 100%)',
+    avatarColor: '#5fa886',
+    avatarBg: 'linear-gradient(135deg, rgba(95,168,134,0.22) 0%, rgba(95,168,134,0.06) 100%)',
     exp: '10 yrs exp',
     trips: '300+ trips',
     bio: 'Wildlife biologist with a decade of experience in the Western Ghats. Deepak makes wildlife identification exciting and accessible for all ages.',
@@ -72,8 +73,8 @@ const GUIDES = [
     role: 'Survival & Bushcraft Instructor',
     badge: null,
     badgeColor: null,
-    avatarColor: '#e07c24',
-    avatarBg: 'linear-gradient(135deg, rgba(224,124,36,0.22) 0%, rgba(224,124,36,0.06) 100%)',
+    avatarColor: '#c4501a',
+    avatarBg: 'linear-gradient(135deg, rgba(196,80,26,0.22) 0%, rgba(196,80,26,0.06) 100%)',
     exp: '5 yrs exp',
     trips: '120+ trips',
     bio: 'Priya specializes in teaching kids essential survival skills from fire-making to shelter-building, always with a focus on environmental stewardship.',
@@ -91,8 +92,8 @@ const GUIDES = [
     role: 'Outdoor Arts & Creativity Guide',
     badge: null,
     badgeColor: null,
-    avatarColor: '#144820',
-    avatarBg: 'linear-gradient(135deg, rgba(20,72,32,0.28) 0%, rgba(20,72,32,0.08) 100%)',
+    avatarColor: '#1f5a45',
+    avatarBg: 'linear-gradient(135deg, rgba(31,90,69,0.28) 0%, rgba(31,90,69,0.08) 100%)',
     exp: '4 yrs exp',
     trips: '80+ trips',
     bio: 'A trained visual artist and outdoor educator, Naveen blends creative expression with nature exploration — from plein air painting to land art.',
@@ -110,8 +111,8 @@ const GUIDES = [
     role: 'Trekking & Fitness Guide',
     badge: null,
     badgeColor: null,
-    avatarColor: '#7a4520',
-    avatarBg: 'linear-gradient(135deg, rgba(232,150,10,0.18) 0%, rgba(232,150,10,0.05) 100%)',
+    avatarColor: '#7a2e12',
+    avatarBg: 'linear-gradient(135deg, rgba(196,80,26,0.18) 0%, rgba(196,80,26,0.05) 100%)',
     exp: '7 yrs exp',
     trips: '180+ trips',
     bio: 'Kavitha is an avid mountaineer who has summited peaks across India. She focuses on building physical confidence and teamwork in young adventurers.',
@@ -129,8 +130,8 @@ const GUIDES = [
     role: 'Forest Skills & Ecology Guide',
     badge: null,
     badgeColor: null,
-    avatarColor: '#4a9e42',
-    avatarBg: 'linear-gradient(135deg, rgba(74,158,66,0.22) 0%, rgba(74,158,66,0.06) 100%)',
+    avatarColor: '#5fa886',
+    avatarBg: 'linear-gradient(135deg, rgba(95,168,134,0.22) 0%, rgba(95,168,134,0.06) 100%)',
     exp: '9 yrs exp',
     trips: '250+ trips',
     bio: 'A forest ranger turned educator, Ravi brings deep knowledge of South Indian ecosystems. He teaches children to read the forest like a book.',
@@ -148,8 +149,8 @@ const GUIDES = [
     role: 'Outdoor Learning & Play Guide',
     badge: null,
     badgeColor: null,
-    avatarColor: '#e07c24',
-    avatarBg: 'linear-gradient(135deg, rgba(224,124,36,0.22) 0%, rgba(224,124,36,0.06) 100%)',
+    avatarColor: '#c4501a',
+    avatarBg: 'linear-gradient(135deg, rgba(196,80,26,0.22) 0%, rgba(196,80,26,0.06) 100%)',
     exp: '5 yrs exp',
     trips: '100+ trips',
     bio: 'Ananya is a child psychologist who uses nature-based play therapy to help kids build emotional resilience and social skills in outdoor settings.',
@@ -711,12 +712,12 @@ export default function GuidesPage() {
               </svg>
               Chat on WhatsApp
             </a>
-            <a href="/contact" className="cta-btn-secondary">
+            <TransitionLink to="/contact" className="cta-btn-secondary">
               <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                 <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
               </svg>
               Send a Message
-            </a>
+            </TransitionLink>
           </div>
         </div>
       </section>

@@ -16,5 +16,5 @@
   width: 0%;
   background: var(--accent-warm);
   transition: width 0.05s linear;
-  box-shadow: 0 0 8px rgba(212,136,10,0.7);
+  box-shadow: 0 0 8px rgba(196,80,26,0.7);
 }

@@ -11,11 +11,11 @@
     bottom: 0;
     left: 0;
     right: 0;
-    height: 64px;
-    background: rgba(10,31,16,0.97);
+    height: calc(64px + env(safe-area-inset-bottom, 0px));
+    background: rgba(15,31,28,0.97);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(74,138,52,0.18);
+    border-top: 1px solid rgba(95,168,134,0.18);
     z-index: 1100;
     align-items: stretch;
   }
@@ -27,7 +27,7 @@
     justify-content: center;
     gap: 3px;
     text-decoration: none;
-    color: rgba(255,255,255,0.45);
+    color: rgba(255,255,255,0.92);
     transition: color 0.18s;
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
@@ -35,11 +35,12 @@
     color: var(--accent-warm);
   }
   .mobile-bottom-nav__label {
-    font-size: 0.62rem;
+    font-size: 0.8rem;
     font-weight: 600;
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
   /* Push footer up so it doesn't hide behind the bar */
-  body { padding-bottom: 64px; }
+  .mobile-bottom-nav__item--whatsapp { color: #6ee7a0; }
+  body { padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px)); }
 }

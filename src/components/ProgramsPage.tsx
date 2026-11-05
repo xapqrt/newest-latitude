@@ -4,7 +4,13 @@ import 'gsap/ScrollTrigger'
 import { buildWhatsAppLink } from '../utils/whatsapp'
 import { PROGRAMS, getVisiblePrograms } from '../data/programs'
 import { SHOW_UPCOMING_DATES, SHOW_READY_ADVENTURE_CTA } from '../config/featureFlags'
-import { optimizeImage, imageSrcSet } from '../utils/images'
+import { optimizeImage } from '../utils/images'
+import TransitionLink from './TransitionLink'
+import Scene from './Scene'
+import { ProgramPanels } from './Programs'
+import { useScrollEffects } from '../hooks/useScrollEffects'
+import hills from '../assets/bg/hills.webp'
+import camp from '../assets/bg/camp.webp'
 import { prefersReducedMotion } from '../utils/motion'
 
 const VISIBLE_PROGRAMS = getVisiblePrograms()
@@ -77,24 +83,28 @@ const PACK_ITEMS = [
 
 const FAQS = [
   {
-    q: 'What should my child bring?',
+    q: 'What should we bring?',
     a: 'Comfortable outdoor clothing, sturdy shoes (no flip-flops), a water bottle, sunscreen, hat, and any personal medication. We provide all activity-specific gear and safety equipment.',
   },
   {
-    q: "What's the instructor-to-child ratio?",
-    a: 'We maintain a strict 1:3 instructor-to-child ratio for all programs.',
+    q: 'How closely are kids supervised?',
+    a: 'Our Outdoor Education Camps run at a 1:3 guide-to-child ratio. On Family Camps, parents stay with their children and our guides lead the group.',
   },
   {
-    q: 'Are meals included in longer programs?',
-    a: 'Yes! All full-day and multi-day programs include nutritious meals and snacks. We accommodate common dietary requirements — just let us know in advance. Vegetarian and Jain options are always available.',
+    q: 'Are meals included?',
+    a: 'Yes! All full-day and multi-day programs include meals and snacks. We accommodate common dietary requirements — just let us know in advance. Vegetarian and Jain options are always available.',
   },
   {
     q: 'What happens if it rains?',
     a: 'Light rain is part of the adventure! We have rain-specific activities planned. In case of severe weather, we reschedule or modify the program. Full refunds are issued for weather-related cancellations.',
   },
   {
-    q: 'Can parents participate or observe?',
-    a: 'For the Outdoor Education Camp - 3D2N program (Ages 5–7), parents are welcome to accompany their child. For older age groups, we encourage independent participation to maximise the learning experience. We share live photo updates throughout the day.',
+    q: 'Can parents join?',
+    a: 'Yes, on our Family Camps, which are designed for parents and kids together. Our Outdoor Education Camps are for kids aged 7–12 on their own, to build independence, and we share photo updates through the session.',
+  },
+  {
+    q: 'Do young children pay on Family Camps?',
+    a: 'Kids under 4 years old join free of charge on both Family Camps.',
   },
 ]
 
@@ -149,10 +159,11 @@ function AccordionItem({ title, icon, items }: { title: string; icon: React.Reac
 // ─────────────────────────────────────────────
 
 const COMPARISON_ROWS: { label: string; icon: string; getVal: (p: typeof PROGRAMS[0]) => string }[] = [
-  { label: 'Age Group',        icon: '🧒', getVal: (p) => p.ageFilter },
+  { label: 'Who It’s For',      icon: '🧒', getVal: (p) => p.audience === 'family' ? 'Parents & kids, all ages' : 'Kids aged 7–12' },
+  { label: 'Price',            icon: '💰', getVal: (p) => p.price ?? 'On request' },
   { label: 'Duration',         icon: '⏱️', getVal: (p) => p.duration },
   { label: 'Location',         icon: '📍', getVal: (p) => p.compareLocationFull },
-  { label: 'Instructor Ratio', icon: '👥', getVal: (p) => p.compareRatio },
+  { label: 'Guiding', icon: '👥', getVal: (p) => p.compareRatio },
   { label: 'Difficulty',       icon: '📊', getVal: (p) => p.compareDifficulty },
   { label: 'Key Activity',     icon: '🌿', getVal: (p) => p.compareKeyActivity },
   { label: 'Overnight Stay',   icon: '⛺', getVal: (p) => p.compareOvernight },
@@ -193,86 +204,11 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 // ─────────────────────────────────────────────
-// Program card (full detail row)
-// ─────────────────────────────────────────────
-function ProgramRow({ p, reverse }: { p: typeof PROGRAMS[0]; reverse: boolean }) {
-  const rowRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const el = rowRef.current
-    if (!el) return
-    if (prefersReducedMotion()) return
-    const ctx = gsap.context(() => {
-      gsap.fromTo(el,
-        { opacity: 0, y: 70 },
-        {
-          opacity: 1, y: 0, duration: 1, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 82%', once: true },
-        }
-      )
-    }, el)
-    return () => ctx.revert()
-  }, [])
-
-  return (
-    <div ref={rowRef} className={`pp-program-row${reverse ? ' pp-program-row--reverse' : ''}`}>
-      {/* Image */}
-      <div className="pp-program-row__img-wrap">
-        <img src={optimizeImage(p.img as string)} alt={p.title} className="pp-program-row__img" srcSet={imageSrcSet(p.img as string)} loading="lazy" />
-        <div className="pp-program-row__img-overlay" />
-      </div>
-
-      {/* Content */}
-      <div className="pp-program-row__content">
-        <h2 className="pp-program-row__title">{p.title}</h2>
-        <p className="pp-program-row__desc">{p.desc}</p>
-
-        <div className="pp-program-row__features">
-          {p.features.map((f, i) => (
-            <div key={i} className="pp-program-row__feature">
-              <span className="pp-program-row__feature-icon">{f.icon}</span>
-              <div>
-                <div className="pp-program-row__feature-title">{f.title}</div>
-                <div className="pp-program-row__feature-sub">{f.sub}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="pp-program-row__meta">
-          <span className="pp-program-row__meta-pill">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
-            {p.duration}
-          </span>
-          <span className="pp-program-row__meta-pill">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-            {p.location}
-          </span>
-          <span className="pp-program-row__meta-pill">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-            {p.group}
-          </span>
-        </div>
-
-        <div className="pp-program-row__actions">
-          <a href={p.href} className="pp-btn-outline">
-            Learn More
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-          </a>
-          <a href={`/contact?program=${p.id}`} className="pp-btn-primary">
-            Enquire Now
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ─────────────────────────────────────────────
 // Main page component
 // ─────────────────────────────────────────────
 export default function ProgramsPage() {
+  const pageRef = useRef<HTMLDivElement>(null)
+  useScrollEffects(pageRef)
   // What to pack entrance
   useEffect(() => {
     if (prefersReducedMotion()) return
@@ -334,20 +270,16 @@ export default function ProgramsPage() {
   }, [])
 
   return (
-    <>
-      {/* ── PROGRAM ROWS ─────────────────────── */}
-      <section className="pp-programs-section">
-        {/* Subtle bg lines */}
-        <div className="programs-bg-lines" aria-hidden="true">
-          {[...Array(6)].map((_, i) => <div key={i} className="programs-bg-line" />)}
-        </div>
-
-        <div className="pp-programs-inner">
-          {VISIBLE_PROGRAMS.map((p, i) => (
-            <ProgramRow key={p.id} p={p} reverse={i % 2 !== 0} />
-          ))}
-        </div>
-      </section>
+    <div ref={pageRef}>
+      <Scene images={[hills, camp]} tone="pine">
+        <section className="band">
+          <div className="band__inner">
+            <h1 className="band__title" data-reveal>Find your camp</h1>
+            <p className="band__lead" data-reveal>Kids’ camps run 3 to 5 days. Family camps are 1 or 2 days. All of them are close to Bangalore.</p>
+          </div>
+        </section>
+        <section className="programs"><ProgramPanels /></section>
+      </Scene>
 
       {/* ── UPCOMING DATES ───────────────────── */}
       {SHOW_UPCOMING_DATES && (
@@ -397,7 +329,23 @@ export default function ProgramsPage() {
           <div className="pp-section-header">
             <span className="section-label section-label--gold-dark">At a Glance</span>
             <h2 className="pp-section-title">Which Program is Right?</h2>
-            <p className="pp-section-sub">Compare our currently available programs side-by-side to find the perfect fit.</p>
+            <p className="pp-section-sub">Compare our four programs to find the right fit.</p>
+          </div>
+          <div className="pp-compare-cards">
+            {VISIBLE_PROGRAMS.map(p => (
+              <article key={p.id} className="pp-compare-card">
+                <h3>{p.title}</h3>
+                <dl>
+                  {COMPARISON_ROWS.map(row => (
+                    <div key={row.label}>
+                      <dt>{row.label}</dt>
+                      <dd>{row.getVal(p)}</dd>
+                    </div>
+                  ))}
+                </dl>
+                <TransitionLink to={p.href} className="pp-compare-link" style={{ background: p.ageColor }}>View Program</TransitionLink>
+              </article>
+            ))}
           </div>
           <div className="pp-compare-table-wrap">
             <table className="pp-compare-table">
@@ -406,7 +354,7 @@ export default function ProgramsPage() {
                   <th className="pp-compare-th pp-compare-th--label">Feature</th>
                   {VISIBLE_PROGRAMS.map(p => (
                     <th key={p.id} className="pp-compare-th">
-                      <span className="pp-compare-th__badge" style={{ background: p.ageColor }}>AGES 7–12</span>
+                      <span className="pp-compare-th__badge" style={{ background: p.ageColor }}>{p.audience === 'family' ? 'FAMILY' : 'AGES 7–12'}</span>
                       <span className="pp-compare-th__name">{p.title}</span>
                     </th>
                   ))}
@@ -428,9 +376,9 @@ export default function ProgramsPage() {
                   <td className="pp-compare-td pp-compare-td--label"></td>
                   {VISIBLE_PROGRAMS.map(p => (
                     <td key={p.id} className="pp-compare-td pp-compare-td--action">
-                      <a href={p.href} className="pp-compare-link" style={{ background: p.ageColor }}>
+                      <TransitionLink to={p.href} className="pp-compare-link" style={{ background: p.ageColor }}>
                         View Program
-                      </a>
+                      </TransitionLink>
                     </td>
                   ))}
                 </tr>
@@ -446,7 +394,7 @@ export default function ProgramsPage() {
           <div className="pp-section-header">
             <span className="section-label section-label--gold-dark">Preparation</span>
             <h2 className="pp-section-title">What to Pack</h2>
-            <p className="pp-section-sub">Everything your child needs for a safe, comfortable adventure.</p>
+            <p className="pp-section-sub">Everything you need for a safe, comfortable adventure.</p>
           </div>
           <div className="pp-accordion-list">
             {PACK_ITEMS.map((item, i) => (
@@ -473,7 +421,7 @@ export default function ProgramsPage() {
         {SHOW_READY_ADVENTURE_CTA && (
           <div className="section-wave section-wave--bottom" aria-hidden="true">
             <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
-              <path d="M0,60 C360,0 1080,80 1440,20 L1440,80 L0,80 Z" fill="#0a1f10" />
+              <path d="M0,60 C360,0 1080,80 1440,20 L1440,80 L0,80 Z" fill="var(--bg-light)" />
             </svg>
           </div>
         )}
@@ -504,16 +452,16 @@ export default function ProgramsPage() {
                 </svg>
                 Chat on WhatsApp
               </a>
-              <a href="/contact" className="cta-btn-secondary">
+              <TransitionLink to="/contact" className="cta-btn-secondary">
                 <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
                   <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
                 </svg>
                 Send a Message
-              </a>
+              </TransitionLink>
             </div>
           </div>
         </section>
       )}
-    </>
+    </div>
   )
 }

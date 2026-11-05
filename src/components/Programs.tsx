@@ -1,221 +1,46 @@
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import 'gsap/ScrollTrigger'
 import { getVisiblePrograms } from '../data/programs'
 import TransitionLink from './TransitionLink'
-import { optimizeImage, imageSrcSet } from '../utils/images'
-import { prefersReducedMotion } from '../utils/motion'
+import { COPY } from '../data/copy'
+import campsite from '../assets/photos/campsite-tents.webp'
 
-const VISIBLE_PROGRAMS = getVisiblePrograms()
+const PHOTO_OVERRIDE: Record<string, string> = { 'junior-adventurers': campsite }
+
+export function ProgramPanels() {
+  return (
+    <div className="programs__list">
+      {getVisiblePrograms().map((p, i) => (
+        <TransitionLink key={p.id} to={p.href} className={`panel${i % 2 ? ' panel--right' : ''}`} data-reveal>
+          <img data-parallax className="panel__img" src={PHOTO_OVERRIDE[p.id] ?? p.img} alt={p.title} loading="lazy" />
+          <span className={`panel__badge panel__badge--${p.audience}`}>{p.audience === 'family' ? 'Family · all ages' : 'Kids · 7–12'}</span>
+          <div className="panel__shade" />
+          <div className="panel__body">
+            <h3>{p.title}</h3>
+            <p>{p.desc}</p>
+            <div className="panel__meta">
+              <span>{p.duration}</span>
+              <span>{p.price ?? 'Ask us for pricing'}</span>
+            </div>
+            <span className="panel__cta">See the plan <i aria-hidden="true">→</i></span>
+          </div>
+        </TransitionLink>
+      ))}
+    </div>
+  )
+}
 
 export default function Programs() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const trackWrapRef = useRef<HTMLDivElement>(null)
-  const trackRef = useRef<HTMLDivElement>(null)
-  const headlineRef = useRef<HTMLHeadingElement>(null)
-  const labelRef = useRef<HTMLSpanElement>(null)
-
-  // ── Drag / wheel scroll ──────────────────────────────────────
-  useEffect(() => {
-    const wrap = trackWrapRef.current
-    const track = trackRef.current
-    if (!wrap || !track) return
-
-    let x = 0
-    let targetX = 0
-    let isDragging = false
-    let startX = 0
-    let startScrollX = 0
-    let raf: number
-
-      const maxX = () => {
-        const overflow = track.scrollWidth - wrap.clientWidth
-        return overflow > 0 ? -(overflow + 96) : 0
-      }
-    const clamp = (v: number) => Math.max(maxX(), Math.min(0, v))
-
-    let rafActive = false
-
-    const render = () => {
-      x += (targetX - x) * 0.08
-      gsap.set(track, { x })
-      if (Math.abs(targetX - x) > 0.1) {
-        raf = requestAnimationFrame(render)
-      } else {
-        rafActive = false
-      }
-    }
-
-    const scheduleRaf = () => {
-      if (!rafActive) {
-        rafActive = true
-        raf = requestAnimationFrame(render)
-      }
-    }
-
-    const onWheel = (e: WheelEvent) => {
-      const atStart = targetX >= 0 && e.deltaY < 0
-      const atEnd = targetX <= maxX() && e.deltaY > 0
-      if (atStart || atEnd) return
-      e.preventDefault()
-      targetX = clamp(targetX - e.deltaY * 1.2)
-      scheduleRaf()
-    }
-    wrap.addEventListener('wheel', onWheel, { passive: false })
-
-    const onMouseDown = (e: MouseEvent) => {
-      isDragging = true; startX = e.clientX; startScrollX = targetX
-      wrap.style.cursor = 'grabbing'
-    }
-    const onMouseMove = (e: MouseEvent) => {
-      if (!isDragging) return
-      targetX = clamp(startScrollX + (e.clientX - startX))
-      scheduleRaf()
-    }
-    const onMouseUp = () => { isDragging = false; wrap.style.cursor = 'grab' }
-    wrap.addEventListener('mousedown', onMouseDown)
-    window.addEventListener('mousemove', onMouseMove)
-    window.addEventListener('mouseup', onMouseUp)
-
-    let touchStartX = 0, touchScrollX = 0
-    const onTouchStart = (e: TouchEvent) => { touchStartX = e.touches[0].clientX; touchScrollX = targetX }
-    const onTouchMove = (e: TouchEvent) => { targetX = clamp(touchScrollX + (e.touches[0].clientX - touchStartX)); scheduleRaf() }
-    wrap.addEventListener('touchstart', onTouchStart, { passive: true })
-    wrap.addEventListener('touchmove', onTouchMove, { passive: true })
-
-    return () => {
-      cancelAnimationFrame(raf)
-      wrap.removeEventListener('wheel', onWheel)
-      wrap.removeEventListener('mousedown', onMouseDown)
-      window.removeEventListener('mousemove', onMouseMove)
-      window.removeEventListener('mouseup', onMouseUp)
-      wrap.removeEventListener('touchstart', onTouchStart)
-      wrap.removeEventListener('touchmove', onTouchMove)
-    }
-  }, [])
-
-  // ── Cinematic entrance animations ───────────────────────────
-  useEffect(() => {
-    if (prefersReducedMotion()) return
-    const ctx = gsap.context(() => {
-      // Section bg reveal — clip-path wipe from bottom
-      gsap.fromTo(sectionRef.current,
-        { clipPath: 'inset(6% 3% 6% 3% round 24px)' },
-        {
-          clipPath: 'inset(0% 0% 0% 0% round 0px)',
-          ease: 'power3.out',
-          duration: 1,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 85%',
-            once: true,
-          },
-        }
-      )
-
-      // Section label — fade up
-      gsap.fromTo(labelRef.current,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1, y: 0, duration: 0.7, ease: 'power2.out',
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 78%', once: true },
-        }
-      )
-
-      // Big headline — clip-path wipe + rise
-      gsap.fromTo(headlineRef.current,
-        { opacity: 0, y: 60, clipPath: 'inset(0 0 100% 0)' },
-        {
-          opacity: 1, y: 0, clipPath: 'inset(0 0 0% 0)',
-          duration: 1.1, ease: 'power3.out', delay: 0.1,
-          scrollTrigger: { trigger: sectionRef.current, start: 'top 75%', once: true },
-        }
-      )
-
-      // Cards — stagger up from below with slight rotation
-      gsap.fromTo('.program-card',
-        { opacity: 0, y: 80, rotateY: 4 },
-        {
-          opacity: 1, y: 0, rotateY: 0,
-          stagger: 0.12,
-          duration: 0.9,
-          ease: 'power3.out',
-          delay: 0.2,
-          scrollTrigger: {
-            trigger: trackWrapRef.current,
-            start: 'top 82%',
-            once: true,
-          },
-        }
-      )
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
-
   return (
-    <section ref={sectionRef} className="programs-section">
-      {/* Decorative background texture lines */}
-      <div className="programs-bg-lines" aria-hidden="true">
-        {[...Array(6)].map((_, i) => <div key={i} className="programs-bg-line" />)}
+    <section className="programs">
+      <div className="programs__head" data-reveal>
+        <h2>{COPY.programs.heading}</h2>
+        <p>{COPY.programs.sub}</p>
+        <ul className="chips">
+          <li><strong>1:3</strong> guide to child</li>
+          <li><strong>7–12</strong> kids’ camps</li>
+          <li><strong>All ages</strong> family camps</li>
+        </ul>
       </div>
-
-      <div className="programs-header">
-        <div className="programs-header-left">
-          <span ref={labelRef} className="section-label programs-label">Our Programs</span>
-          <h2 ref={headlineRef}>
-            Adventures for<br />
-            <em>every age.</em>
-          </h2>
-        </div>
-        <TransitionLink to="/programs" className="programs-view-all">
-          View all programs
-          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-        </TransitionLink>
-      </div>
-
-      <div ref={trackWrapRef} className="programs-track-wrap">
-        <div ref={trackRef} className="programs-track">
-          {VISIBLE_PROGRAMS.map((p, i) => (
-            <TransitionLink
-              key={i}
-              to={p.href}
-              className="program-card"
-              draggable={false}
-              onMouseMove={e => {
-                const card = e.currentTarget
-                const rect = card.getBoundingClientRect()
-                const x = e.clientX - rect.left
-                const y = e.clientY - rect.top
-                const rx = ((y / rect.height) - 0.5) * -12
-                const ry = ((x / rect.width)  - 0.5) *  12
-                card.style.transform = `perspective(600px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-6px) scale(1.02)`
-              }}
-              onMouseLeave={e => {
-                e.currentTarget.style.transform = ''
-              }}
-            >
-              <img src={optimizeImage(p.img as string)} alt={p.title} className="program-card__img" draggable={false} loading="lazy" srcSet={imageSrcSet(p.img as string)} />
-              <div className="program-card__gradient" />
-              <div className="program-card__body">
-                <div className="program-card__title">{p.title}</div>
-                <div className="program-card__meta">
-                  <span>⏱ {p.duration}</span>
-                  <span>📍 {p.location}</span>
-                </div>
-                <div className="program-card__desc">{p.desc}</div>
-                <span className="program-card__cta">
-                  Discover
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
-                </span>
-              </div>
-            </TransitionLink>
-          ))}
-        </div>
-      </div>
-
-      {/* Drag hint */}
-      <p className="programs-drag-hint">← drag to explore →</p>
+      <ProgramPanels />
     </section>
   )
 }

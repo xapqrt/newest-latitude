@@ -1,3 +1,4 @@
+import TransitionLink from './TransitionLink'
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
@@ -35,7 +36,7 @@ export default function NotFoundPage() {
             <path
               key={i}
               d={`M${100 + i * 90} ${80 + i * 60} Q${130 + i * 90} ${50 + i * 60} ${100 + i * 90} ${120 + i * 60} Q${70 + i * 90} ${50 + i * 60} ${100 + i * 90} ${80 + i * 60}Z`}
-              fill="rgba(74,138,52,0.06)"
+              fill="rgba(95,168,134,0.06)"
               transform={`rotate(${i * 23}, ${100 + i * 90}, ${100 + i * 60})`}
             />
           ))}
@@ -52,15 +53,15 @@ export default function NotFoundPage() {
           This path leads nowhere — but there are plenty of real ones waiting for you.
         </p>
         <div className="nf-btns">
-          <a href="/" className="btn-primary-hero">
+          <TransitionLink to="/" className="btn-primary-hero">
             Back to Home
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
               <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
             </svg>
-          </a>
-          <a href="/programs" className="btn-ghost-hero">
+          </TransitionLink>
+          <TransitionLink to="/programs" className="btn-ghost-hero">
             View Programs
-          </a>
+          </TransitionLink>
         </div>
       </div>
     </section>

@@ -18,7 +18,7 @@ export default function PageTransition() {
     requestAnimationFrame(() => {
       gsap.fromTo(panel,
         { yPercent: 0 },
-        { yPercent: 100, duration: 0.45, ease: 'power3.inOut' }
+        { yPercent: 100, duration: 0.3, ease: 'power3.inOut', onComplete: () => { gsap.set(panel, { visibility: 'hidden' }) } }
       )
     })
   }, [location.pathname])

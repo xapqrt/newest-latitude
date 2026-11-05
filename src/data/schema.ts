@@ -5,18 +5,17 @@ export function organizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Lookfar Outdoors',
-    url: 'https://lookfaroutdoors.in',
-    logo: 'https://lookfaroutdoors.in/assets/lookfar-white-logo.png',
-    description: 'Outdoor education experiences for children in Bangalore — where nature is the teacher.',
+    url: 'https://lookfaroutdoors.com',
+        description: 'Outdoor education camps for kids and family camps near Bangalore.',
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+91-91484-22940',
       contactType: 'customer service',
-      email: 'hello@lookfaroutdoors.in',
+      email: 'hello@lookfaroutdoors.com',
     },
     sameAs: [
-      'https://instagram.com/lookfaroutdoors',
-      'https://facebook.com/lookfaroutdoors',
+      'https://www.instagram.com/lookfaroutdoors/',
+      'https://www.facebook.com/profile.php?id=61572123391126',
     ],
   }
 }
@@ -28,18 +27,6 @@ export function programSchema(program: Program) {
     name: program.title,
     description: program.desc,
     image: program.img,
-    offers: {
-      '@type': 'Offer',
-      availability: 'https://schema.org/InStock',
-      price: '0',
-      priceCurrency: 'INR',
-    },
-    audience: {
-      '@type': 'Audience',
-      suggestedGender: 'unisex',
-      suggestedMaxAge: parseInt(program.ageFilter.split('-')[1] || '12'),
-      suggestedMinAge: parseInt(program.ageFilter.split('-')[0] || '7'),
-    },
     location: program.location,
     duration: program.duration,
   }

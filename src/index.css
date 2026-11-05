@@ -1,23 +1,13 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;0,800;1,400;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-@import './styles/components/splash-loader.css';
 @import './styles/components/navbar.css';
 @import './styles/components/hero.css';
-@import './styles/components/stats-bar.css';
-@import './styles/components/programs.css';
-@import './styles/components/why-us.css';
-@import './styles/components/testimonials.css';
-@import './styles/components/how-it-works.css';
-@import './styles/components/cta.css';
 @import './styles/components/footer.css';
 @import './styles/components/section-wave.css';
-@import './styles/components/film-grain.css';
 @import './styles/components/button-shared.css';
 @import './styles/components/responsive-helpers.css';
 @import './styles/components/gsap-utility.css';
 @import './styles/components/programs-page.css';
 @import './styles/components/guides-page.css';
-@import './styles/components/about-page.css';
 @import './styles/components/contact-page.css';
 @import './styles/components/not-found.css';
 @import './styles/components/scroll-progress.css';
@@ -26,6 +16,8 @@
 @import './styles/components/mobile-bottom-nav.css';
 @import './styles/components/legal-pages.css';
 @import './styles/components/falling-leaves.css';
+@import './styles/design.css';
+@import './styles/home.css';
 
 /* ============================================================
    LOOKFAROUTDOORS — Brand CSS (Tailwind v4 compatible)
@@ -37,22 +29,23 @@
 
 /* ---------- CSS Custom Properties ---------- */
 :root {
-  --forest-deep:   #0a1f10;
-  --forest-dark:   #0d2416;
-  --forest-mid:    #0d2e16;
-  --primary:       #1f6b2e;
-  --primary-dark:  #144820;
-  --primary-light: #2d9142;
-  --primary-vivid: #38b555;
-  --accent:        #d4880a;
-  --accent-warm:   #f0a500;
-  --accent-brown:  #7a4520;
-  --bg-light:      #faf3e8;
-  --bg-beige:      #f2ede3;
-  --text-main:     #1e1c1a;
-  --text-muted:    #5e5850;
-  --warm-white:    #f5f0e8;
-  --font-display:  'Plus Jakarta Sans', sans-serif;
+  --forest-deep:   #0f1f1c;
+  --forest-dark:   #14302a;
+  --forest-mid:    #17352f;
+  --primary:       #2f7a5c; /* pine green */
+  --primary-dark:  #1f5a45;
+  --primary-light: #5fa886;
+  --primary-vivid: #86c3a3;
+  --sage:          #cfe0d6;
+  --accent:        #c4501a;
+  --accent-warm:   #ffb454;
+  --accent-brown:  #7a2e12;
+  --bg-light:      #f8f4ea;
+  --bg-beige:      #eee8da;
+  --text-main:     #10231f;
+  --text-muted:    #33433e;
+  --warm-white:    #f4efe3;
+  --font-display:  'Plus Jakarta Sans', system-ui, sans-serif;
   --font-serif:    'Playfair Display', Georgia, serif;
 }
 
@@ -65,11 +58,12 @@ body {
   font-family: var(--font-display);
   background: var(--bg-light);
   color: var(--text-main);
-  overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
+  font-variant-numeric: lining-nums;
 }
 
-#root { overflow-x: hidden; }
+#root { overflow-x: clip; }
 
 img { display: block; max-width: 100%; }
 
@@ -91,25 +85,38 @@ a { text-decoration: none; color: inherit; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--primary);
-  border: 1px solid rgba(31,107,46,0.3);
-  background: rgba(31,107,46,0.07);
+  border: 1px solid rgba(47,122,92,0.3);
+  background: rgba(47,122,92,0.07);
   padding: 5px 12px;
   border-radius: 999px;
 }
 
 /* Reduce motion for accessibility */
 @media (prefers-reduced-motion: reduce) {
-  .falling-leaves { display: none; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
-  .scroll-indicator { display: none; }
-  .programs-drag-hint { display: none; }
 }
+
+/* ---------- Phone spacing and touch targets ---------- */
+.navbar__hamburger,
+.navbar__drawer-close { min-width: 44px; min-height: 44px; }
+@media (max-width: 768px) {
+  .whyus-section { padding: 72px 0; }
+  .whyus-inner { padding: 0 20px; }
+  .whyus-header { margin-bottom: 24px; }
+  .whyus-item { padding: 24px 4px; }
+  .whyus-section::before, .whyus-section::after { height: 32px; }
+  .hiw-section { padding: 56px 0; }
+  .cta-section { padding: 64px 0; }
+  .testimonials-section { padding: 56px 0; }
+  .footer { padding: 48px 0 24px; }
+}
+

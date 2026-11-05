@@ -1,4 +1,7 @@
-import littleOverviewImage from '../assets/lookfar-1.jpg'
+import oedCampImage from '../assets/photos/oed-camp.webp'
+import trekLineImage from '../assets/photos/trek-line.webp'
+import familyGroupImage from '../assets/photos/family-group.webp'
+import hilltopImage from '../assets/photos/hilltop.webp'
 
 // ─────────────────────────────────────────────
 // Shared program data — single source of truth
@@ -20,6 +23,10 @@ export interface Program {
   id: string
   title: string
   label: string
+  /** Who the program is for: drives the badge shown on cards */
+  audience: 'kids' | 'family'
+  /** Shown on cards and comparison. Undefined means price on request. */
+  price?: string
   age: string
   ageFilter: string
   duration: string
@@ -41,6 +48,7 @@ export interface Program {
 export const PROGRAMS: Program[] = [
   {
     id: 'little-explorers',
+    audience: 'kids',
     title: 'Outdoor Education Camp - 3D2N',
     label: 'Outdoor Education Camp - 3D2N',
     age: 'Ages 7–12',
@@ -48,8 +56,8 @@ export const PROGRAMS: Program[] = [
     duration: '3 Days, 2 Nights',
     location: 'Kanakapura',
     group: 'Max 18 kids',
-    ageColor: '#d4880a',
-    img: littleOverviewImage,
+    ageColor: '#c4501a',
+    img: oedCampImage,
     desc: 'Blending hands-on learning with real outdoor adventure. Kids tackle active wilderness challenges to build confidence and real-world resilience.',
     features: [
       { icon: '⛰️', title: 'Active Exploration', sub: 'Rappelling, treks, and cave exploration' },
@@ -70,16 +78,45 @@ export const PROGRAMS: Program[] = [
     compareRatio: '1:3 Guide-to-Child',
   },
   {
+    id: 'family-camp-2d1n',
+    audience: 'family',
+    price: '₹13,998 for a family of 2',
+    title: 'Family Camp - 2D1N',
+    label: 'Family Camp - 2D1N',
+    age: 'All ages',
+    ageFilter: 'All ages',
+    duration: '2 Days, 1 Night',
+    location: 'Near Bangalore',
+    group: 'Parents & kids together',
+    ageColor: '#7a2e12',
+    img: familyGroupImage,
+    desc: 'Unplug and reconnect as a family with a forest trek, stargazing by the campfire, pottery and a night under canvas.',
+    features: [
+      { icon: '🥾', title: 'Family-Friendly Trek', sub: 'A jungle trail with a sunset view' },
+      { icon: '🔥', title: 'Campfire & Stargazing', sub: 'Songs, stories and a telescope' },
+      { icon: '🎨', title: 'Pottery & Stone Painting', sub: 'Make something together' },
+      { icon: '🌳', title: 'Farm Tour & Tree Planting', sub: 'Get close to the land' },
+    ],
+    href: '/family-camp-2d1n',
+    upcomingDates: [],
+    compareKeyActivity: 'Jungle Trek, Campfire, Stargazing, Pottery',
+    compareDifficulty: 'Easy (Family-Friendly)',
+    compareOvernight: 'Yes (1 Night)',
+    compareLocationFull: 'Campsite near Bangalore',
+    compareRatio: 'Guided family group',
+  },
+  {
     id: 'junior-adventurers',
+    audience: 'kids',
     title: 'Outdoor Education Camp - 5D4N',
     label: 'Outdoor Education Camp - 5D4N',
     age: 'Ages 7–12',
     ageFilter: '7-12',
-    duration: '5D,4N',
+    duration: '5 Days, 4 Nights',
     location: 'Kanakapura',
     group: 'Max 25 kids',
-    ageColor: '#1f6b2e',
-    img: 'https://images.pexels.com/photos/417173/pexels-photo-417173.jpeg?auto=compress&cs=tinysrgb&w=900',
+    ageColor: '#2f7a5c',
+    img: trekLineImage,
     desc: 'Physical challenges, team-building and outdoor skills that push boundaries and build real confidence.',
     features: [
       { icon: '⛰️', title: 'Adventure & Exploration', sub: 'Valley treks, caves, and rock rappelling' },
@@ -100,7 +137,36 @@ export const PROGRAMS: Program[] = [
     compareRatio: '1:3 Guide-to-Child',
   },
   {
+    id: 'family-day-trip',
+    audience: 'family',
+    price: '₹4,999 per adult, ₹4,499 per child',
+    title: 'Family Camp - 1 Day',
+    label: 'Family Camp - 1 Day',
+    age: 'All ages',
+    ageFilter: 'All ages',
+    duration: '1 Day (6 AM to after dinner)',
+    location: 'Near Bangalore',
+    group: 'Parents & kids together',
+    ageColor: '#7a2e12',
+    img: hilltopImage,
+    desc: 'A full day outdoors together: a farm tour, lakeside birdwatching, a coracle ride and an afternoon trek to a hilltop sunset.',
+    features: [
+      { icon: '🥾', title: 'Afternoon Trek', sub: 'Trail walk and a hilltop sunset' },
+      { icon: '🛶', title: 'Coracle Ride', sub: 'Out on the lake together' },
+      { icon: '🐦', title: 'Birdwatching', sub: 'A quiet spell at the lakeside' },
+      { icon: '🌾', title: 'Farm Tour', sub: 'Discover life close to the land' },
+    ],
+    href: '/family-day-trip',
+    upcomingDates: [],
+    compareKeyActivity: 'Trek, Coracle Ride, Birdwatching, Farm Tour',
+    compareDifficulty: 'Easy (Family-Friendly)',
+    compareOvernight: 'No (Home the same night)',
+    compareLocationFull: 'Campsite near Bangalore',
+    compareRatio: 'Guided family group',
+  },
+  {
     id: 'outdoor-leaders',
+    audience: 'kids',
     title: 'Outdoor Leaders',
     label: 'Outdoor Leaders',
     age: 'Ages 7–12',
@@ -108,7 +174,7 @@ export const PROGRAMS: Program[] = [
     duration: 'Weekend (2 days)',
     location: 'Savandurga / Turahalli',
     group: 'Max 15 kids',
-    ageColor: '#7a4520',
+    ageColor: '#7a2e12',
     img: 'https://images.pexels.com/photos/2422294/pexels-photo-2422294.jpeg?auto=compress&cs=tinysrgb&w=800',
     desc: 'A step into real adventure. Pre-teens develop leadership skills through advanced trekking, wilderness navigation, and survival techniques.',
     features: [
@@ -131,6 +197,7 @@ export const PROGRAMS: Program[] = [
   },
   {
     id: 'teen-expeditions',
+    audience: 'kids',
     title: 'Teen Expeditions',
     label: 'Teen Expeditions',
     age: 'Ages 7–12',
@@ -138,7 +205,7 @@ export const PROGRAMS: Program[] = [
     duration: '2–3 Days',
     location: 'Bheemeshwari / Kanakapura',
     group: 'Max 12 teens',
-    ageColor: '#144820',
+    ageColor: '#1f5a45',
     img: 'https://images.pexels.com/photos/1578750/pexels-photo-1578750.jpeg?auto=compress&cs=tinysrgb&w=800',
     desc: 'Our most immersive program. Teens take on multi-day wilderness expeditions, environmental conservation projects, and wilderness first aid training.',
     features: [

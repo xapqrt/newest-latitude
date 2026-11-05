@@ -23,6 +23,20 @@ function getRouteDefaults(route: string) {
     }
   }
 
+  if (route.includes('family-camp-2d1n')) {
+    return {
+      lead: 'Hi Lookfar Outdoors! We would love to join the Family Camp - 2D1N.',
+      prompt: 'Could you share the next available dates and how to book?',
+    }
+  }
+
+  if (route.includes('family-day-trip')) {
+    return {
+      lead: 'Hi Lookfar Outdoors! We would love to join the Family Camp - 1 Day.',
+      prompt: 'Could you share the next available dates, the pickup point and how to book?',
+    }
+  }
+
   if (route.includes('guides')) {
     return {
       lead: 'Hi Lookfar Outdoors! Your guides look brilliant and we would love to learn more about the team.',
